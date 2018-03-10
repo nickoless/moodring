@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "image-upload-example",
-    "description": "Demonstration of how to upload images from the ImagePicker, using a node backend to upload to S3",
-    "slug": "image-upload-example",
+    "name": "Moodring",
+    "description": "Open Source App to analyze facial emotions and create spotify playlists based on emotions. Demonstration of how to upload images from the ImagePicker, using a node backend to upload to S3",
+    "slug": "Moodring",
     "sdkVersion": "20.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
