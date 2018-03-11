@@ -10,6 +10,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  WebView,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
@@ -55,16 +56,16 @@ export default class App extends React.Component {
     // STEP 2: ANALYZE SCREEN - Take picture using native camera
     // ------------------------------------------------------
     } else if (this.state.screen === 'ANALYZE') {
-      return (<Analyze {...this.state}/>)
+      return (<Analyze {...this.state} setScreen={this.setScreen.bind(this)}/>)
 
     // ------------------------------------------------------
     // STEP 3: SPOTIFY SCREEN - After picture was taken
     // ------------------------------------------------------
-    } else if (this.state.screen === 3) {
+    } else if (this.state.screen === 'PLAYLIST') {
       return (
         <View style={styles.container}>
           <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
-          <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://media.giphy.com/media/UNBbBnOLA69YA/giphy.gif' }} />
+          <WebView source={{uri: 'https://open.spotify.com/embed?uri=spotify%3Aalbum%3A2rp5riHULWgrXPsDtsp1ir'}} style={{ height:380, alignItems: 'stretch' }}/>
         </View>
       )
     }
@@ -87,7 +88,6 @@ class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
     this._handleImagePicked(pickerResult);
-    this.props.setScreen('ANALYZE');
   };
 
   _handleImagePicked = async pickerResult => {
@@ -111,6 +111,7 @@ class HomeScreen extends React.Component {
     } finally {
       // this.setState({ uploading: false });
       this.props.setUploading(false); 
+      this.props.setScreen('ANALYZE');
     }
   };
 
@@ -169,7 +170,6 @@ class HomeScreen extends React.Component {
 class Analyze extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {screen: this.props.screen};
   }
 
   _maybeRenderImage = () => {
@@ -217,19 +217,19 @@ class Analyze extends React.Component {
 
   _returnState = () => {
     console.log('THIS IS THE STATE');
-    console.log(this.state);
+    console.log(this.props);
   }
 
   // ------------------------------------------------------
   // Called after the component was rendered and it was attached to the DOM.
   // This is a good place to make AJAX requests or setTimeout.
   // ------------------------------------------------------
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     console.log('inside setTimeout 2 seconds');
-  //     this.props.setScreen(3);
-  //   }, 5000);
-  // }
+  componentDidMount() {
+    setTimeout(() => {
+      console.log('inside setTimeout 2 seconds');
+      this.props.setScreen('PLAYLIST');
+    }, 5000);
+  }
 
   render() {
     return( 
