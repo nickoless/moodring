@@ -14,6 +14,59 @@ import {
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
+
+  //   if (!image) {
+  //     return (
+  //       <View
+  //         style={{
+  //           marginTop: 30,
+  //           width: 250,
+  //           elevation: 2,
+  //           shadowColor: 'rgba(0,0,0,1)',
+  //           shadowOpacity: 0.2,
+  //           shadowOffset: { width: 4, height: 4 },
+  //           shadowRadius: 5,
+  //         }}>
+  //         <View
+  //           style={{
+  //             borderRadius: 50,
+  //             overflow: 'hidden',
+  //             alignItems: 'center',
+  //             justifyContent: 'center',
+  //           }}>
+  //           <Image source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' }} style={styles.image} />
+  //         </View>
+
+  //         <Text style={styles.systemMessage}>  ANALYZING MOOD</Text>
+  //       </View>
+
+  //     )
+  //   }
+  //   return (
+  //     <View
+  //       style={{
+  //         marginTop: 30,
+  //         width: 250,
+  //         elevation: 2,
+  //         shadowColor: 'rgba(0,0,0,1)',
+  //         shadowOpacity: 0.2,
+  //         shadowOffset: { width: 4, height: 4 },
+  //         shadowRadius: 5,
+  //       }}>
+  //       <View
+  //         style={{
+  //           borderRadius: 50,
+  //           overflow: 'hidden',
+  //           alignItems: 'center',
+  //           justifyContent: 'center',
+  //         }}>
+  //         <Image source={{ uri: image }} style={styles.image} />
+  //       </View>
+  //       <Text style={styles.systemMessage}>  ANALYZING MOOD</Text>
+  //     </View>
+  //   );
+  // };
+
 export default class Analyze extends React.Component {
   constructor(props) {
     super(props);
@@ -21,55 +74,22 @@ export default class Analyze extends React.Component {
 
   _maybeRenderImage = () => {
     let { image } = this.props;
+
+    // render loading ball gif - no image yet
     if (!image) {
       return (
-        <View
-          style={{
-            marginTop: 30,
-            width: 250,
-            elevation: 2,
-            shadowColor: 'rgba(0,0,0,1)',
-            shadowOpacity: 0.2,
-            shadowOffset: { width: 4, height: 4 },
-            shadowRadius: 5,
-          }}>
-          <View
-            style={{
-              borderRadius: 50,
-              overflow: 'hidden',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Image source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' }} style={{ width: 150, height: 150, borderRadius: 100 }} />
-          </View>
-
-          <Text style={{ color: 'white', fontSize: 20, paddingVertical: 30, paddingHorizontal: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>  ANALYZING MOOD</Text>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' }} style={styles.image} />
+          <Text style={styles.systemMessage}>  ANALYZING MOOD</Text>
         </View>
 
       )
     }
     // IF HAS IMAGE
     return (
-      <View
-        style={{
-          marginTop: 30,
-          width: 250,
-          elevation: 2,
-          shadowColor: 'rgba(0,0,0,1)',
-          shadowOpacity: 0.2,
-          shadowOffset: { width: 4, height: 4 },
-          shadowRadius: 5,
-        }}>
-        <View
-          style={{
-            borderRadius: 50,
-            overflow: 'hidden',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 100 }} />
-        </View>
-        <Text style={{ color: 'white', fontSize: 20, paddingVertical: 30, paddingHorizontal: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>  ANALYZING MOOD</Text>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: image }} style={styles.image} />
+        <Text style={styles.systemMessage}>  ANALYZING MOOD</Text>
       </View>
     );
   };
@@ -107,4 +127,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  systemMessage: { 
+    color: 'white', 
+    fontSize: 20, 
+    paddingVertical: 30, 
+    paddingHorizontal: 30, 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+  },
+  imageContainer: {
+    borderRadius: 50,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 150, 
+    height: 150, 
+    borderRadius: 100
+  }
 });
