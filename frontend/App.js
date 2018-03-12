@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
+import HomeScreen from './components/HomeScreen.js'
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,25 +46,14 @@ export default class App extends React.Component {
   // ---------------------
   render() {
     let { image } = this.state;
-    
-    // ------------------------------------------------------
-    // STEP 1: HOME SCREEN - Take picture using native camera
-    // TODO: Move to component
-    // ------------------------------------------------------
+
     if (this.state.screen === 'HOME') {
       // return (<HomeScreen setScreen={this.setScreen.bind(this)} nextScreen={this.state.screen}/>)
       return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)}/>)
 
-    // ------------------------------------------------------
-    // STEP 2: ANALYZE SCREEN - Take picture using native camera
-    // ------------------------------------------------------
     } else if (this.state.screen === 'ANALYZE') {
       return (<Analyze {...this.state} setScreen={this.setScreen.bind(this)}/>)
 
-    // ------------------------------------------------------
-    // STEP 3: SPOTIFY SCREEN - After picture was taken
-    // TODO: move to component
-    // ------------------------------------------------------
     } else if (this.state.screen === 'PLAYLIST') {
       return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
@@ -70,92 +61,15 @@ export default class App extends React.Component {
 }
 
 
+
 // ------------------------------------------------------
-// HomeScreen Component: STEP 1
+// STEP 1: HOME SCREEN - Take picture using native camera
+// TODO: Move to component
 // ------------------------------------------------------
-class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {screen: this.props.screen};
-  }
 
-  _takePhoto = async () => {
-    let pickerResult = await ImagePicker.launchCameraAsync({
-      allowsEditing: false,
-      aspect: [4, 3],
-    });
-    this.props.setScreen('ANALYZE');
-    this._handleImagePicked(pickerResult);
-  };
-
-  _handleImagePicked = async pickerResult => {
-    let uploadResponse, uploadResult;
-    try {
-      this.props.setUploading(true);
-      if (!pickerResult.cancelled) {
-        console.log(1);
-        uploadResponse = await this.uploadImageAsync(pickerResult.uri);
-        console.log(uploadResponse);
-        uploadResult = await uploadResponse.json();
-        this.props.setImage(uploadResult.location);
-      }
-    } catch (e) {
-      console.log({ uploadResponse });
-      console.log({ uploadResult });
-      console.log({ e });
-      alert('Upload failed, sorry :(');
-    } finally {
-      // this.setState({ uploading: false });
-      this.props.setUploading(false); 
-    }
-  };
-
-  async uploadImageAsync(uri) {
-    let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
-  
-    let uriParts = uri.split('.');
-    let fileType = uriParts[uriParts.length - 1];
-  
-    let formData = new FormData();
-    formData.append('photo', {
-      uri,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
-    });
-  
-    let options = {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-    };
-  
-    return fetch(apiUrl, options);
-  }
-
-  // ------------------------------------------------------
-  // Called after the component was rendered and it was attached to the DOM.
-  // This is a good place to make AJAX requests or setTimeout.
-  // ------------------------------------------------------
-
-  render() {
-    return( 
-    <View style = {{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={styles.container}>
-        <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
-        <TouchableOpacity onPress={this._takePhoto}>
-            <Text style={{ fontSize: 20, color: 'white' }}>TAP TO BEGIN</Text>
-            <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
-        </TouchableOpacity>
-      </View>
-    </View >
-    );  
-  }
-}
-
-
+// ------------------------------------------------------
+// STEP 2: ANALYZE SCREEN - Take picture using native camera
+// ------------------------------------------------------
 class Analyze extends React.Component {
   constructor(props) {
     super(props);
@@ -245,8 +159,10 @@ class Analyze extends React.Component {
 
 
 // ------------------------------------------------------
-// HomeScreen Component: STEP 1
+// STEP 3: SPOTIFY SCREEN - After picture was taken
+// TODO: move to component
 // ------------------------------------------------------
+
 class Playlist extends React.Component {
   constructor(props) {
     super(props);
