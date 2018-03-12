@@ -109,7 +109,7 @@ class HomeScreen extends React.Component {
   };
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
+    let apiUrl = 'https://file-upload-example-backend-tnbcpasmup.now.sh/upload';
   
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -226,7 +226,7 @@ class Analyze extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.props.setScreen('PLAYLIST');
-    }, 15000);
+    }, 2000);
   }
 
   render() {
