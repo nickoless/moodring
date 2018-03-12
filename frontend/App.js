@@ -47,6 +47,7 @@ export default class App extends React.Component {
     
     // ------------------------------------------------------
     // STEP 1: HOME SCREEN - Take picture using native camera
+    // TODO: Move to component
     // ------------------------------------------------------
     if (this.state.screen === 'HOME') {
       // return (<HomeScreen setScreen={this.setScreen.bind(this)} nextScreen={this.state.screen}/>)
@@ -60,6 +61,7 @@ export default class App extends React.Component {
 
     // ------------------------------------------------------
     // STEP 3: SPOTIFY SCREEN - After picture was taken
+    // TODO: move to component
     // ------------------------------------------------------
     } else if (this.state.screen === 'PLAYLIST') {
       return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)}/>)
