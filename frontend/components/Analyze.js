@@ -13,6 +13,8 @@ import {
   WebView,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 
 export default class Analyze extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ export default class Analyze extends React.Component {
 
   _maybeRenderImage = () => {
     let { image } = this.props;
-    
+
     if (!image) {
       return (
         <View style={styles.imageContainer}>
@@ -31,13 +33,26 @@ export default class Analyze extends React.Component {
       )
     } else {
       return (
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: image }} style={styles.image} />
-          <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+        <View>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 0 }}>
+            <AnimatedCircularProgress
+              ref='circularProgress'
+              size={160}
+              width={5}
+              fill={100}
+              tintColor="#00e0ff"
+              onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor="#3d5875" ee/>
+          </View>
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: image }} style={styles.image} />
+            <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+          </View>
         </View>
       );
     }
   };
+
 
   render() {
     return (
@@ -56,9 +71,10 @@ export default class Analyze extends React.Component {
   // -----------------------------------------------------
 
   componentDidMount() {
+    this.refs.circularProgress.performLinearAnimation(100, 10000);
     setTimeout(() => {
       this.props.setScreen('PLAYLIST');
-    }, 5000);
+    }, 10000);
   }
 }
 
@@ -68,14 +84,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  systemMessage: { 
-    color: 'white', 
-    fontSize: 20, 
-    paddingVertical: 30, 
-    paddingHorizontal: 30, 
-    flexDirection: 'column', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+  systemMessage: {
+    color: 'white',
+    fontSize: 20,
+    paddingVertical: 30,
+    paddingHorizontal: 30,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     textAlign: 'center'
   },
   imageContainer: {
@@ -83,10 +99,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 5,
   },
   image: {
-    width: 150, 
-    height: 150, 
-    borderRadius: 100
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+    zIndex: 10,
   }
 });
