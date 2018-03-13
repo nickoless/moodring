@@ -1,5 +1,5 @@
 // Use local .env file for env vars when not deployed
-  require('dotenv').config();
+ require('dotenv').config();
 
 const aws = require('aws-sdk')
 const multer = require('multer')
@@ -20,6 +20,7 @@ const upload = multer({
     metadata(req, file, cb) {
       cb(null, {fieldName: file.fieldname});
     },
+    // Specify image name here 
     key(req, file, cb) {
       cb(null, Date.now().toString() + '.png');
     }
