@@ -37,7 +37,6 @@ export default class HomeScreen extends React.Component {
     try {
       this.props.setUploading(true);
       if (!pickerResult.cancelled) {
-        console.log(1);
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
         console.log(uploadResponse);
@@ -49,7 +48,6 @@ export default class HomeScreen extends React.Component {
       console.log({ e });
       alert('Upload failed, sorry :(');
     } finally {
-      // this.setState({ uploading: false });
       this.props.setUploading(false);
     }
   };
@@ -85,7 +83,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.container}>
           <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
           <TouchableOpacity onPress={this._takePhoto}>
-            <Text style={{ fontSize: 20, color: 'white' }}>TAP TO BEGIN</Text>
+            <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>
             <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
           </TouchableOpacity>
         </View>

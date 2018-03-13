@@ -37,14 +37,16 @@ export default class Playlist extends React.Component {
         
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
 
-        <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
-        <TouchableOpacity onPress={this._showResults}>
-          <Text style={{ color: 'white', paddingHorizontal: 30 }}>MOOD RESULTS</Text>
-        </TouchableOpacity>
+        <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10, paddingBotton: 0 }}>YOUR CUSTOM PLAYLIST</Text>
+
         <WebView source={{ uri: 'https://open.spotify.com/embed?uri=spotify%3Aalbum%3A2rp5riHULWgrXPsDtsp1ir' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
 
+        <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
+          <Text style={styles.moodResultButton}>MOOD RESULTS</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={this._returnHome}>
-          <Text style={{ fontSize: 20, color: 'white', padding: 20, paddingTop: 5,  }}>START OVER</Text>
+          <Text style={styles.startOverButton}>START OVER</Text>
         </TouchableOpacity>
 
       </View>
@@ -58,4 +60,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  moodResultButton: {
+    color: 'white',
+    paddingHorizontal: 15,
+    fontSize: 15,
+    borderWidth: 1,
+    borderColor: 'white',
+    textAlign: 'center',
+  },
+  startOverButton: {
+    color: 'white',
+    fontSize: 25,
+    borderWidth: 1,
+    borderColor: 'white',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  }
 });

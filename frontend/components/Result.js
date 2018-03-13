@@ -49,29 +49,29 @@ export default class Playlist extends React.Component {
         
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
 
-        <TouchableOpacity onPress={this._showResults}>
-          <Text style={{ color: 'white', paddingHorizontal: 30 }}>MOOD RESULTS</Text>
-        </TouchableOpacity>
+        <View style={styles.title}>
+          <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
+        </View>
         
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View style={styles.chart}>
           <PieChart
-                  style={ { height: 125, width: 125 } }
-                  data={ pieData }
+              style={{ height: 125, width: 125 }}
+              data={ pieData }
               />
-          <Text style={{ flexDirection: 'column' }}>
-            Results
-          </Text>
-          <Text style= {{ flexDirection: 'column' }}>
-            Happy - 80 %
-            Calm - 20 %
-            Surprised - 0 %
-            Angry - 0 %
-            Sad - 0 %
+        </View>
+
+        <View>
+          <Text style={styles.data}>
+            Happy - 80 %{"\n"}
+            Calm - 20 %{"\n"}
+            Surprised - 0 %{"\n"}
+            Angry - 0 %{"\n"}
+            Sad - 0 %{"\n"}
           </Text>
         </View>
 
         <TouchableOpacity onPress={this._returnPlaylist}>
-          <Text style={{ fontSize: 20, color: 'white', padding: 20, paddingTop: 5,  }}>BACK TO PLAYLIST</Text>
+          <Text style={styles.button}>BACK TO PLAYLIST</Text>
         </TouchableOpacity>
 
       </View>
@@ -83,6 +83,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
+  title: {
+    top: 50,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  chart: {
+  },
+  data: {
+    color: 'white',
+  },
+  button: {
+    color: 'white',
+    fontSize: 25,
+    borderWidth: 1,
+    borderColor: 'white',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  }
 });

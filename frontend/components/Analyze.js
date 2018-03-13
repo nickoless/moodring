@@ -71,10 +71,10 @@ export default class Analyze extends React.Component {
   // -----------------------------------------------------
 
   componentDidMount() {
-    this.refs.circularProgress.performLinearAnimation(100, 10000);
+    this.refs.circularProgress.performLinearAnimation(100, 2000);
     setTimeout(() => {
       this.props.setScreen('PLAYLIST');
-    }, 10000);
+    }, 2000);
   }
 }
 
