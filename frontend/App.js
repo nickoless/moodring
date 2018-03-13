@@ -17,6 +17,7 @@ import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient
 import HomeScreen from './components/HomeScreen.js'
 import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
+import Result from './components/Result.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -66,7 +67,11 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     } else if (this.state.screen === 'PLAYLIST') {
       return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)}/>)
+    
+    } else if (this.state.screen === 'RESULTS') {
+      return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
+
   }
 }
 
