@@ -21,12 +21,15 @@ export default class HomeScreen extends React.Component {
   }
 
   _takePhoto = async () => {
+    this.props.setImage(null);
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
       aspect: [4, 3],
     });
-    this.props.setScreen('ANALYZE');
+    
     this._handleImagePicked(pickerResult);
+    this.props.setScreen('ANALYZE');
+    
   };
 
   _handleImagePicked = async pickerResult => {
@@ -35,10 +38,10 @@ export default class HomeScreen extends React.Component {
       this.props.setUploading(true);
       if (!pickerResult.cancelled) {
         console.log(1);
+        this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
         console.log(uploadResponse);
         uploadResult = await uploadResponse.json();
-        this.props.setImage(uploadResult.location);
       }
     } catch (e) {
       console.log({ uploadResponse });

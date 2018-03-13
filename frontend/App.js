@@ -70,7 +70,6 @@ export default class App extends React.Component {
   }
 }
 
-
 // ------------------------------------------------------
 // Styles should go in here - TODO: refactor as a component (maybe) do dry up code in components
 // ------------------------------------------------------
