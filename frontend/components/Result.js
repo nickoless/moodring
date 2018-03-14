@@ -28,7 +28,27 @@ export default class Playlist extends React.Component {
 
   render() {
 
-    const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
+    console.log('THIS IS PROPS FROM PLAYLIST-------')
+    console.log(this.props)
+    console.log('THIS IS THE FIRST EMOTION FROM THE EMOTION LIST ---------')
+    console.log(this.props.emotions[0])
+
+    let percentage1 = this.props.percentage[0];
+    let percentage2 = this.props.percentage[1];
+    let percentage3 = this.props.percentage[2];
+
+    let emotion1 = this.props.emotions[0];
+    let emotion2 = this.props.emotions[1];
+    let emotion3 = this.props.emotions[2];
+
+    const data =[]
+
+    data[0] = percentage1;
+    data[1] = percentage2;
+    data[2] = percentage3;
+
+    console.log('THIS IS DATA FOR PIE CHART');
+    console.log(data)
 
     const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
 
@@ -62,11 +82,9 @@ export default class Playlist extends React.Component {
 
         <View>
           <Text style={styles.data}>
-            Happy - 80 %{"\n"}
-            Calm - 20 %{"\n"}
-            Surprised - 0 %{"\n"}
-            Angry - 0 %{"\n"}
-            Sad - 0 %{"\n"}
+            {emotion1} - {percentage1}{"\n"}
+            {emotion2} - {percentage2}{"\n"}
+            {emotion3} - {percentage3}{"\n"}
           </Text>
         </View>
 
