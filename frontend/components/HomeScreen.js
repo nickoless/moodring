@@ -69,9 +69,21 @@ export default class HomeScreen extends React.Component {
         this.props.setEmotionList(emotionList)
         this.props.setEmotionPercentage(emotionPercentage)
 
-        console.log('THIS IS THE EXAMPLE TEST STATE-----------')
-        console.log(this.props)
-
+        // SET BACKGROUND COLORS USING PROPS
+        
+        if (emotion1 === 'HAPPY') {
+          this.props.setBackgroundColor(['#5161B9', '#9C69CC']);
+        } if (emotion1 === 'CALM') {
+          this.props.setBackgroundColor(['#0075D1', '#DBE55D'])
+        } if (emotion1 === 'SAD') {
+          this.props.setBackgroundColor(['#0053CA', '#5DE5D7'])
+        } if (emotion1 === 'ANGRY') {
+          this.props.setBackgroundColor(['#D10000', '#DBE55D'])
+        } if (emotion1 === 'SURPRISED') {
+          this.props.setBackgroundColor(['#FF6000', '#D1FF00'])
+        } if (emotion1 === 'CONFUSED') {
+          this.props.setBackgroundColor(['#067501', '#00A3E3'])
+        } 
 
       }
     } catch (e) {
