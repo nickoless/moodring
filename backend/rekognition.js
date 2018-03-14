@@ -11,25 +11,29 @@
 
 // Load the SDK and UUID
 require('dotenv').config()
-const AWS = require('aws-sdk');
-// const uuid = require('node-uuid');
+const aws = require('aws-sdk');
 
+// .env contains AWS keys, update region (us-west-1 by default)
 
-// // .env contains AWS keys, update region (us-west-1 by default)
-
-AWS.config.update({ 
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: 'us-west-2'
-});
+// AWS.config.update({ 
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   region: 'us-west-2'
+// });
 
 // Create an S3 client
 
-const s3 = new AWS.S3();
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: "us-west-2"
+});
+
+aws.config.update({region: 'us-west-2'})
 
 // AWS Rekognition, my dudes
 
-const rekognition = new AWS.Rekognition()
+const rekognition = new aws.Rekognition()
 
 // Placeholder params to 'query' a specific image based on name
 // Would be a good idea to have a naming convention to save images
@@ -43,13 +47,14 @@ const faceParams = {
    },
   };
 
-  const params = {
+  const labelParams = {
     Image: {
        S3Object: {
        Bucket: process.env.AWS_BUCKET, 
        Name: 'THESADGIRL.jpg'
       }
      },
+    
     };
     faceParams.Attributes = ["ALL"];
 
@@ -66,13 +71,31 @@ let faces = new Promise((resolve, reject) => {
 
 
 let labels = new Promise((resolve, reject) => {
-  rekognition.detectLabels(params, function(err, data) {
+  rekognition.detectLabels(labelParams, function(err, data) {
     if (err) 
       reject(err);
     else     
       resolve(data);
   });
 });
+
+// // OUTPUT ------------------------------------------
+// // ---------------- SO EMOTIONAL -------------------
+// [ { Type: 'SAD', Confidence: 22.012407302856445 },
+//   { Type: 'CONFUSED', Confidence: 6.585508346557617 },
+//   { Type: 'CALM', Confidence: 5.396681785583496 } ]
+// // --------------- DON'T LABEL ME ------------------
+// [ { Name: 'Human', Confidence: 99.18289947509766 },
+//   { Name: 'People', Confidence: 99.1828842163086 },
+//   { Name: 'Person', Confidence: 99.18289947509766 },
+//   { Name: 'Face', Confidence: 89.77628326416016 },
+//   { Name: 'Portrait', Confidence: 89.77628326416016 },
+//   { Name: 'Female', Confidence: 72.7052001953125 },
+//   { Name: 'Lady', Confidence: 62.089908599853516 },
+//   { Name: 'Woman', Confidence: 62.089908599853516 },
+//   { Name: 'Dimples', Confidence: 57.91385269165039 },
+//   { Name: 'Head', Confidence: 54.233299255371094 },
+//   { Name: 'Sunglasses', Confidence: 50.551448822021484 } ]
 
 Promise.all([faces, labels]).then(value => {
   let faces = value[0]
@@ -81,33 +104,5 @@ Promise.all([faces, labels]).then(value => {
   console.log(faces.FaceDetails[0].Emotions)
   console.log('--------------- DON\'T LABEL ME ------------------')
   console.log(labels.Labels)
-    
-  // resolve()
+
 });
-
-// let test = []
-
-
-// labels();
-// faces();
-
-
-// // dummy data emulating the actual output
-// let emotionalArray = [ { Type: 'SAD', Confidence: 22.012407302856445 },
-//   { Type: 'CONFUSED', Confidence: 6.585508346557617 },
-//   { Type: 'CALM', Confidence: 5.396681785583496 } ]
-
-
-// // changes key value pairing to { EMOTION: ## }
-// let newEmotionalArray = emotionalArray.map((emotion) => {
-//   if (emotion.SAD > 15) {
-//     emotion.SAD = 99
-//   }
-//   let key = emotion.Type
-//   let value = emotion.Confidence
-//   let obj = {}
-//   obj = {[key]: value}
-//   return obj
-// });
-
-// console.log(newEmotionalArray)
