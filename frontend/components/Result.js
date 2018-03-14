@@ -33,9 +33,14 @@ export default class Playlist extends React.Component {
     console.log('THIS IS THE FIRST EMOTION FROM THE EMOTION LIST ---------')
     console.log(this.props.emotions[0])
 
-    let percentage1 = this.props.percentage[0];
-    let percentage2 = this.props.percentage[1];
-    let percentage3 = this.props.percentage[2];
+    let percentage1 = Math.floor(this.props.percentage[0]);
+    let percentage2 = Math.floor(this.props.percentage[1]);
+    let percentage3 = Math.floor(this.props.percentage[2]);
+
+    let total = (percentage1 + percentage2 + percentage3);
+    let percentage1OutOfTotal = Math.floor((percentage1/total) * 100);
+    let percentage2OutOfTotal = Math.floor((percentage2/total) * 100);
+    let percentage3OutOfTotal = Math.floor((percentage3/total) * 100);
 
     let emotion1 = this.props.emotions[0];
     let emotion2 = this.props.emotions[1];
@@ -67,7 +72,7 @@ export default class Playlist extends React.Component {
     return (
       <View style={styles.container}>
         
-        <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
+        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <View style={styles.title}>
           <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
@@ -82,9 +87,9 @@ export default class Playlist extends React.Component {
 
         <View>
           <Text style={styles.data}>
-            {emotion1} - {percentage1}{"\n"}{"\n"}
-            {emotion2} - {percentage2}{"\n"}{"\n"}
-            {emotion3} - {percentage3}{"\n"}{"\n"}
+            {emotion1} - {percentage1OutOfTotal}%{"\n"}{"\n"}
+            {emotion2} - {percentage2OutOfTotal}%{"\n"}{"\n"}
+            {emotion3} - {percentage3OutOfTotal}%{"\n"}{"\n"}
           </Text>
         </View>
 
