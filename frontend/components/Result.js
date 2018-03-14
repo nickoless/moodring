@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
   },
   data: {
     color: 'white',
+    textAlign: 'center',
+    fontSize: 20,
   },
   button: {
     color: 'white',
