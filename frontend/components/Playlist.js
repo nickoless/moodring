@@ -37,7 +37,7 @@ export default class Playlist extends React.Component {
         
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
 
-        <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10, paddingBotton: 0 }}>YOUR CUSTOM PLAYLIST</Text>
+        <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
 
         <WebView source={{ uri: 'https://open.spotify.com/embed?uri=spotify%3Aalbum%3A2rp5riHULWgrXPsDtsp1ir' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
 
