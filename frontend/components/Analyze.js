@@ -41,7 +41,6 @@ export default class Analyze extends React.Component {
               width={5}
               fill={100}
               tintColor="#00e0ff"
-              onAnimationComplete={() => console.log('onAnimationComplete')}
               backgroundColor="#3d5875" ee/>
           </View>
           <View style={styles.imageContainer}>

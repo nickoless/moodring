@@ -31,7 +31,6 @@ export default class Playlist extends React.Component {
 
   render() {
 
-
     return (
       <View style={styles.container}>
         

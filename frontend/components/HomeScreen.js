@@ -93,7 +93,7 @@ export default class HomeScreen extends React.Component {
   };
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-backend-ciqogkbihx.now.sh/upload';
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -120,7 +120,7 @@ export default class HomeScreen extends React.Component {
 
   async recognizeImageAsync(key) {
     console.log('THE KEY IN RECOGNIZE ' + key)
-    let apiUrl = 'https://moodring-backend-ciqogkbihx.now.sh/recognize?key=' + key
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/recognize?key=' + key
     
     let options = {
       method: 'GET',
