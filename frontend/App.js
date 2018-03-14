@@ -17,6 +17,7 @@ import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient
 import HomeScreen from './components/HomeScreen.js'
 import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
+import Result from './components/Result.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,9 @@ export default class App extends React.Component {
       image: null,
       uploading: false,
       screen: 'HOME',
+      emotions: [],
+      percentage: [],
+      topEmotion: null,
     };
   }
   
@@ -43,6 +47,18 @@ export default class App extends React.Component {
     this.setState({image: img})
   };
 
+  setEmotion(emotion) {
+    this.setState({topEmotion: emotion})
+  }
+
+  setEmotionList(array) {
+    this.setState({emotions: array})
+  }
+
+  setEmotionPercentage(array) {
+    this.setState({percentage: array})
+  }
+
   // ------------------------------------------------------
   // render state
   // ------------------------------------------------------
@@ -53,7 +69,7 @@ export default class App extends React.Component {
     // STEP 1: HOME SCREEN - Take picture using native camera
     // ------------------------------------------------------
     if (this.state.screen === 'HOME') {
-      return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)}/>)
+      return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotion={this.setEmotion.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} />)
 
     // ------------------------------------------------------
     // STEP 2: ANALYZE SCREEN - Take picture using native camera
@@ -65,8 +81,12 @@ export default class App extends React.Component {
     // STEP 3: SPOTIFY SCREEN - After picture was taken
     // ------------------------------------------------------
     } else if (this.state.screen === 'PLAYLIST') {
-      return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)}/>)
+      return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)} />)
+    
+    } else if (this.state.screen === 'RESULTS') {
+      return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
+
   }
 }
 
