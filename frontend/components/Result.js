@@ -82,9 +82,9 @@ export default class Playlist extends React.Component {
 
         <View>
           <Text style={styles.data}>
-            {emotion1} - {percentage1}{"\n"}
-            {emotion2} - {percentage2}{"\n"}
-            {emotion3} - {percentage3}{"\n"}
+            {emotion1} - {percentage1}{"\n"}{"\n"}
+            {emotion2} - {percentage2}{"\n"}{"\n"}
+            {emotion3} - {percentage3}{"\n"}{"\n"}
           </Text>
         </View>
 
