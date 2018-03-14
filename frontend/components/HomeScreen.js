@@ -28,6 +28,7 @@ export default class HomeScreen extends React.Component {
     });
     this._handleImagePicked(pickerResult);
     this.props.setScreen('ANALYZE');
+    console.log('Taking Photo');
   };
 
   _handleImagePicked = async pickerResult => {
@@ -42,6 +43,44 @@ export default class HomeScreen extends React.Component {
         recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
         console.log(JSON.stringify(recognizeResponse, null, 2))
+        let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
+        console.log(emotions);
+
+        let emotionList = []
+        let emotionPercentage = []
+        emotions.forEach(function(object){
+          emotionList.push(object.Type)
+          emotionPercentage.push(object.Confidence)
+        });
+
+        // EMOTION VAIRABLES TO BE PASSED
+        // let emotion1 = emotionList[0];
+        // let emotion2 = emotionList[1];
+        // let emotion3 = emotionList[2];
+
+        // let emotion1Percentage = emotionPercentage[0];
+        // let emotion2Percentage = emotionPercentage[1];
+        // let emotion3Percentage = emotionPercentage[2];
+
+        let testEmotion = 'happy'
+
+        // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
+        // this.props.setEmotion(emotion1);
+        this.props.setEmotion(testEmotion)
+
+        console.log('THIS IS THE EXAMPLE TEST STATE-----------')
+        console.log(this.props.state)
+
+        // console.log('EMOTION 1: ' + emotion1)
+        // console.log('EMOTION 2: ' + emotion2)
+        // console.log('EMOTION 3: ' + emotion3)
+        // console.log('EMOTION PERCENTAGE 1: ' + emotion1Percentage)
+        // console.log('EMOTION PERCENTAGE 2: ' + emotion2Percentage)
+        // console.log('EMOTION PERCENTAGE 3: ' + emotion3Percentage)
+
+        // console.log('THIS IS STATE FROM HOMESCREEN -----------------')
+        // console.log(this.props.state);
+
       }
     } catch (e) {
       console.log({ uploadResponse });
