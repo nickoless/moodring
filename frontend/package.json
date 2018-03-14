@@ -1,8 +1,8 @@
 {
-  "name": "image-upload-example-frontend",
+  "name": "moody-frontend",
   "version": "0.0.0",
-  "description": "Hello Exponent!",
-  "author": "exponent.team@gmail.com",
+  "description": "Lighthouse Final Project",
+  "author": "",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
