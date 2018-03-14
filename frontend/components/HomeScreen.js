@@ -33,14 +33,17 @@ export default class HomeScreen extends React.Component {
   };
 
   _handleImagePicked = async pickerResult => {
-    let uploadResponse, uploadResult;
+    let uploadResponse, uploadResult, recognizeResponse;
     try {
       this.props.setUploading(true);
       if (!pickerResult.cancelled) {
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
         console.log(uploadResponse);
-        uploadResult = await uploadResponse.json();
+        // uploadResult = await uploadResponse.json();
+
+        recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
+        console.log(JSON.stringify(recognizeResponse, null, 2))
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -53,7 +56,7 @@ export default class HomeScreen extends React.Component {
   };
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
+    let apiUrl = 'https://moodring-backend-tgivofsqwg.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -73,8 +76,22 @@ export default class HomeScreen extends React.Component {
         'Content-Type': 'multipart/form-data',
       },
     };
+    return fetch(apiUrl, options).then(result => result.json());
+  }
 
-    return fetch(apiUrl, options);
+  async recognizeImageAsync(key) {
+    console.log('THE KEY IN RECOGNIZE ' + key)
+    let apiUrl = 'https://moodring-backend-tgivofsqwg.now.sh/recognize?key=' + key
+
+    let options = {
+      method: 'GET',
+      // body: body,
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+
+    return fetch(apiUrl, options).then(result => result.json())
   }
 
   render() {
