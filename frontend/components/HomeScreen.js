@@ -26,22 +26,53 @@ export default class HomeScreen extends React.Component {
       allowsEditing: false,
       aspect: [4, 3],
     });
-    
     this._handleImagePicked(pickerResult);
     this.props.setScreen('ANALYZE');
-    
+    console.log('Taking Photo');
   };
 
   _handleImagePicked = async pickerResult => {
-    let uploadResponse, uploadResult;
+    let uploadResponse, uploadResult, recognizeResponse, re;
     try {
       this.props.setUploading(true);
       if (!pickerResult.cancelled) {
-        console.log(1);
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
+
         console.log(uploadResponse);
-        uploadResult = await uploadResponse.json();
+        recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
+          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+        console.log(JSON.stringify(recognizeResponse, null, 2))
+        let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
+        console.log(emotions);
+
+        let emotionList = []
+        let emotionPercentage = []
+        emotions.forEach(function(object){
+          emotionList.push(object.Type)
+          emotionPercentage.push(object.Confidence)
+        });
+
+        // EMOTION VAIRABLES TO BE PASSED
+        let emotion1 = emotionList[0];
+        let emotion2 = emotionList[1];
+        let emotion3 = emotionList[2];
+
+        let emotion1Percentage = emotionPercentage[0];
+        let emotion2Percentage = emotionPercentage[1];
+        let emotion3Percentage = emotionPercentage[2];
+
+        // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
+        this.props.setEmotion(emotion1)
+
+        // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
+        this.props.setEmotionList(emotionList)
+        this.props.setEmotionPercentage(emotionPercentage)
+
+        console.log('THIS IS THE EXAMPLE TEST STATE-----------')
+        console.log(this.props)
+
+
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -49,13 +80,12 @@ export default class HomeScreen extends React.Component {
       console.log({ e });
       alert('Upload failed, sorry :(');
     } finally {
-      // this.setState({ uploading: false });
       this.props.setUploading(false);
     }
   };
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -75,9 +105,24 @@ export default class HomeScreen extends React.Component {
         'Content-Type': 'multipart/form-data',
       },
     };
-
-    return fetch(apiUrl, options);
+    return fetch(apiUrl, options).then(result => {
+      return result.json();
+    });
   }
+
+  async recognizeImageAsync(key) {
+    console.log('THE KEY IN RECOGNIZE ' + key)
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/recognize?key=' + key
+    
+    let options = {
+      method: 'GET',
+      // body: body,
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }  
 
   render() {
     return (
@@ -85,7 +130,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.container}>
           <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
           <TouchableOpacity onPress={this._takePhoto}>
-            <Text style={{ fontSize: 20, color: 'white' }}>TAP TO BEGIN</Text>
+            <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>
             <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
           </TouchableOpacity>
         </View>
@@ -101,3 +146,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+
+
+
+
+

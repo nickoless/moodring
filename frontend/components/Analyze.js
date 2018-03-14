@@ -41,7 +41,6 @@ export default class Analyze extends React.Component {
               width={5}
               fill={100}
               tintColor="#00e0ff"
-              onAnimationComplete={() => console.log('onAnimationComplete')}
               backgroundColor="#3d5875" ee/>
           </View>
           <View style={styles.imageContainer}>
@@ -71,10 +70,10 @@ export default class Analyze extends React.Component {
   // -----------------------------------------------------
 
   componentDidMount() {
-    this.refs.circularProgress.performLinearAnimation(100, 10000);
+    this.refs.circularProgress.performLinearAnimation(100, 8000);
     setTimeout(() => {
       this.props.setScreen('PLAYLIST');
-    }, 10000);
+    }, 8000);
   }
 }
 
