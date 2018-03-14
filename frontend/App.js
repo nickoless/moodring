@@ -29,7 +29,7 @@ export default class App extends React.Component {
       emotions: [],
       percentage: [],
       topEmotion: null,
-      backgroundColor: [],
+      backgroundColor: ['#5161B9', '#9C69CC'],
     };
   }
   
