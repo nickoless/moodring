@@ -8,6 +8,7 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 const s3 = new aws.S3({
+
  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
  region: "us-west-2"
@@ -15,6 +16,7 @@ const s3 = new aws.S3({
 
 aws.config.update({
  region: 'us-west-2'
+
 });
 
 const rekognition = new aws.Rekognition();
@@ -44,7 +46,6 @@ const upload = multer({
 // Post to api url upload path
 // --------------------------------------------------------
 
- 
 app.post('/upload', upload.single('photo'), (req, res, next) => {
  res.json(req.file)
  console.log('Image has been uploaded')
