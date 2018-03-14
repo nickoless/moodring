@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node index.js"
   },
+  "now": {
+    "dotenv": true
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {
