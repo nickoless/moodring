@@ -66,18 +66,18 @@ app.get('/recognize', (req, res, next) => {
     });
   });
 
-  const labelParams = {
-    Image: { 
-      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key} 
-    },
-  };
+  // const labelParams = {
+  //   Image: { 
+  //     S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key} 
+  //   },
+  // };
 
-  rekognition.detectLabels(labelParams, function(err, data) {
-    res.json({
-      error: err,
-      data
-    });
-  });
+  // rekognition.detectLabels(labelParams, function(err, data) {
+  //   res.json({
+  //     error: err,
+  //     data
+  //   });
+  // });
   
 });
 

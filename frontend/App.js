@@ -97,8 +97,10 @@ class HomeScreen extends React.Component {
 
         recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
 
-        console.log(JSON.stringify(recognizeResponse, null, 2))
-        console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions))
+          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+
+          console.log(JSON.stringify(recognizeResponse, null, 2))
+        
 
       }
     } catch (e) {
@@ -114,7 +116,7 @@ class HomeScreen extends React.Component {
 
   async uploadImageAsync(uri) {
 
-    let apiUrl = 'https://moodring-backend-dngajtaivx.now.sh/upload';
+    let apiUrl = 'https://moodring-backend-tgivofsqwg.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -140,7 +142,7 @@ class HomeScreen extends React.Component {
 
   async recognizeImageAsync(key) {
     console.log('THE KEY IN RECOGNIZE ' + key)
-    let apiUrl = 'https://moodring-backend-dngajtaivx.now.sh/recognize?key=' + key
+    let apiUrl = 'https://moodring-backend-tgivofsqwg.now.sh/recognize?key=' + key
     // let apiUrl = 'http://moodring.local:3000/recognize?key=' + key
     
 
@@ -236,10 +238,7 @@ class Analyze extends React.Component {
     );
   };
 
-  _returnState = () => {
-    console.log('THIS IS THE STATE');
-    console.log(this.props);
-  }
+
 
   // ------------------------------------------------------
   // Called after the component was rendered and it was attached to the DOM.
@@ -255,7 +254,7 @@ class Analyze extends React.Component {
     return( 
       <View style={styles.container}>
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
-          <TouchableOpacity onPress={this._returnState()}>
+          <TouchableOpacity>
             {this._maybeRenderImage()}
           </TouchableOpacity>
       </View>
