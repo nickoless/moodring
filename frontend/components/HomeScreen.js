@@ -47,6 +47,12 @@ export default class HomeScreen extends React.Component {
         recognizeResponse = await this.recognizeFaceImage(uploadResponse.key)
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
         console.log(JSON.stringify(recognizeResponse, null, 2))
+        
+        // AGE DATA
+        let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
+        this.props.setAge(age);
+
+        // EMOTION DATA
         let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
         console.log(emotions);
 
