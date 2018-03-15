@@ -146,18 +146,14 @@ export default class HomeScreen extends React.Component {
 
         let labelsList = []
         let labelsPercentage = []
-        labels.slice(0, 3).forEach(function(object){
+        labels.slice(0, 5).forEach(function(object){
           labelsList.push(object.Name)
           labelsPercentage.push(object.Confidence)
         });
 
-        console.log(labelsList);
-        console.log(labelsPercentage);
-
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setLabels(labelsList)
         this.props.setLabelsPercentage(labelsPercentage)
-
 
       }
     } catch (e) {
