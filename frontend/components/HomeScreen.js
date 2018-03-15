@@ -20,19 +20,34 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
-  _takePhoto = async () => {
+  // Take photos 
+
+  _takeFacePhoto = async () => {
     this.props.setImage(null);
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
       aspect: [4, 3],
     });
-    this._handleImagePicked(pickerResult);
+    this._handleFaceImage(pickerResult);
     this.props.setScreen('ANALYZE');
     console.log('Taking Photo');
   };
 
-  _handleImagePicked = async pickerResult => {
-    let uploadResponse, uploadResult, recognizeResponse, re;
+  _takeEnvironmentPhoto = async () => {
+    this.props.setImage(null);
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [4, 3],
+    });
+    this._handleEnvironmentImage(pickerResult);
+    this.props.setScreen('ANALYZE');
+    console.log('Taking Photo');
+  };
+
+  // Image handlers for face
+
+  _handleFaceImage = async pickerResult => {
+    let uploadResponse, uploadResult, recognizeResponse;
     try {
       this.props.setUploading(true);
       if (!pickerResult.cancelled) {
@@ -40,7 +55,7 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         console.log(uploadResponse);
-        recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
+        recognizeResponse = await this.recognizeFaceImage(uploadResponse.key)
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
         console.log(JSON.stringify(recognizeResponse, null, 2))
         let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
@@ -95,8 +110,31 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+  _handleEnvironmentImage = async pickerResult => {
+    let uploadResponse, uploadResult, recognizeResponse, re;
+    try {
+      this.props.setUploading(true);
+      if (!pickerResult.cancelled) {
+        this.props.setImage(pickerResult.uri);
+        uploadResponse = await this.uploadImageAsync(pickerResult.uri);
+
+        console.log(uploadResponse);
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)
+          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+        console.log(JSON.stringify(recognizeResponse, null, 2))
+      }
+    } catch (e) {
+      console.log({ uploadResponse });
+      console.log({ uploadResult });
+      console.log({ e });
+      alert('Upload failed, sorry :(');
+    } finally {
+      this.props.setUploading(false);
+    }
+  };
+
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/upload';
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -121,13 +159,21 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  async recognizeImageAsync(key) {
-    console.log('THE KEY IN RECOGNIZE ' + key)
-    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/recognize?key=' + key
-    
+  async recognizeFaceImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
     let options = {
       method: 'GET',
-      // body: body,
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }  
+
+  async recognizeEnvironmentImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
+    let options = {
+      method: 'GET',
       headers: {
         Accept: 'application/json',
       },
@@ -140,9 +186,12 @@ export default class HomeScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.container}>
           <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
-          <TouchableOpacity onPress={this._takePhoto}>
+          <TouchableOpacity onPress={this._takeFacePhoto}>
             <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>
             <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
+            <Text>Let's get environ(MENTAL)</Text>
           </TouchableOpacity>
         </View>
       </View >

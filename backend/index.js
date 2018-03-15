@@ -51,39 +51,42 @@ app.post('/upload', upload.single('photo'), (req, res, next) => {
  console.log('Image has been uploaded')
 })
 
-app.get('/recognize', (req, res, next) => {
+app.get('/recognize/face', (req, res, next) => {
  
-//  const faceParams = {
-//    Image: {
-//      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
-//    },
-//    Attributes: ["ALL"]
-//  };
-
-//  rekognition.detectFaces(faceParams, function(err, data) {
-//    res.json({
-//        error: err,
-//        data
-//    });
-//  });
-
- const labelParams = {
+ const faceParams = {
    Image: {
      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
    },
+   Attributes: ["ALL"]
  };
 
- rekognition.detectLabels(labelParams, function(err, data) {
+ rekognition.detectFaces(faceParams, function(err, data) {
    res.json({
-     error: err,
-     data
+       error: err,
+       data
    });
+
  });
- 
 });
 
 
-// --------------------------------------------------------------
+app.get('/recognize/environment', (req, res, next) => {
+  const labelParams = {
+    Image: {
+      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
+    },
+  };
+
+  rekognition.detectLabels(labelParams, function(err, data) {
+    res.json({
+      error: err,
+      data
+    });
+
+  });
+ });
+ 
+// Connect that shit ----------------------------------------------------
 
  let port = process.env.PORT || 3000;
 http.listen(port, () => {
