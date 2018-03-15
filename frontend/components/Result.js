@@ -31,58 +31,29 @@ export default class Playlist extends React.Component {
     console.log('THIS IS PROPS FROM PLAYLIST-------')
     console.log(this.props)
 
-    // EMOTION VARIABLES
-    // let emotionPercentage1 = Math.floor(this.props.percentage[0]);
-    // let emotionPercentage2 = Math.floor(this.props.percentage[1]);
-    // let emotionPercentage3 = Math.floor(this.props.percentage[2]);
-
+    // EMOTION VARIABLES TOTAL PERCENTAGE
     let emotionTotal = (this.props.percentage[0] + this.props.percentage[1] + this.props.percentage[2]);
-    let percentage1OutOfTotal = Math.floor((this.props.percentage[0]/emotionTotal) * 100);
-    let percentage2OutOfTotal = Math.floor((this.props.percentage[1]/emotionTotal) * 100);
-    let percentage3OutOfTotal = Math.floor((this.props.percentage[2]/emotionTotal) * 100);
 
-    let emotion1 = this.props.emotions[0];
-    let emotion2 = this.props.emotions[1];
-    let emotion3 = this.props.emotions[2];
-
-    // LABEL VARIABLES
+    // LABEL VARIABLES TOTAL PERCENTAGE
     let labelTotal = (this.props.labelsPercentage[0] + this.props.labelsPercentage[1] + this.props.labelsPercentage[2]);
-    let labelPercentage1 = Math.floor((this.props.labelsPercentage[0]/labelTotal) * 100);
-    let labelPercentage2 = Math.floor((this.props.labelsPercentage[1]/labelTotal) * 100);
-    let labelPercentage3 = Math.floor((this.props.labelsPercentage[2]/labelTotal) * 100);
-
-    let label1 = this.props.labels[0];
-    let label2 = this.props.labels[1];
-    let label3 = this.props.labels[2];
-
-    console.log('this.props.labelsPercentage[0]')
-    console.log(this.props.labelsPercentage[0])
-    console.log('THIS IS LABEL TOTAL')
-    console.log(labelTotal);
-    console.log('THIS IS LABELPERCENTAGE1')
-    console.log(labelPercentage1)
-    console.log('THIS IS LABELPERCENTAGE2')    
-    console.log(labelPercentage2)
-    console.log('THIS IS LABELPERCENTAGE3')    
-    console.log(labelPercentage3)
 
     const data =[]
     const text = []
 
     if (this.props.face) {
-      data[0] = percentage1OutOfTotal;
-      data[1] = percentage2OutOfTotal;
-      data[2] = percentage3OutOfTotal;
-      text[0] = emotion1;
-      text[1] = emotion2;
-      text[2] = emotion3;
+      data[0] = Math.floor((this.props.percentage[0]/emotionTotal) * 100);
+      data[1] = Math.floor((this.props.percentage[1]/emotionTotal) * 100);
+      data[2] = Math.floor((this.props.percentage[2]/emotionTotal) * 100);
+      text[0] = this.props.emotions[0];
+      text[1] = this.props.emotions[1];
+      text[2] = this.props.emotions[2];
     } else {
-      data[0] = labelPercentage1;
-      data[1] = labelPercentage2;
-      data[2] = labelPercentage3;
-      text[0] = label1;
-      text[1] = label2;
-      text[2] = label3;
+      data[0] = Math.floor((this.props.labelsPercentage[0]/labelTotal) * 100);
+      data[1] = Math.floor((this.props.labelsPercentage[1]/labelTotal) * 100);
+      data[2] = Math.floor((this.props.labelsPercentage[2]/labelTotal) * 100);
+      text[0] = this.props.labels[0];
+      text[1] = this.props.labels[1];
+      text[2] = this.props.labels[2];
     }
 
     console.log('THIS IS DATA FOR PIE CHART');
