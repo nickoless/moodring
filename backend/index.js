@@ -53,32 +53,32 @@ app.post('/upload', upload.single('photo'), (req, res, next) => {
 
 app.get('/recognize', (req, res, next) => {
  
- const faceParams = {
+//  const faceParams = {
+//    Image: {
+//      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
+//    },
+//    Attributes: ["ALL"]
+//  };
+
+//  rekognition.detectFaces(faceParams, function(err, data) {
+//    res.json({
+//        error: err,
+//        data
+//    });
+//  });
+
+ const labelParams = {
    Image: {
      S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
    },
-   Attributes: ["ALL"]
  };
 
- rekognition.detectFaces(faceParams, function(err, data) {
+ rekognition.detectLabels(labelParams, function(err, data) {
    res.json({
-       error: err,
-       data
+     error: err,
+     data
    });
  });
-
- // const labelParams = {
- //   Image: {
- //     S3Object: {Bucket: process.env.AWS_BUCKET, Name: req.query.key}
- //   },
- // };
-
- // rekognition.detectLabels(labelParams, function(err, data) {
- //   res.json({
- //     error: err,
- //     data
- //   });
- // });
  
 });
 
