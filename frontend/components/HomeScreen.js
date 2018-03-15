@@ -31,6 +31,7 @@ export default class HomeScreen extends React.Component {
     });
     this._handleFaceImage(pickerResult);
     this.props.setScreen('ANALYZE');
+    this.props.setFace(true);
     console.log('Taking Photo');
   };
 
@@ -115,6 +116,7 @@ export default class HomeScreen extends React.Component {
     });
     this._handleEnvironmentImage(pickerResult);
     this.props.setScreen('ANALYZE');
+    this.props.setFace(false);
     console.log('Taking Photo');
   };
   
