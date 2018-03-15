@@ -31,11 +31,14 @@ export default class Playlist extends React.Component {
 
   render() {
 
+    console.log('THIS IS THE STATE FROM INSIDE PLAYLIST FOR BACKGROUND COLOUR');
+    console.log(this.props);
 
     return (
       <View style={styles.container}>
         
-        <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
+        {/* <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} /> */}
+        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
 
