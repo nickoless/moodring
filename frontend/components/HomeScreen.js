@@ -45,9 +45,9 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         console.log(uploadResponse);
-        recognizeResponse = await this.recognizeFaceImage(uploadResponse.key)
+        recognizeResponse = await this.recognizeFaceImage(uploadResponse.key);
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
-        console.log(JSON.stringify(recognizeResponse, null, 2))
+        console.log(JSON.stringify(recognizeResponse, null, 2));
         
         // AGE DATA
         let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
@@ -55,38 +55,37 @@ export default class HomeScreen extends React.Component {
 
         // EMOTION DATA
         let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
-        console.log(emotions);
 
         let emotionList = []
         let emotionPercentage = []
-        emotions.forEach(function(object){
-          emotionList.push(object.Type)
-          emotionPercentage.push(object.Confidence)
+        emotions.forEach(function(object) {
+          emotionList.push(object.Type);
+          emotionPercentage.push(object.Confidence);
         });
 
         // EMOTION VAIRABLES TO BE PASSED
         let emotion1 = emotionList[0];
 
         // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
-        this.props.setEmotion(emotion1)
+        this.props.setEmotion(emotion1);
 
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
-        this.props.setEmotionList(emotionList)
-        this.props.setEmotionPercentage(emotionPercentage)
+        this.props.setEmotionList(emotionList);
+        this.props.setEmotionPercentage(emotionPercentage);
 
         // SET BACKGROUND COLORS USING PROPS
         if (emotion1 === 'HAPPY') {
           this.props.setBackgroundColor(['#5161B9', '#9C69CC']);
         } else if (emotion1 === 'CALM') {
-          this.props.setBackgroundColor(['#0075D1', '#DBE55D'])
+          this.props.setBackgroundColor(['#0075D1', '#DBE55D']);
         } else if (emotion1 === 'SAD') {
-          this.props.setBackgroundColor(['#0053CA', '#5DE5D7'])
+          this.props.setBackgroundColor(['#0053CA', '#5DE5D7']);
         } else if (emotion1 === 'ANGRY') {
-          this.props.setBackgroundColor(['#D10000', '#DBE55D'])
+          this.props.setBackgroundColor(['#D10000', '#DBE55D']);
         } else if (emotion1 === 'SURPRISED') {
-          this.props.setBackgroundColor(['#FF6000', '#D1FF00'])
+          this.props.setBackgroundColor(['#FF6000', '#D1FF00']);
         } else if (emotion1 === 'CONFUSED') {
-          this.props.setBackgroundColor(['#067501', '#00A3E3'])
+          this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
       }
@@ -94,7 +93,7 @@ export default class HomeScreen extends React.Component {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
-      this.props.setError(true)
+      this.props.setError(true);
     } finally {
       this.props.setUploading(false);
     }
@@ -102,20 +101,21 @@ export default class HomeScreen extends React.Component {
 
 
   async recognizeFaceImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
       },
     }
-    return fetch(apiUrl, options).then(result => result.json())
+    return fetch(apiUrl, options).then(result => result.json());
   }  
 
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 
   _takeEnvironmentPhoto = async () => {
+    this.props.setError(false);
     this.props.setImage(null);
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
@@ -137,19 +137,16 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         console.log(uploadResponse);
-        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)       
-        console.log(JSON.stringify(recognizeResponse, null, 2))
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
+        console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
 
-        console.log('THIS IS LABLES HERE --------------')
-        console.log(labels);
-
         let labelsList = []
         let labelsPercentage = []
-        labels.slice(0, 5).forEach(function(object){
-          labelsList.push(object.Name)
-          labelsPercentage.push(object.Confidence)
+        labels.slice(0, 5).forEach(function(object) {
+          labelsList.push(object.Name);
+          labelsPercentage.push(object.Confidence);
         });
 
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
@@ -161,7 +158,7 @@ export default class HomeScreen extends React.Component {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
-      alert('Upload failed, sorry :(');
+      this.props.setError(true);
     } finally {
       this.props.setUploading(false);
     }
@@ -175,7 +172,7 @@ export default class HomeScreen extends React.Component {
         Accept: 'application/json',
       },
     }
-    return fetch(apiUrl, options).then(result => result.json())
+    return fetch(apiUrl, options).then(result => result.json());
   }
 
   // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
