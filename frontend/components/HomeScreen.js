@@ -20,7 +20,8 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
-  // Take photos 
+
+  // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
     this.props.setImage(null);
@@ -30,21 +31,9 @@ export default class HomeScreen extends React.Component {
     });
     this._handleFaceImage(pickerResult);
     this.props.setScreen('ANALYZE');
+    this.props.setFace(true);
     console.log('Taking Photo');
   };
-
-  _takeEnvironmentPhoto = async () => {
-    this.props.setImage(null);
-    let pickerResult = await ImagePicker.launchCameraAsync({
-      allowsEditing: false,
-      aspect: [4, 3],
-    });
-    this._handleEnvironmentImage(pickerResult);
-    this.props.setScreen('ANALYZE');
-    console.log('Taking Photo');
-  };
-
-  // Image handlers for face
 
   _handleFaceImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse;
@@ -58,6 +47,12 @@ export default class HomeScreen extends React.Component {
         recognizeResponse = await this.recognizeFaceImage(uploadResponse.key)
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
         console.log(JSON.stringify(recognizeResponse, null, 2))
+        
+        // AGE DATA
+        let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
+        this.props.setAge(age);
+
+        // EMOTION DATA
         let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
         console.log(emotions);
 
@@ -70,12 +65,6 @@ export default class HomeScreen extends React.Component {
 
         // EMOTION VAIRABLES TO BE PASSED
         let emotion1 = emotionList[0];
-        let emotion2 = emotionList[1];
-        let emotion3 = emotionList[2];
-
-        let emotion1Percentage = emotionPercentage[0];
-        let emotion2Percentage = emotionPercentage[1];
-        let emotion3Percentage = emotionPercentage[2];
 
         // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
         this.props.setEmotion(emotion1)
@@ -110,6 +99,34 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+
+  async recognizeFaceImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }  
+
+
+  // PHOTO FOR ENVIRONMENT ANALYSIS
+
+  _takeEnvironmentPhoto = async () => {
+    this.props.setImage(null);
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [4, 3],
+    });
+    this._handleEnvironmentImage(pickerResult);
+    this.props.setScreen('ANALYZE');
+    this.props.setFace(false);
+    console.log('Taking Photo');
+  };
+  
+
   _handleEnvironmentImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse, re;
     try {
@@ -119,9 +136,25 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         console.log(uploadResponse);
-        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)
-          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)       
         console.log(JSON.stringify(recognizeResponse, null, 2))
+
+        let labels = recognizeResponse.data.Labels;
+
+        console.log('THIS IS LABLES HERE --------------')
+        console.log(labels);
+
+        let labelsList = []
+        let labelsPercentage = []
+        labels.slice(0, 5).forEach(function(object){
+          labelsList.push(object.Name)
+          labelsPercentage.push(object.Confidence)
+        });
+
+        // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
+        this.props.setLabels(labelsList)
+        this.props.setLabelsPercentage(labelsPercentage)
+
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -132,6 +165,19 @@ export default class HomeScreen extends React.Component {
       this.props.setUploading(false);
     }
   };
+
+   async recognizeEnvironmentImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }
+
+  // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
 
   async uploadImageAsync(uri) {
     let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
@@ -159,27 +205,6 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  async recognizeFaceImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }  
-
-  async recognizeEnvironmentImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }  
 
   render() {
     return (

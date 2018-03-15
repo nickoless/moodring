@@ -28,7 +28,11 @@ export default class App extends React.Component {
       screen: 'HOME',
       emotions: [],
       percentage: [],
+      labels: [],
+      labelsPercentage: [],
       topEmotion: null,
+      face: true,
+      age: null,
       backgroundColor: ['#5161B9', '#9C69CC'],
     };
   }
@@ -64,6 +68,22 @@ export default class App extends React.Component {
     this.setState({backgroundColor: array})
   }
 
+  setLabels(array) {
+    this.setState({labels: array})
+  }
+
+  setLabelsPercentage(array) {
+    this.setState({labelsPercentage: array})
+  }
+
+  setFace(bool) {
+    this.setState({face: bool})
+  }
+
+  setAge(num) {
+    this.setState({age: num})
+  }
+
   // ------------------------------------------------------
   // render state
   // ------------------------------------------------------
@@ -74,7 +94,7 @@ export default class App extends React.Component {
     // STEP 1: HOME SCREEN - Take picture using native camera
     // ------------------------------------------------------
     if (this.state.screen === 'HOME') {
-      return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotion={this.setEmotion.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)}/>)
+      return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotion={this.setEmotion.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} setLabels={this.setLabels.bind(this)} setLabelsPercentage={this.setLabelsPercentage.bind(this)} setFace={this.setFace.bind(this)} setAge={this.setAge.bind(this)}/>)
 
     // ------------------------------------------------------
     // STEP 2: ANALYZE SCREEN - Take picture using native camera
