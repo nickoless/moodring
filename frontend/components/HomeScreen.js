@@ -28,6 +28,7 @@ export default class HomeScreen extends React.Component {
     });
     this._handleImagePicked(pickerResult);
     this.props.setScreen('ANALYZE');
+    console.log('Taking Photo');
   };
 
   _handleImagePicked = async pickerResult => {
@@ -42,6 +43,47 @@ export default class HomeScreen extends React.Component {
         recognizeResponse = await this.recognizeImageAsync(uploadResponse.key)
           // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
         console.log(JSON.stringify(recognizeResponse, null, 2))
+        let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
+        console.log(emotions);
+
+        let emotionList = []
+        let emotionPercentage = []
+        emotions.forEach(function(object){
+          emotionList.push(object.Type)
+          emotionPercentage.push(object.Confidence)
+        });
+
+        // EMOTION VAIRABLES TO BE PASSED
+        let emotion1 = emotionList[0];
+        let emotion2 = emotionList[1];
+        let emotion3 = emotionList[2];
+
+        let emotion1Percentage = emotionPercentage[0];
+        let emotion2Percentage = emotionPercentage[1];
+        let emotion3Percentage = emotionPercentage[2];
+
+        // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
+        this.props.setEmotion(emotion1)
+
+        // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
+        this.props.setEmotionList(emotionList)
+        this.props.setEmotionPercentage(emotionPercentage)
+
+        // SET BACKGROUND COLORS USING PROPS
+        if (emotion1 === 'HAPPY') {
+          this.props.setBackgroundColor(['#5161B9', '#9C69CC']);
+        } else if (emotion1 === 'CALM') {
+          this.props.setBackgroundColor(['#0075D1', '#DBE55D'])
+        } else if (emotion1 === 'SAD') {
+          this.props.setBackgroundColor(['#0053CA', '#5DE5D7'])
+        } else if (emotion1 === 'ANGRY') {
+          this.props.setBackgroundColor(['#D10000', '#DBE55D'])
+        } else if (emotion1 === 'SURPRISED') {
+          this.props.setBackgroundColor(['#FF6000', '#D1FF00'])
+        } else if (emotion1 === 'CONFUSED') {
+          this.props.setBackgroundColor(['#067501', '#00A3E3'])
+        } 
+
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -54,7 +96,7 @@ export default class HomeScreen extends React.Component {
   };
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-backend-ciqogkbihx.now.sh/upload';
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -81,7 +123,7 @@ export default class HomeScreen extends React.Component {
 
   async recognizeImageAsync(key) {
     console.log('THE KEY IN RECOGNIZE ' + key)
-    let apiUrl = 'https://moodring-backend-ciqogkbihx.now.sh/recognize?key=' + key
+    let apiUrl = 'https://moodring-wjodyaeofu.now.sh/recognize?key=' + key
     
     let options = {
       method: 'GET',
@@ -115,10 +157,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-
-
-
-
-
-
