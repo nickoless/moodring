@@ -58,12 +58,6 @@ export default class HomeScreen extends React.Component {
 
         // EMOTION VAIRABLES TO BE PASSED
         let emotion1 = emotionList[0];
-        let emotion2 = emotionList[1];
-        let emotion3 = emotionList[2];
-
-        let emotion1Percentage = emotionPercentage[0];
-        let emotion2Percentage = emotionPercentage[1];
-        let emotion3Percentage = emotionPercentage[2];
 
         // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
         this.props.setEmotion(emotion1)
@@ -136,6 +130,27 @@ export default class HomeScreen extends React.Component {
         console.log(uploadResponse);
         recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)       
         console.log(JSON.stringify(recognizeResponse, null, 2))
+
+        let labels = recognizeResponse.data.Labels;
+
+        console.log('THIS IS LABLES HERE --------------')
+        console.log(labels);
+
+        let labelsList = []
+        let labelsPercentage = []
+        labels.slice(0, 3).forEach(function(object){
+          labelsList.push(object.Name)
+          labelsPercentage.push(object.Confidence)
+        });
+
+        console.log(labelsList);
+        console.log(labelsPercentage);
+
+        // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
+        this.props.setLabels(labelsList)
+        this.props.setLabelsPercentage(labelsPercentage)
+
+
       }
     } catch (e) {
       console.log({ uploadResponse });

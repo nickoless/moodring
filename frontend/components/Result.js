@@ -32,10 +32,14 @@ export default class Playlist extends React.Component {
     console.log(this.props)
     console.log('THIS IS THE FIRST EMOTION FROM THE EMOTION LIST ---------')
     console.log(this.props.emotions[0])
+    console.log('THIS IS THE LIST OF LABELS -----------')
+    console.log(this.props.labels)
+    console.log('THIS IS THE LABLES PERCENTAGE')
+    console.log(this.props.labelsPercentage)
 
-    let percentage1 = Math.floor(this.props.percentage[0]);
-    let percentage2 = Math.floor(this.props.percentage[1]);
-    let percentage3 = Math.floor(this.props.percentage[2]);
+    let emotionPercentage1 = Math.floor(this.props.percentage[0]);
+    let emotionPercentage2 = Math.floor(this.props.percentage[1]);
+    let emotionPercentage3 = Math.floor(this.props.percentage[2]);
 
     let total = (percentage1 + percentage2 + percentage3);
     let percentage1OutOfTotal = Math.floor((percentage1/total) * 100);
@@ -48,9 +52,9 @@ export default class Playlist extends React.Component {
 
     const data =[]
 
-    data[0] = percentage1;
-    data[1] = percentage2;
-    data[2] = percentage3;
+    if this.props.face ? data[0] = emotionPercentage1 : data[0] = labelPercentage1;
+    data[1] = emotionPercentage2;
+    data[2] = emotionPercentage3;
 
     console.log('THIS IS DATA FOR PIE CHART');
     console.log(data)
