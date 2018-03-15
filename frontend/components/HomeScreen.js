@@ -24,6 +24,7 @@ export default class HomeScreen extends React.Component {
   // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
+    this.props.setError(false);
     this.props.setImage(null);
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
@@ -93,7 +94,7 @@ export default class HomeScreen extends React.Component {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
-      alert('Upload failed, sorry :(');
+      this.props.setError(true)
     } finally {
       this.props.setUploading(false);
     }
