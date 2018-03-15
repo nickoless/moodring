@@ -26,7 +26,7 @@ export default class App extends React.Component {
     this.state = {
       image: null,
       uploading: false,
-      screen: 'ERROR',
+      screen: 'HOME',
       emotions: [],
       percentage: [],
       labels: [],
