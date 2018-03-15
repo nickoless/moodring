@@ -20,7 +20,8 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
-  // Take photos 
+
+  // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
     this.props.setImage(null);
@@ -32,19 +33,6 @@ export default class HomeScreen extends React.Component {
     this.props.setScreen('ANALYZE');
     console.log('Taking Photo');
   };
-
-  _takeEnvironmentPhoto = async () => {
-    this.props.setImage(null);
-    let pickerResult = await ImagePicker.launchCameraAsync({
-      allowsEditing: false,
-      aspect: [4, 3],
-    });
-    this._handleEnvironmentImage(pickerResult);
-    this.props.setScreen('ANALYZE');
-    console.log('Taking Photo');
-  };
-
-  // Image handlers for face
 
   _handleFaceImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse;
@@ -110,6 +98,33 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+
+  async recognizeFaceImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }  
+
+
+  // PHOTO FOR ENVIRONMENT ANALYSIS
+
+  _takeEnvironmentPhoto = async () => {
+    this.props.setImage(null);
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [4, 3],
+    });
+    this._handleEnvironmentImage(pickerResult);
+    this.props.setScreen('ANALYZE');
+    console.log('Taking Photo');
+  };
+  
+
   _handleEnvironmentImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse, re;
     try {
@@ -119,8 +134,7 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         console.log(uploadResponse);
-        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)
-          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key)       
         console.log(JSON.stringify(recognizeResponse, null, 2))
       }
     } catch (e) {
@@ -132,6 +146,19 @@ export default class HomeScreen extends React.Component {
       this.props.setUploading(false);
     }
   };
+
+   async recognizeEnvironmentImage(key) {
+    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }
+
+  // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
 
   async uploadImageAsync(uri) {
     let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
@@ -159,27 +186,6 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  async recognizeFaceImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }  
-
-  async recognizeEnvironmentImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }  
 
   render() {
     return (
