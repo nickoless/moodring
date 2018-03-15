@@ -132,8 +132,6 @@ export default class Playlist extends React.Component {
       }
     }
 
-
-
     // FUNCTION RETURN WITH MODUAL FOR EMOTION OR LABEL
     return (
       <View>
