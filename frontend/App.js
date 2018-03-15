@@ -91,7 +91,6 @@ export default class App extends React.Component {
     } else if (this.state.screen === 'RESULTS') {
       return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
-
   }
 }
 
