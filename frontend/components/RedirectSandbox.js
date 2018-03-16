@@ -10,6 +10,10 @@ export default class Redirect extends React.Component {
     redirectData: null,
   };
 
+  _returnHome = () => {
+    this.props.setScreen('HOME');
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -18,6 +22,10 @@ export default class Redirect extends React.Component {
         <Button
           onPress={this._openWebBrowserAsync}
           title="Tap here to try it out"
+        />
+        <Button
+          onPress={this._returnHome}
+          title="GO HOME YOU'RE DRUNK"
         />
         {this._maybeRenderRedirectData()}
       </View>
@@ -75,7 +83,12 @@ export default class Redirect extends React.Component {
       data = null;
     }
 
-    this.setState({ redirectData: data });
+    // this.setState({ redirectData: data });
+    // console.log('-------- THIS IS THE STATE OF REDIRECT SANDBOX --------')
+    // console.log(this.state)
+    // console.log('THIS IS DATA FILE')
+    // console.log(data.access_token)
+    this.props.setToken(data.access_token)
   };
 
   _openWebBrowserAsync = async () => {

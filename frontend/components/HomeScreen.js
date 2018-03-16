@@ -230,13 +230,15 @@ export default class HomeScreen extends React.Component {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQA-LQklYPzY52lwmXjLZOYcNTPvZJX7SzMLG8Kz7yFmN-EZL4i7bKfijzvjRJ79tOINfjIA1Q3Q4N-1KlY6TO1xu-F3Hz8pMO2UMPLpAfJi6ed8BTot9J1WMVsv2I-eLAtIaz_tqBBZnJMfR6VhyMbnV1Av',
+        Authorization: `Bearer ${this.props.token}`,
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())
   }
 
   render() {
+    console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
+    console.log(this.props)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.container}>

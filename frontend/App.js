@@ -25,6 +25,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: null,
       image: null,
       uploading: false,
       screen: 'LOGIN',
@@ -44,51 +45,55 @@ export default class App extends React.Component {
   // Helper functions to be passed to props
   // ------------------------------------------------------
   setScreen(screen) {
-    this.setState({screen: screen})
+    this.setState({screen: screen});
   };
 
   setUploading(bool) {
-    this.setState({uploading: bool})
+    this.setState({uploading: bool});
   };
 
   setImage(img) {
-    this.setState({image: img})
+    this.setState({image: img});
   };
 
   setEmotionList(array) {
-    this.setState({emotions: array})
+    this.setState({emotions: array});
   }
 
   setEmotionPercentage(array) {
-    this.setState({percentage: array})
+    this.setState({percentage: array});
   }
 
   setBackgroundColor(array) {
-    this.setState({backgroundColor: array})
+    this.setState({backgroundColor: array});
   }
 
   setLabels(array) {
-    this.setState({labels: array})
+    this.setState({labels: array});
   }
 
   setLabelsPercentage(array) {
-    this.setState({labelsPercentage: array})
+    this.setState({labelsPercentage: array});
   }
 
   setFace(bool) {
-    this.setState({face: bool})
+    this.setState({face: bool});
   }
 
   setAge(num) {
-    this.setState({age: num})
+    this.setState({age: num});
   }
 
   setError(bool) {
-    this.setState({error: bool})
+    this.setState({error: bool});
   }
 
   setPlaylist(url) {
-    this.setState({playlist: url})
+    this.setState({playlist: url});
+  }
+
+  setToken(string) {
+    this.setState({token: string});
   }
 
   // ------------------------------------------------------
@@ -102,7 +107,7 @@ export default class App extends React.Component {
     // ------------------------------------------------------
 
     if (this.state.screen === 'LOGIN') {
-      return (<LoginScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} />)
+      return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} />)
     
 
     // ------------------------------------------------------
