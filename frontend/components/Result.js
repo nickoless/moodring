@@ -10,9 +10,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  WebView,
 } from 'react-native';
-import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
+import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
 
 export default class Playlist extends React.Component {

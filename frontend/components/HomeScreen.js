@@ -30,9 +30,6 @@ export default class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
     this._handleFaceImage(pickerResult);
-    // let spotifyResponse = await this.spotifyRequest();
-    // let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
-    // this.props.setPlaylist(playlist)
     this.props.setScreen('ANALYZE');
     this.props.setFace(true);
     console.log('Taking Photo');
