@@ -223,16 +223,16 @@ export default class HomeScreen extends React.Component {
 
   async spotifyRequest(input1, input2) {
 
-    // let randomNum = (Math.random() * (49) + 1);
+    let randomNum = Math.floor(Math.random()*100) + 1;
+    console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
 // 
-    // let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1&offset=${randomNum}`
-    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1`
+    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
  
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQANfnDfGD4ko11czBWWN6d_cQiOnbyBRUsXxXzViaXkSSi6qL1SQaQR9yt4dqMqxovbjFE2ylR5ZQJiYxRLvR4B0mCMg3JpBqPcS7xhXraOyG3fcun1WfbJX2wp5qTQnSdFtJf3zg',
+        Authorization: 'Bearer BQC-fB53YgVUXn8vaFdIyCC4FA6hRmpDjzslFLcKRKzsuJDwIJFqfCQNFcsIPrt2KrokxH-z8rgQTvZbLdTHDEpCM03y2m30cMC1S4itbrj9yNQ3yhWnkm0nNK0N67K3uJj5QHF-rg',
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())
