@@ -19,7 +19,6 @@ export default class Redirect extends React.Component {
           onPress={this._openWebBrowserAsync}
           title="Tap here to try it out"
         />
-
         {this._maybeRenderRedirectData()}
       </View>
     );
@@ -59,7 +58,7 @@ export default class Redirect extends React.Component {
 
     // console.log('https://accounts.spotify.com/authorize?' + oShit);
     console.log(Constants.linkingUri);
-    
+    console.log(this.state.redirectData);
     return 'https://accounts.spotify.com/authorize?' + oShit;
   }
 
@@ -106,7 +105,6 @@ export default class Redirect extends React.Component {
     if (!this.state.redirectData) {
       return;
     }
-
     return <Text>{JSON.stringify(this.state.redirectData)}</Text>;
   };
 }
