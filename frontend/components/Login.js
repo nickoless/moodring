@@ -1,33 +1,34 @@
 
-import Expo, { Constants, WebBrowser } from 'expo';
+import Expo, { Constants, WebBrowser, LinearGradient } from 'expo';
 import React from 'react';
-import { Button, Linking, StyleSheet, Text, View } from 'react-native';
+import { Button, Linking, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import qs from 'qs';
 import querystring from 'querystring';
+import Logo from '../assets/logo.png'
 
-export default class Redirect extends React.Component {
+export default class Login extends React.Component {
   state = {
     redirectData: null,
   };
 
-  _returnHome = () => {
-    this.props.setScreen('HOME');
-  };
+
 
   render() {
+    console.log(this.state)
+    if (this.state.redirectData) {
+      this._returnHome()
+    }
+
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>OMFG PLS WORK</Text>
 
-        <Button
-          onPress={this._openWebBrowserAsync}
-          title="Tap here to try it out"
-        />
-        <Button
-          onPress={this._returnHome}
-          title="GO HOME YOU'RE DRUNK"
-        />
-        {this._maybeRenderRedirectData()}
+        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
+        
+        {/* <Image style={{ width: 150, height: 150 }} source={{ uri: Logo }}/> */}
+        
+        <TouchableOpacity onPress={this._openWebBrowserAsync} style={{bottom: 0, borderWidth: 2, backgroundColor: '#2FD465', padding: 10, borderRadius: 100, borderColor: 'transparent'}}>
+          <Text style={{color: 'white'}}>LOGIN WITH SPOTIFY</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -72,6 +73,10 @@ export default class Redirect extends React.Component {
 
   // ------------------------------------------------------------
 
+  _returnHome = () => {
+    this.props.setScreen('HOME');
+  };
+
   _handleRedirect = event => {
     WebBrowser.dismissBrowser();
 
@@ -79,15 +84,14 @@ export default class Redirect extends React.Component {
     let data;
     if (query) {
       data = qs.parse(query);
+      this._returnHome();
     } else {
       data = null;
     }
+    console.log('---- THIS IS DATA ----')
+    console.log(data)
 
-    // this.setState({ redirectData: data });
-    // console.log('-------- THIS IS THE STATE OF REDIRECT SANDBOX --------')
-    // console.log(this.state)
-    // console.log('THIS IS DATA FILE')
-    // console.log(data.access_token)
+    // SETS PROPS TOKEN
     this.props.setToken(data.access_token)
   };
 
@@ -114,24 +118,20 @@ export default class Redirect extends React.Component {
     Linking.removeEventListener('url', this._handleRedirect);
   };
 
-  _maybeRenderRedirectData = () => {
-    if (!this.state.redirectData) {
-      return;
-    }
-    return <Text>{JSON.stringify(this.state.redirectData)}</Text>;
-  };
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingBottom: 40,
+    justifyContent: 'center',
   },
   header: {
     fontSize: 25,
     marginBottom: 25,
+    color: 'white',
   },
 });

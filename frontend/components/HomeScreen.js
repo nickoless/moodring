@@ -99,7 +99,7 @@ export default class HomeScreen extends React.Component {
   };
 
   async recognizeFaceImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
+    let apiUrl = 'https://moody.now.sh/recognize/face?key=' + key;
     let options = {
       method: 'GET',
       headers: {
@@ -181,7 +181,7 @@ export default class HomeScreen extends React.Component {
   };
 
    async recognizeEnvironmentImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
+    let apiUrl = 'https://moody.now.sh/recognize/environment?key=' + key
     let options = {
       method: 'GET',
       headers: {
