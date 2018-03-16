@@ -20,7 +20,6 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
-
   // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
@@ -31,6 +30,9 @@ export default class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
     this._handleFaceImage(pickerResult);
+    // let spotifyResponse = await this.spotifyRequest();
+    // let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+    // this.props.setPlaylist(playlist)
     this.props.setScreen('ANALYZE');
     this.props.setFace(true);
     console.log('Taking Photo');
@@ -63,30 +65,29 @@ export default class HomeScreen extends React.Component {
           emotionPercentage.push(object.Confidence);
         });
 
-        // EMOTION VAIRABLES TO BE PASSED
-        let emotion1 = emotionList[0];
-
-        // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
-        this.props.setEmotion(emotion1);
-
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setEmotionList(emotionList);
         this.props.setEmotionPercentage(emotionPercentage);
+        
 
         // SET BACKGROUND COLORS USING PROPS
-        if (emotion1 === 'HAPPY') {
+        if (emotionList[0] === 'HAPPY') {
           this.props.setBackgroundColor(['#5161B9', '#9C69CC']);
-        } else if (emotion1 === 'CALM') {
+        } else if (emotionList[0] === 'CALM') {
           this.props.setBackgroundColor(['#0075D1', '#DBE55D']);
-        } else if (emotion1 === 'SAD') {
+        } else if (emotionList[0] === 'SAD') {
           this.props.setBackgroundColor(['#0053CA', '#5DE5D7']);
-        } else if (emotion1 === 'ANGRY') {
+        } else if (emotionList[0] === 'ANGRY') {
           this.props.setBackgroundColor(['#D10000', '#DBE55D']);
-        } else if (emotion1 === 'SURPRISED') {
+        } else if (emotionList[0] === 'SURPRISED') {
           this.props.setBackgroundColor(['#FF6000', '#D1FF00']);
-        } else if (emotion1 === 'CONFUSED') {
+        } else if (emotionList[0] === 'CONFUSED') {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
+
+        let spotifyResponse = await this.spotifyRequest(emotionList[0], emotionList[1]);
+        let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+        this.props.setPlaylist(playlist)
 
       }
     } catch (e) {
@@ -99,7 +100,6 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-
   async recognizeFaceImage(key) {
     let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
     let options = {
@@ -110,7 +110,6 @@ export default class HomeScreen extends React.Component {
     }
     return fetch(apiUrl, options).then(result => result.json());
   }  
-
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 
@@ -136,22 +135,41 @@ export default class HomeScreen extends React.Component {
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
-        console.log(uploadResponse);
+        // console.log(uploadResponse);
         recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
-        console.log(JSON.stringify(recognizeResponse, null, 2));
+        // console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
 
         let labelsList = []
+        let garbage =[]
         let labelsPercentage = []
-        labels.slice(0, 5).forEach(function(object) {
-          labelsList.push(object.Name);
-          labelsPercentage.push(object.Confidence);
+        labels.slice(0, 8).forEach(function(object) {
+          if (object.Name === 'Human') {
+            garbage.push(object.Name);
+          } else if (object.Name === 'Person') {
+            garbage.push(object.Name);
+          } else if (object.Name === 'People') {
+            garbage.push(object.Name);
+          } else {
+            labelsList.push(object.Name);
+            labelsPercentage.push(object.Confidence);
+          }
         });
+
+        console.log('---- THIS IS GARBAGE LIST ----')
+        console.log(garbage);
 
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setLabels(labelsList)
         this.props.setLabelsPercentage(labelsPercentage)
+
+        let spotifyResponse = await this.spotifyRequest(labelsList[0], labelsList[1]);
+        // let rand = 
+        console.log('-----SPOTIFY RETURN LIST--------');
+        console.log(spotifyResponse);
+        let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+        this.props.setPlaylist(playlist)
 
       }
     } catch (e) {
@@ -203,6 +221,22 @@ export default class HomeScreen extends React.Component {
     });
   }
 
+  async spotifyRequest(input1, input2) {
+
+    // let randomNum = (Math.random() * (49) + 1);
+// 
+    // let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1&offset=${randomNum}`
+    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1`
+ 
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer BQANfnDfGD4ko11czBWWN6d_cQiOnbyBRUsXxXzViaXkSSi6qL1SQaQR9yt4dqMqxovbjFE2ylR5ZQJiYxRLvR4B0mCMg3JpBqPcS7xhXraOyG3fcun1WfbJX2wp5qTQnSdFtJf3zg',
+      }      
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }
 
   render() {
     return (
@@ -214,7 +248,7 @@ export default class HomeScreen extends React.Component {
             <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
           </TouchableOpacity>
           <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
-            <Text>Let's get environ(MENTAL)</Text>
+            <Text style={{color: 'white', fontSize: 20, paddingTop: 30}}>TAP TO SCAN ENVIRONMENT</Text>
           </TouchableOpacity>
         </View>
       </View >

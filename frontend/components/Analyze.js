@@ -12,7 +12,7 @@ import {
   View,
   WebView,
 } from 'react-native';
-import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
+import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 
@@ -28,7 +28,7 @@ export default class Analyze extends React.Component {
       return (
         <View style={styles.imageContainer}>
           <Image source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' }} style={styles.image} />
-          <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+          <Text style={styles.systemMessage}>ANALYZING</Text>
         </View>
       )
     } else {
@@ -45,7 +45,7 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+            <Text style={styles.systemMessage}>ANALYZING</Text>
           </View>
         </View>
       );
@@ -54,8 +54,6 @@ export default class Analyze extends React.Component {
 
 
   render() {
-    console.log('THIS IS THE PROPS TO READ ERROR ------')
-    console.log(this.props)
     return (
       <View style={styles.container}>
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
