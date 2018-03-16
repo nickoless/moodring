@@ -25,7 +25,7 @@ export default class Redirect extends React.Component {
     );
   }
 
-  // TODO: STEP 2 - LINK TO SPOTIFY AUTH
+  // STEP 2 - LINK TO SPOTIFY AUTH
   // ------------------------------------------------------------
 
   _generateRandomString = function (length) {
@@ -41,7 +41,6 @@ export default class Redirect extends React.Component {
 
   //  STEP 3 - spotify should redirect to this url 
   //  Setup spotify whitelist URL in spotify dev
-  //  *** CHANGE REDIRECT_URI 
   _getSpotifyAuthURL = () => {
     const client_id = '817050870e3542749870ff522e26192d';
     const client_secret = '195579d0f69a477e870fb8974fec7cd9';

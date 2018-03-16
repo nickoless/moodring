@@ -37,7 +37,6 @@ app.get('/callback', function (req, res) {
 
   // if (state === null || state !== storedState) {
     
-
   if (1 < 0) {
     res.redirect('/#' +
       querystring.stringify({
@@ -76,10 +75,11 @@ app.get('/callback', function (req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
+        // TODO: take out the string being appended to the query
         res.redirect(`https://redirect-server.now.sh/?linkingUri=exp://10.30.27.17:19003/+` +
           querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
+            access_token: 'this-is-access_token' + access_token,
+            refresh_token: 'this-is-refresh_token' + refresh_token
           }));
 
         // we can also pass the token to the browser to make requests from there
