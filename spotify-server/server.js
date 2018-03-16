@@ -116,7 +116,7 @@ app.get('/callback', function(req, res) {
         //   }));
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('https://9b5ea7b7.ngrok.io/callback');
+        res.redirect(`https://redirect-server-dfpzetgkrl.now.sh/?linkingUri=${Constants.linkingUri}`);
 
       } else {
         res.redirect('/#' +

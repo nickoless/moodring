@@ -59,7 +59,7 @@ export default class LoginScreen extends React.Component {
       response_type: 'code',
       client_id: client_id,
       redirect_uri: redirect_uri,
-      // scope: scope,
+      scope: scope,
       state: state
     })
 

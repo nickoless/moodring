@@ -3,6 +3,7 @@ import Expo, { Constants, WebBrowser } from 'expo';
 import React from 'react';
 import { Button, Linking, StyleSheet, Text, View } from 'react-native';
 import qs from 'qs';
+import querystring from 'querystring';
 
 export default class Redirect extends React.Component {
   state = {
@@ -12,7 +13,7 @@ export default class Redirect extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Redirect Example</Text>
+        <Text style={styles.header}>OMFG PLS WORK</Text>
 
         <Button
           onPress={this._openWebBrowserAsync}
@@ -23,6 +24,47 @@ export default class Redirect extends React.Component {
       </View>
     );
   }
+
+  // TODO: STEP 2 - LINK TO SPOTIFY AUTH
+  // ------------------------------------------------------------
+
+  _generateRandomString = function (length) {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  };
+
+
+  //  STEP 3 - spotify should redirect to this url 
+  //  Setup spotify whitelist URL in spotify dev
+  //  *** CHANGE REDIRECT_URI 
+  _getSpotifyAuthURL = () => {
+    const client_id = '817050870e3542749870ff522e26192d';
+    const client_secret = '195579d0f69a477e870fb8974fec7cd9';
+    const redirect_uri = `https://redirect-server.now.sh/callback`;
+
+    var state = this._generateRandomString(16);
+    var scope = 'user-read-private user-read-email';
+
+    var oShit = querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      redirect_uri: redirect_uri,
+      scope: scope,
+      state: state
+    })
+
+    // console.log('https://accounts.spotify.com/authorize?' + oShit);
+    console.log(Constants.linkingUri);
+    
+    return 'https://accounts.spotify.com/authorize?' + oShit;
+  }
+
+  // ------------------------------------------------------------
 
   _handleRedirect = event => {
     WebBrowser.dismissBrowser();
@@ -39,10 +81,16 @@ export default class Redirect extends React.Component {
   };
 
   _openWebBrowserAsync = async () => {
+    const spotifyUrl = this._getSpotifyAuthURL();
+    
     this._addLinkingListener();
     let result = await WebBrowser.openBrowserAsync(
-      `https://redirect-server-dfpzetgkrl.now.sh/?linkingUri=${Constants.linkingUri}`
+      spotifyUrl
     );
+
+    console.log(spotifyUrl);
+    console.log('fuck your mother', typeof spotifyUrl);
+
     this._removeLinkingListener();
     this.setState({ result });
   };
