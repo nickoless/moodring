@@ -142,11 +142,23 @@ export default class HomeScreen extends React.Component {
         let labels = recognizeResponse.data.Labels;
 
         let labelsList = []
+        let garbage =[]
         let labelsPercentage = []
-        labels.slice(0, 5).forEach(function(object) {
-          labelsList.push(object.Name);
-          labelsPercentage.push(object.Confidence);
+        labels.slice(0, 8).forEach(function(object) {
+          if (object.Name === 'Human') {
+            garbage.push(object.Name);
+          } else if (object.Name === 'Person') {
+            garbage.push(object.Name);
+          } else if (object.Name === 'People') {
+            garbage.push(object.Name);
+          } else {
+            labelsList.push(object.Name);
+            labelsPercentage.push(object.Confidence);
+          }
         });
+
+        console.log('---- THIS IS GARBAGE LIST ----')
+        console.log(garbage);
 
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setLabels(labelsList)
@@ -213,7 +225,7 @@ export default class HomeScreen extends React.Component {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQCkTltdh6zs4pnm36E5cV0OkgKmJ9Z_eMEQogs7IX0Fvqjn-Vn0Bn8WnXOo1N0iCOxWoO366rXdXC-JqkkzqVRfBFUicEJFGW7-IAx4WCkd6EV6SCJCzgM8FRVk8IRr56qryiXNog',
+        Authorization: 'Bearer BQCtSRlvrLrF_zGcEFW-oyO_xIypfxKVJVrLXFkDF6P1_DUgi970RAlNa4DDY0jbOMrsOn9Zd27Wo6egYUCowuDA-o41nvG6kQ18I-Xwwn_rEBFl5iqqh7jbY1x5OKk3wVb1vjdapA',
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())

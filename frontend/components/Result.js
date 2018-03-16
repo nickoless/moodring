@@ -26,7 +26,6 @@ export default class Playlist extends React.Component {
     this.props.setScreen('PLAYLIST');
   };
 
-
   _dataReturn = () => {
 
     // EMOTION VARIABLES TOTAL PERCENTAGE

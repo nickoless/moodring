@@ -30,6 +30,8 @@ export default class Playlist extends React.Component {
   };
 
   render() {
+    console.log('-------- THIS IS THE PROPS FROM PLAYLIST -------- ')
+    console.log(this.props)
 
     return (
       <View style={styles.container}>
