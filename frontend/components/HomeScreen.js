@@ -20,7 +20,6 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
-
   // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
@@ -69,6 +68,7 @@ export default class HomeScreen extends React.Component {
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setEmotionList(emotionList);
         this.props.setEmotionPercentage(emotionPercentage);
+        
 
         // SET BACKGROUND COLORS USING PROPS
         if (emotionList[0] === 'HAPPY') {
@@ -85,6 +85,10 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
+        let spotifyResponse = await this.spotifyRequest();
+        let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+        this.props.setPlaylist(playlist)
+
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -96,6 +100,21 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+  async spotifyRequest() {
+    console.log('THIS IS THE PROPS FROM INSIDE THE SPOTIFY REQUEST FUNCTION HERE!')
+    console.log(this.props)
+    console.log(emotionList[0])
+    let apiUrl = `https://api.spotify.com/v1/search?q=${emotionList[0]}&type=playlist&limit=1`
+ 
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer BQD8CEsUS4i3o7_GkMJwblEBEzNqwd12uPiCBc1edfnZ3BNpKdB9SEyw-zui1gkJqKnnWK1yGjKMWBz1OfqpCLTNIbXIM02now_eqTspMebWmt9pDKyxNtPQ6secrG46Jeke8vIkoatWJ6KAmedKBmgy75uD9kn86CE',
+      }      
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }
 
   async recognizeFaceImage(key) {
     let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
@@ -107,20 +126,6 @@ export default class HomeScreen extends React.Component {
     }
     return fetch(apiUrl, options).then(result => result.json());
   }  
-
-  // async spotifyRequest() {
-  //   let apiUrl = 'https://api.spotify.com/v1/search?q=urban&type=playlist&limit=1'
- 
-  //   let options = {
-  //     method: 'GET',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       Authorization: 'Bearer BQD8CEsUS4i3o7_GkMJwblEBEzNqwd12uPiCBc1edfnZ3BNpKdB9SEyw-zui1gkJqKnnWK1yGjKMWBz1OfqpCLTNIbXIM02now_eqTspMebWmt9pDKyxNtPQ6secrG46Jeke8vIkoatWJ6KAmedKBmgy75uD9kn86CE',
-  //     }      
-  //   }
- 
-  //   return fetch(apiUrl, options).then(result => result.json())
-  // }
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 

@@ -38,7 +38,7 @@ export default class Playlist extends React.Component {
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
 
-        <WebView source={{ uri: 'https://open.spotify.com/user/spotify/playlist/37i9dQZF1DWXT8uSSn6PRy' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
 
         <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
           <Text style={styles.moodResultButton}>MOOD RESULTS</Text>

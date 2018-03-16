@@ -31,7 +31,6 @@ export default class App extends React.Component {
       percentage: [],
       labels: [],
       labelsPercentage: [],
-      topEmotion: null,
       face: true,
       age: null,
       backgroundColor: ['#5161B9', '#9C69CC'],
