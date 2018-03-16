@@ -91,6 +91,7 @@ export default class HomeScreen extends React.Component {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
+      console.log('SETTING ERROR');
       this.props.setError(true);
     } finally {
       this.props.setUploading(false);
