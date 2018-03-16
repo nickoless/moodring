@@ -135,9 +135,9 @@ export default class HomeScreen extends React.Component {
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
-        console.log(uploadResponse);
+        // console.log(uploadResponse);
         recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
-        console.log(JSON.stringify(recognizeResponse, null, 2));
+        // console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
 
@@ -165,6 +165,9 @@ export default class HomeScreen extends React.Component {
         this.props.setLabelsPercentage(labelsPercentage)
 
         let spotifyResponse = await this.spotifyRequest(labelsList[0], labelsList[1]);
+        // let rand = 
+        console.log('-----SPOTIFY RETURN LIST--------');
+        console.log(spotifyResponse);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
         this.props.setPlaylist(playlist)
 
@@ -219,18 +222,21 @@ export default class HomeScreen extends React.Component {
   }
 
   async spotifyRequest(input1, input2) {
+
+    // let randomNum = (Math.random() * (49) + 1);
+// 
+    // let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1&offset=${randomNum}`
     let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1`
  
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQCtSRlvrLrF_zGcEFW-oyO_xIypfxKVJVrLXFkDF6P1_DUgi970RAlNa4DDY0jbOMrsOn9Zd27Wo6egYUCowuDA-o41nvG6kQ18I-Xwwn_rEBFl5iqqh7jbY1x5OKk3wVb1vjdapA',
+        Authorization: 'Bearer BQANfnDfGD4ko11czBWWN6d_cQiOnbyBRUsXxXzViaXkSSi6qL1SQaQR9yt4dqMqxovbjFE2ylR5ZQJiYxRLvR4B0mCMg3JpBqPcS7xhXraOyG3fcun1WfbJX2wp5qTQnSdFtJf3zg',
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())
   }
-
 
   render() {
     return (
@@ -242,7 +248,7 @@ export default class HomeScreen extends React.Component {
             <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
           </TouchableOpacity>
           <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
-            <Text>Let's get environ(MENTAL)</Text>
+            <Text style={{color: 'white', fontSize: 20, paddingTop: 30}}>TAP TO SCAN ENVIRONMENT</Text>
           </TouchableOpacity>
         </View>
       </View >
