@@ -85,7 +85,7 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
-        let spotifyResponse = await this.spotifyRequest();
+        let spotifyResponse = await this.spotifyRequest(emotionList[0]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
         this.props.setPlaylist(playlist)
 
@@ -100,17 +100,17 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-  async spotifyRequest() {
+  async spotifyRequest(emotion) {
     console.log('THIS IS THE PROPS FROM INSIDE THE SPOTIFY REQUEST FUNCTION HERE!')
     console.log(this.props)
-    console.log(emotionList[0])
-    let apiUrl = `https://api.spotify.com/v1/search?q=${emotionList[0]}&type=playlist&limit=1`
+    let emotionFind = emotion;
+    let apiUrl = `https://api.spotify.com/v1/search?q=${emotionFind}&type=playlist&limit=1`
  
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQD8CEsUS4i3o7_GkMJwblEBEzNqwd12uPiCBc1edfnZ3BNpKdB9SEyw-zui1gkJqKnnWK1yGjKMWBz1OfqpCLTNIbXIM02now_eqTspMebWmt9pDKyxNtPQ6secrG46Jeke8vIkoatWJ6KAmedKBmgy75uD9kn86CE',
+        Authorization: 'Bearer BQCkTltdh6zs4pnm36E5cV0OkgKmJ9Z_eMEQogs7IX0Fvqjn-Vn0Bn8WnXOo1N0iCOxWoO366rXdXC-JqkkzqVRfBFUicEJFGW7-IAx4WCkd6EV6SCJCzgM8FRVk8IRr56qryiXNog',
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())
