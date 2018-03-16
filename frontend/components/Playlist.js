@@ -34,12 +34,11 @@ export default class Playlist extends React.Component {
     return (
       <View style={styles.container}>
         
-        {/* <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} /> */}
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
 
-        <WebView source={{ uri: 'https://open.spotify.com/embed?uri=spotify%3Aalbum%3A2rp5riHULWgrXPsDtsp1ir' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: 'https://open.spotify.com/user/spotify/playlist/37i9dQZF1DWXT8uSSn6PRy' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
 
         <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
           <Text style={styles.moodResultButton}>MOOD RESULTS</Text>

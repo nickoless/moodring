@@ -63,28 +63,22 @@ export default class HomeScreen extends React.Component {
           emotionPercentage.push(object.Confidence);
         });
 
-        // EMOTION VAIRABLES TO BE PASSED
-        let emotion1 = emotionList[0];
-
-        // MAKES THE TOP EMOTION AVAILABLE FOR PLAYLIST COMPONENT TO CHANGE COLORS
-        this.props.setEmotion(emotion1);
-
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setEmotionList(emotionList);
         this.props.setEmotionPercentage(emotionPercentage);
 
         // SET BACKGROUND COLORS USING PROPS
-        if (emotion1 === 'HAPPY') {
+        if (emotionList[0] === 'HAPPY') {
           this.props.setBackgroundColor(['#5161B9', '#9C69CC']);
-        } else if (emotion1 === 'CALM') {
+        } else if (emotionList[0] === 'CALM') {
           this.props.setBackgroundColor(['#0075D1', '#DBE55D']);
-        } else if (emotion1 === 'SAD') {
+        } else if (emotionList[0] === 'SAD') {
           this.props.setBackgroundColor(['#0053CA', '#5DE5D7']);
-        } else if (emotion1 === 'ANGRY') {
+        } else if (emotionList[0] === 'ANGRY') {
           this.props.setBackgroundColor(['#D10000', '#DBE55D']);
-        } else if (emotion1 === 'SURPRISED') {
+        } else if (emotionList[0] === 'SURPRISED') {
           this.props.setBackgroundColor(['#FF6000', '#D1FF00']);
-        } else if (emotion1 === 'CONFUSED') {
+        } else if (emotionList[0] === 'CONFUSED') {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
