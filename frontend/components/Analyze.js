@@ -12,7 +12,7 @@ import {
   View,
   WebView,
 } from 'react-native';
-import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
+import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 
@@ -28,7 +28,7 @@ export default class Analyze extends React.Component {
       return (
         <View style={styles.imageContainer}>
           <Image source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif' }} style={styles.image} />
-          <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+          <Text style={styles.systemMessage}>ANALYZING</Text>
         </View>
       )
     } else {
@@ -41,11 +41,11 @@ export default class Analyze extends React.Component {
               width={5}
               fill={100}
               tintColor="#00e0ff"
-              backgroundColor="#3d5875" ee/>
+              backgroundColor="#3d5875"/>
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+            <Text style={styles.systemMessage}>ANALYZING</Text>
           </View>
         </View>
       );
@@ -72,7 +72,11 @@ export default class Analyze extends React.Component {
   componentDidMount() {
     this.refs.circularProgress.performLinearAnimation(100, 8000);
     setTimeout(() => {
-      this.props.setScreen('PLAYLIST');
+      if (this.props.error) {
+        this.props.setScreen('ERROR')
+      } else {
+        this.props.setScreen('PLAYLIST');
+      }
     }, 8000);
   }
 }
