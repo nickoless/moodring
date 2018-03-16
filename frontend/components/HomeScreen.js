@@ -31,6 +31,9 @@ export default class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
     this._handleFaceImage(pickerResult);
+    // let spotifyResponse = await this.spotifyRequest();
+    // let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+    // this.props.setPlaylist(playlist)
     this.props.setScreen('ANALYZE');
     this.props.setFace(true);
     console.log('Taking Photo');
@@ -105,6 +108,19 @@ export default class HomeScreen extends React.Component {
     return fetch(apiUrl, options).then(result => result.json());
   }  
 
+  // async spotifyRequest() {
+  //   let apiUrl = 'https://api.spotify.com/v1/search?q=urban&type=playlist&limit=1'
+ 
+  //   let options = {
+  //     method: 'GET',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       Authorization: 'Bearer BQD8CEsUS4i3o7_GkMJwblEBEzNqwd12uPiCBc1edfnZ3BNpKdB9SEyw-zui1gkJqKnnWK1yGjKMWBz1OfqpCLTNIbXIM02now_eqTspMebWmt9pDKyxNtPQ6secrG46Jeke8vIkoatWJ6KAmedKBmgy75uD9kn86CE',
+  //     }      
+  //   }
+ 
+  //   return fetch(apiUrl, options).then(result => result.json())
+  // }
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 
