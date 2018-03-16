@@ -12,7 +12,7 @@ import {
   View,
   WebView,
 } from 'react-native';
-import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
+import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 
@@ -45,7 +45,7 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.systemMessage}>ANALYZING MOOD</Text>
+            <Text style={styles.systemMessage}>ANALYZING</Text>
           </View>
         </View>
       );
