@@ -85,7 +85,7 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
-        let spotifyResponse = await this.spotifyRequest(emotionList[0]);
+        let spotifyResponse = await this.spotifyRequest(emotionList[0], emotionList[1]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
         this.props.setPlaylist(playlist)
 
@@ -99,22 +99,6 @@ export default class HomeScreen extends React.Component {
       this.props.setUploading(false);
     }
   };
-
-  async spotifyRequest(emotion) {
-    console.log('THIS IS THE PROPS FROM INSIDE THE SPOTIFY REQUEST FUNCTION HERE!')
-    console.log(this.props)
-    let emotionFind = emotion;
-    let apiUrl = `https://api.spotify.com/v1/search?q=${emotionFind}&type=playlist&limit=1`
- 
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer BQCkTltdh6zs4pnm36E5cV0OkgKmJ9Z_eMEQogs7IX0Fvqjn-Vn0Bn8WnXOo1N0iCOxWoO366rXdXC-JqkkzqVRfBFUicEJFGW7-IAx4WCkd6EV6SCJCzgM8FRVk8IRr56qryiXNog',
-      }      
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }
 
   async recognizeFaceImage(key) {
     let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
@@ -168,6 +152,10 @@ export default class HomeScreen extends React.Component {
         this.props.setLabels(labelsList)
         this.props.setLabelsPercentage(labelsPercentage)
 
+        let spotifyResponse = await this.spotifyRequest(labelsList[0], labelsList[1]);
+        let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+        this.props.setPlaylist(playlist)
+
       }
     } catch (e) {
       console.log({ uploadResponse });
@@ -216,6 +204,19 @@ export default class HomeScreen extends React.Component {
     return fetch(apiUrl, options).then(result => {
       return result.json();
     });
+  }
+
+  async spotifyRequest(input1, input2) {
+    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&limit=1`
+ 
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer BQCkTltdh6zs4pnm36E5cV0OkgKmJ9Z_eMEQogs7IX0Fvqjn-Vn0Bn8WnXOo1N0iCOxWoO366rXdXC-JqkkzqVRfBFUicEJFGW7-IAx4WCkd6EV6SCJCzgM8FRVk8IRr56qryiXNog',
+      }      
+    }
+    return fetch(apiUrl, options).then(result => result.json())
   }
 
 
