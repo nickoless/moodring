@@ -225,7 +225,7 @@ export default class HomeScreen extends React.Component {
 
     let randomNum = Math.floor(Math.random()*100) + 1;
     console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
-// 
+    
     let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
  
     let options = {
