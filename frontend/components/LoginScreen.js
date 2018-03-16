@@ -63,7 +63,7 @@ export default class LoginScreen extends React.Component {
     const client_id = '817050870e3542749870ff522e26192d';
     const client_secret = '195579d0f69a477e870fb8974fec7cd9';
     // const redirect_uri = `https://9b5ea7b7.ngrok.io/callback`;
-    const redirect_uri = 'https://expo.io/@hvdson/Moodring'
+    const redirect_uri = Expo.Constants.linkingUri;
 
     var state = this._generateRandomString(16);
     var scope = 'user-read-private user-read-email';
@@ -86,18 +86,21 @@ export default class LoginScreen extends React.Component {
       state: state
     })
 
+    // let result = await WebBrowser.openBrowserAsync('https://accounts.spotify.com/authorize?' + oShit);
 
+    WebBrowser.openAuthSessionAsync('https://accounts.spotify.com/authorize?response_type=code&client_id=817050870e3542749870ff522e26192d&redirect_uri=exp%3A%2F%2F10.30.27.17%3A19003%2F%2B&state=mEK93W77ID1AaDxK');
 
-    console.log(`https://accounts.spotify.com/authorize?${oShit}`)
+    // console.log(`https://accounts.spotify.com/authorize?${oShit}`);
+    // console.log(`${Expo.Constants.linkingUri}/redirect`);
 
-    let result = await WebBrowser.openBrowserAsync('https://accounts.spotify.com/authorize?' + oShit);
+    // console.log(result);
 
     // this._addLinkingListener();
     // let result = await WebBrowser.openBrowserAsync('https://accounts.spotify.com/authorize?' + oShit);
     // this._removeLinkingListener();
-    this.setState({
-      result
-    });  
+    // this.setState({
+    //   result
+    // });  
 
 //   _handlePressAsync = async () => {
 //     const client_id = '817050870e3542749870ff522e26192d';

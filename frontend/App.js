@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
-import LoginScreen from './components/LoginScreen.js'
+import LoginScreen from './components/RedirectSandbox.js'
 import HomeScreen from './components/HomeScreen.js'
 import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
