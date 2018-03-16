@@ -41,7 +41,7 @@ export default class Analyze extends React.Component {
               width={5}
               fill={100}
               tintColor="#00e0ff"
-              backgroundColor="#3d5875" ee/>
+              backgroundColor="#3d5875"/>
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
@@ -54,6 +54,8 @@ export default class Analyze extends React.Component {
 
 
   render() {
+    console.log('THIS IS THE PROPS TO READ ERROR ------')
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
@@ -72,7 +74,11 @@ export default class Analyze extends React.Component {
   componentDidMount() {
     this.refs.circularProgress.performLinearAnimation(100, 8000);
     setTimeout(() => {
-      this.props.setScreen('PLAYLIST');
+      if (this.props.error) {
+        this.props.setScreen('ERROR')
+      } else {
+        this.props.setScreen('PLAYLIST');
+      }
     }, 8000);
   }
 }
