@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
+import LoginScreen from './components/Login.js'
 import HomeScreen from './components/HomeScreen.js'
 import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
@@ -24,9 +25,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      token: null,
       image: null,
       uploading: false,
-      screen: 'HOME',
+      screen: 'LOGIN',
       emotions: [],
       percentage: [],
       labels: [],
@@ -43,51 +45,55 @@ export default class App extends React.Component {
   // Helper functions to be passed to props
   // ------------------------------------------------------
   setScreen(screen) {
-    this.setState({screen: screen})
+    this.setState({screen: screen});
   };
 
   setUploading(bool) {
-    this.setState({uploading: bool})
+    this.setState({uploading: bool});
   };
 
   setImage(img) {
-    this.setState({image: img})
+    this.setState({image: img});
   };
 
   setEmotionList(array) {
-    this.setState({emotions: array})
+    this.setState({emotions: array});
   }
 
   setEmotionPercentage(array) {
-    this.setState({percentage: array})
+    this.setState({percentage: array});
   }
 
   setBackgroundColor(array) {
-    this.setState({backgroundColor: array})
+    this.setState({backgroundColor: array});
   }
 
   setLabels(array) {
-    this.setState({labels: array})
+    this.setState({labels: array});
   }
 
   setLabelsPercentage(array) {
-    this.setState({labelsPercentage: array})
+    this.setState({labelsPercentage: array});
   }
 
   setFace(bool) {
-    this.setState({face: bool})
+    this.setState({face: bool});
   }
 
   setAge(num) {
-    this.setState({age: num})
+    this.setState({age: num});
   }
 
   setError(bool) {
-    this.setState({error: bool})
+    this.setState({error: bool});
   }
 
   setPlaylist(url) {
-    this.setState({playlist: url})
+    this.setState({playlist: url});
+  }
+
+  setToken(string) {
+    this.setState({token: string});
   }
 
   // ------------------------------------------------------
@@ -97,10 +103,18 @@ export default class App extends React.Component {
     let { image } = this.state;
 
     // ------------------------------------------------------
+    // STEP 0: LOGIN SCREEN - CURRENTLY SANDBOXING
+    // ------------------------------------------------------
+
+    if (this.state.screen === 'LOGIN') {
+      return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} />)
+    
+
+    // ------------------------------------------------------
     // STEP 1: HOME SCREEN - Take picture using native camera
     // ------------------------------------------------------
-    if (this.state.screen === 'HOME') {
-      return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} setLabels={this.setLabels.bind(this)} setLabelsPercentage={this.setLabelsPercentage.bind(this)} setFace={this.setFace.bind(this)} setAge={this.setAge.bind(this)} setError={this.setError.bind(this)} setPlaylist={this.setPlaylist.bind(this)}/>)
+    } else if (this.state.screen === 'HOME') {
+        return (<HomeScreen {...this.state} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} setLabels={this.setLabels.bind(this)} setLabelsPercentage={this.setLabelsPercentage.bind(this)} setFace={this.setFace.bind(this)} setAge={this.setAge.bind(this)} setError={this.setError.bind(this)} setPlaylist={this.setPlaylist.bind(this)}/>)
 
     // ------------------------------------------------------
     // STEP 2: ANALYZE SCREEN - Take picture using native camera
