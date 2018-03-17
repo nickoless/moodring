@@ -2,7 +2,7 @@
   "name": "moody-frontend",
   "version": "0.0.0",
   "description": "Lighthouse Final Project",
-  "author": "",
+  "author": "Alex Lee, Shaun Macpherson, James Caraang, Nick Lee",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
