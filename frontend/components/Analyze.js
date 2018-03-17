@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import * as Progress from 'react-native-progress';
 
 
 export default class Analyze extends React.Component {
@@ -32,14 +32,8 @@ export default class Analyze extends React.Component {
     } else {
       return (
         <View>
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 0 }}>
-            <AnimatedCircularProgress
-              ref='circularProgress'
-              size={160}
-              width={5}
-              fill={100}
-              tintColor="#00e0ff"
-              backgroundColor="#3d5875"/>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
+              <Progress.CircleSnail color={['#1FBAEB']} size={170} thickness={5} />
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
@@ -67,15 +61,15 @@ export default class Analyze extends React.Component {
   // This is a good place to make AJAX requests or setTimeout.
   // -----------------------------------------------------
 
+  // COMENTED OUT FOR TESTING
   componentDidMount() {
-    this.refs.circularProgress.performLinearAnimation(100, 8000);
-    setTimeout(() => {
-      if (this.props.error) {
-        this.props.setScreen('ERROR')
-      } else {
-        this.props.setScreen('PLAYLIST');
-      }
-    }, 8000);
+    // setTimeout(() => {
+    //   if (this.props.error) {
+    //     this.props.setScreen('ERROR')
+    //   } else {
+    //     this.props.setScreen('PLAYLIST');
+    //   }
+    // }, 8000);
   }
     // if (this.props.error) {
     //   this.props.setScreen('ERROR')
@@ -105,7 +99,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
+    marginTop: 10,
   },
   image: {
     width: 150,
