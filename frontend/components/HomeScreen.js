@@ -194,7 +194,7 @@ export default class HomeScreen extends React.Component {
   // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
+    let apiUrl = 'https://moody.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];

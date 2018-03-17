@@ -77,7 +77,12 @@ export default class Analyze extends React.Component {
       }
     }, 8000);
   }
-}
+    // if (this.props.error) {
+    //   this.props.setScreen('ERROR')
+    // } else {
+    //   this.props.setScreen('PLAYLIST');
+    // }
+  }
 
 const styles = StyleSheet.create({
   container: {
