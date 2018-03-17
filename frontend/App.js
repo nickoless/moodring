@@ -28,7 +28,7 @@ export default class App extends React.Component {
       token: null,
       image: null,
       uploading: false,
-      screen: 'LOGIN',
+      screen: 'HOME',
       emotions: [],
       percentage: [],
       labels: [],
@@ -40,7 +40,7 @@ export default class App extends React.Component {
       playlist: null,
     };
   }
-  
+
   // ------------------------------------------------------
   // Helper functions to be passed to props
   // ------------------------------------------------------
@@ -108,7 +108,7 @@ export default class App extends React.Component {
 
     if (this.state.screen === 'LOGIN') {
       return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} />)
-    
+
 
     // ------------------------------------------------------
     // STEP 1: HOME SCREEN - Take picture using native camera
@@ -133,10 +133,10 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     } else if (this.state.screen === 'RESULTS') {
       return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
-    
+
     // ------------------------------------------------------
     // STEP 5: ERROR SCREEN - If image error occurs
-    // ------------------------------------------------------    
+    // ------------------------------------------------------
     } else if (this.state.screen === 'ERROR') {
       return (<Error {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }

@@ -20,6 +20,10 @@ export default class Playlist extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
+  componentDidMount(){
+    console.log('got to results page');
+  }
+
   // CHANGES STATE TO PLAYLIST SCREEN
   _returnPlaylist = () => {
     this.props.setScreen('PLAYLIST');
@@ -52,7 +56,7 @@ export default class Playlist extends React.Component {
       data.push(Math.round((this.props.percentage[0]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[1]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[2]/emotionTotal) * 100 ));
-  
+
       let pieData = data
           .filter(value => value > 0)
           .map((value, index) => ({
@@ -142,13 +146,13 @@ export default class Playlist extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        
+
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <View style={styles.title}>
           <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
         </View>
-        
+
         {this._dataReturn()}
 
         <TouchableOpacity onPress={this._returnPlaylist}>

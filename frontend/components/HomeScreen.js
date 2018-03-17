@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Button,
   Clipboard,
   Image,
@@ -18,6 +19,16 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { screen: this.props.screen };
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      if (!this.onMainScreen()) {
+        this.goBack();
+        return true;
+      }
+      return false;
+    });
   }
 
   // FACE EMOTION PHOTO
@@ -45,9 +56,9 @@ export default class HomeScreen extends React.Component {
 
         console.log(uploadResponse);
         recognizeResponse = await this.recognizeFaceImage(uploadResponse.key);
-          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));
         console.log(JSON.stringify(recognizeResponse, null, 2));
-        
+
         // AGE DATA
         let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
         this.props.setAge(age);
@@ -65,7 +76,7 @@ export default class HomeScreen extends React.Component {
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setEmotionList(emotionList);
         this.props.setEmotionPercentage(emotionPercentage);
-        
+
 
         // SET BACKGROUND COLORS USING PROPS
         if (emotionList[0] === 'HAPPY') {
@@ -80,7 +91,7 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#FF6000', '#D1FF00']);
         } else if (emotionList[0] === 'CONFUSED') {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
-        } 
+        }
 
         let spotifyResponse = await this.spotifyRequest(emotionList[0], emotionList[1]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
@@ -107,7 +118,7 @@ export default class HomeScreen extends React.Component {
       },
     }
     return fetch(apiUrl, options).then(result => result.json());
-  }  
+  }
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 
@@ -123,7 +134,6 @@ export default class HomeScreen extends React.Component {
     this.props.setFace(false);
     console.log('Taking Photo');
   };
-  
 
   _handleEnvironmentImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse, re;
@@ -134,7 +144,7 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         // console.log(uploadResponse);
-        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);
         // console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
@@ -163,7 +173,7 @@ export default class HomeScreen extends React.Component {
         this.props.setLabelsPercentage(labelsPercentage)
 
         let spotifyResponse = await this.spotifyRequest(labelsList[0], labelsList[1]);
-        // let rand = 
+        // let rand =
         console.log('-----SPOTIFY RETURN LIST--------');
         console.log(spotifyResponse);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
@@ -194,7 +204,7 @@ export default class HomeScreen extends React.Component {
   // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
+    let apiUrl = 'https://moody.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -223,22 +233,22 @@ export default class HomeScreen extends React.Component {
 
     let randomNum = Math.floor(Math.random()*100) + 1;
     console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
-    
+
     let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
- 
+
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${this.props.token}`,
-      }      
+      }
     }
     return fetch(apiUrl, options).then(result => result.json())
   }
 
   render() {
-    console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
-    console.log(this.props)
+    // console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
+    // console.log(this.props)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.container}>
