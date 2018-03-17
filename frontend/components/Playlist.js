@@ -30,19 +30,17 @@ export default class Playlist extends React.Component {
   };
 
   render() {
-
-    console.log('THIS IS THE STATE FROM INSIDE PLAYLIST FOR BACKGROUND COLOUR');
-    console.log(this.props);
+    console.log('-------- THIS IS THE PROPS FROM PLAYLIST -------- ')
+    console.log(this.props)
 
     return (
       <View style={styles.container}>
         
-        {/* <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} /> */}
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
 
-        <WebView source={{ uri: 'https://open.spotify.com/embed?uri=spotify%3Aalbum%3A2rp5riHULWgrXPsDtsp1ir' }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 20, marginBottom: 30, height: 380, width: 300 }} />
 
         <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
           <Text style={styles.moodResultButton}>MOOD RESULTS</Text>
