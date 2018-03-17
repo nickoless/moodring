@@ -4,13 +4,11 @@ import {
   Button,
   Clipboard,
   Image,
-  Share,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  WebView,
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';

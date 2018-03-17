@@ -30,9 +30,6 @@ export default class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
     this._handleFaceImage(pickerResult);
-    // let spotifyResponse = await this.spotifyRequest();
-    // let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
-    // this.props.setPlaylist(playlist)
     this.props.setScreen('ANALYZE');
     this.props.setFace(true);
     console.log('Taking Photo');
@@ -94,6 +91,7 @@ export default class HomeScreen extends React.Component {
       console.log({ uploadResponse });
       console.log({ uploadResult });
       console.log({ e });
+      console.log('SETTING ERROR');
       this.props.setError(true);
     } finally {
       this.props.setUploading(false);
@@ -101,7 +99,7 @@ export default class HomeScreen extends React.Component {
   };
 
   async recognizeFaceImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/face?key=' + key;
+    let apiUrl = 'https://moody.now.sh/recognize/face?key=' + key;
     let options = {
       method: 'GET',
       headers: {
@@ -183,7 +181,7 @@ export default class HomeScreen extends React.Component {
   };
 
    async recognizeEnvironmentImage(key) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/recognize/environment?key=' + key
+    let apiUrl = 'https://moody.now.sh/recognize/environment?key=' + key
     let options = {
       method: 'GET',
       headers: {
@@ -232,13 +230,15 @@ export default class HomeScreen extends React.Component {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer BQA-LQklYPzY52lwmXjLZOYcNTPvZJX7SzMLG8Kz7yFmN-EZL4i7bKfijzvjRJ79tOINfjIA1Q3Q4N-1KlY6TO1xu-F3Hz8pMO2UMPLpAfJi6ed8BTot9J1WMVsv2I-eLAtIaz_tqBBZnJMfR6VhyMbnV1Av',
+        Authorization: `Bearer ${this.props.token}`,
       }      
     }
     return fetch(apiUrl, options).then(result => result.json())
   }
 
   render() {
+    console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
+    console.log(this.props)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.container}>
