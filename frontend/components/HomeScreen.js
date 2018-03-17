@@ -82,7 +82,7 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
         } 
 
-        let spotifyResponse = await this.spotifyRequest(emotionList[0], emotionList[1]);
+        let spotifyResponse = await this.spotifyRequestEmotion(emotionList[0]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
         this.props.setPlaylist(playlist)
 
@@ -135,7 +135,7 @@ export default class HomeScreen extends React.Component {
 
         // console.log(uploadResponse);
         recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
-        // console.log(JSON.stringify(recognizeResponse, null, 2));
+        console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
 
@@ -162,8 +162,9 @@ export default class HomeScreen extends React.Component {
         this.props.setLabels(labelsList)
         this.props.setLabelsPercentage(labelsPercentage)
 
-        let spotifyResponse = await this.spotifyRequest(labelsList[0], labelsList[1]);
-        // let rand = 
+        let spotifyResponse = await this.spotifyRequestLabels(labelsList[0]);
+        console.log('----- LABELS LIST -------')
+        console.log(labelsList);
         console.log('-----SPOTIFY RETURN LIST--------');
         console.log(spotifyResponse);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
@@ -194,7 +195,7 @@ export default class HomeScreen extends React.Component {
   // UPLOAD IMAGE ASYNC FUNCTION USED BY BOTH FACE AND ENVIRONMENT
 
   async uploadImageAsync(uri) {
-    let apiUrl = 'https://moodring-nick-pkcfyzfrhm.now.sh/upload';
+    let apiUrl = 'https://moody.now.sh/upload';
 
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -219,12 +220,33 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  async spotifyRequest(input1, input2) {
+  async spotifyRequestEmotion(emotion) {
 
     let randomNum = Math.floor(Math.random()*100) + 1;
     console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
     
-    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
+    let apiUrl = `https://api.spotify.com/v1/search?q=${emotion}&type=playlist&offset=${randomNum}&limit=1`
+ 
+    let options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${this.props.token}`,
+      }      
+    }
+    return fetch(apiUrl, options).then(result => result.json())
+  }
+
+  async spotifyRequestLabels(input1) {
+
+    let randomNum = Math.floor(Math.random()*100) + 1;
+    console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
+    
+    // TWO INPUT
+    // let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
+
+    // ONE INPUT
+    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}&type=playlist&offset=${randomNum}&limit=1`
  
     let options = {
       method: 'GET',
