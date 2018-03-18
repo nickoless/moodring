@@ -20,6 +20,7 @@ import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
 import Result from './components/Result.js'
 import Error from './components/Error.js'
+import Timeout from './components/Timeout.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class App extends React.Component {
       playlist: null,
     };
   }
-  
+
   // ------------------------------------------------------
   // Helper functions to be passed to props
   // ------------------------------------------------------
@@ -108,7 +109,7 @@ export default class App extends React.Component {
 
     if (this.state.screen === 'LOGIN') {
       return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)}/>)
-    
+
 
     // ------------------------------------------------------
     // STEP 1: HOME SCREEN - Take picture using native camera
@@ -133,12 +134,16 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     } else if (this.state.screen === 'RESULTS') {
       return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
-    
+
     // ------------------------------------------------------
     // STEP 5: ERROR SCREEN - If image error occurs
-    // ------------------------------------------------------    
+    // ------------------------------------------------------
     } else if (this.state.screen === 'ERROR') {
       return (<Error {...this.state} setScreen={this.setScreen.bind(this)}/>)
+
+
+    } else if (this.state.screen === 'TIMEOUT') {
+      return (<Timeout {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
 
   }

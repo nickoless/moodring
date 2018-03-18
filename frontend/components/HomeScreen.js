@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Button,
   Clipboard,
   Image,
@@ -20,6 +21,11 @@ export default class HomeScreen extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+        return true;
+    });
+  }
   // FACE EMOTION PHOTO
 
   _takeFacePhoto = async () => {
@@ -45,9 +51,9 @@ export default class HomeScreen extends React.Component {
 
         console.log(uploadResponse);
         recognizeResponse = await this.recognizeFaceImage(uploadResponse.key);
-          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));         
+          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));
         console.log(JSON.stringify(recognizeResponse, null, 2));
-        
+
         // AGE DATA
         let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
         this.props.setAge(age);
@@ -65,7 +71,7 @@ export default class HomeScreen extends React.Component {
         // SET EMOTION LIST AND PERCENTAGES AVAILABLE FOR PLAYLIST COMPONENT TO RENDER TEXT
         this.props.setEmotionList(emotionList);
         this.props.setEmotionPercentage(emotionPercentage);
-        
+
 
         // SET BACKGROUND COLORS USING PROPS
         if (emotionList[0] === 'HAPPY') {
@@ -80,10 +86,11 @@ export default class HomeScreen extends React.Component {
           this.props.setBackgroundColor(['#FF6000', '#D1FF00']);
         } else if (emotionList[0] === 'CONFUSED') {
           this.props.setBackgroundColor(['#067501', '#00A3E3']);
-        } 
+        }
 
-        let spotifyResponse = await this.spotifyRequestEmotion(emotionList[0]);
+        let spotifyResponse = await this.spotifyRequest(emotionList[0]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
+
         this.props.setPlaylist(playlist)
 
       }
@@ -107,7 +114,7 @@ export default class HomeScreen extends React.Component {
       },
     }
     return fetch(apiUrl, options).then(result => result.json());
-  }  
+  }
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 
@@ -123,7 +130,7 @@ export default class HomeScreen extends React.Component {
     this.props.setFace(false);
     console.log('Taking Photo');
   };
-  
+
 
   _handleEnvironmentImage = async pickerResult => {
     let uploadResponse, uploadResult, recognizeResponse, re;
@@ -134,8 +141,8 @@ export default class HomeScreen extends React.Component {
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
 
         // console.log(uploadResponse);
-        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);   
-        console.log(JSON.stringify(recognizeResponse, null, 2));
+        recognizeResponse = await this.recognizeEnvironmentImage(uploadResponse.key);
+        // console.log(JSON.stringify(recognizeResponse, null, 2));
 
         let labels = recognizeResponse.data.Labels;
 
@@ -162,11 +169,7 @@ export default class HomeScreen extends React.Component {
         this.props.setLabels(labelsList)
         this.props.setLabelsPercentage(labelsPercentage)
 
-        let spotifyResponse = await this.spotifyRequestLabels(labelsList[0]);
-        console.log('----- LABELS LIST -------')
-        console.log(labelsList);
-        console.log('-----SPOTIFY RETURN LIST--------');
-        console.log(spotifyResponse);
+        let spotifyResponse = await this.spotifyRequest(labelsList[0]);
         let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
         this.props.setPlaylist(playlist)
 
@@ -220,40 +223,19 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  async spotifyRequestEmotion(emotion) {
+  async spotifyRequest(input) {
 
     let randomNum = Math.floor(Math.random()*100) + 1;
     console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
-    
-    let apiUrl = `https://api.spotify.com/v1/search?q=${emotion}&type=playlist&offset=${randomNum}&limit=1`
- 
+
+    let apiUrl = `https://api.spotify.com/v1/search?q=${input}&type=playlist&offset=${randomNum}&limit=1`
+
     let options = {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         Authorization: `Bearer ${this.props.token}`,
-      }      
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }
-
-  async spotifyRequestLabels(input1) {
-
-    let randomNum = Math.floor(Math.random()*100) + 1;
-    console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
-    
-    // TWO INPUT
-    // let apiUrl = `https://api.spotify.com/v1/search?q=${input1}%20${input2}&type=playlist&offset=${randomNum}&limit=1`
-
-    // ONE INPUT
-    let apiUrl = `https://api.spotify.com/v1/search?q=${input1}&type=playlist&offset=${randomNum}&limit=1`
- 
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.props.token}`,
-      }      
+      }
     }
     return fetch(apiUrl, options).then(result => result.json())
   }
