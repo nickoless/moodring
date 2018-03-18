@@ -140,12 +140,10 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     } else if (this.state.screen === 'ERROR') {
       return (<Error {...this.state} setScreen={this.setScreen.bind(this)}/>)
-
-
     } else if (this.state.screen === 'TIMEOUT') {
       return (<Timeout {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
-
+    
   }
 }
 

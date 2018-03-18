@@ -55,21 +55,20 @@ export default class Analyze extends React.Component {
   // This is a good place to make AJAX requests or setTimeout.
   // -----------------------------------------------------
 
-  // COMENTED OUT FOR TESTING
   componentDidMount() {
     setTimeout(() => {
       if (this.props.error) {
         this.props.setScreen('ERROR')
+        console.log('IMAGE ERROR - SHOW ERROR PAGE')
+      } else if (!this.props.playlist) {
+        this.props.setScreen('TIMEOUT')
+        console.log('REQUEST TIMED OUT')
       } else {
         this.props.setScreen('PLAYLIST');
+        console.log('ANALYZE PASS - RENDERING PLAYLIST PAGE')
       }
     }, 8000);
   }
-    // if (this.props.error) {
-    //   this.props.setScreen('ERROR')
-    // } else {
-    //   this.props.setScreen('PLAYLIST');
-    // }
 
   }
 
