@@ -23,11 +23,11 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
-      if (!this.onMainScreen()) {
-        this.goBack();
+      // if (!this.onMainScreen()) {
+      //   this.goBack('ERROR');
         return true;
-      }
-      return false;
+      // }
+      // return false;
     });
   }
 
@@ -119,6 +119,10 @@ export default class HomeScreen extends React.Component {
     }
     return fetch(apiUrl, options).then(result => result.json());
   }
+
+
+  //=======================================
+  //=======================================
 
   // PHOTO FOR ENVIRONMENT ANALYSIS
 

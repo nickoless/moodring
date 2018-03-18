@@ -21,7 +21,9 @@ export default class Playlist extends React.Component {
   }
 
   componentDidMount(){
-    console.log('got to results page');
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.setScreen('HOME');
+    });
   }
 
   // CHANGES STATE TO PLAYLIST SCREEN

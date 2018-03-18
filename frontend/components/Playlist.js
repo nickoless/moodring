@@ -21,6 +21,12 @@ export default class Playlist extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.setScreen('HOME');
+    });
+  }
+
   _returnHome = () => {
     this.props.setScreen('HOME');
   };
@@ -35,7 +41,7 @@ export default class Playlist extends React.Component {
 
     return (
       <View style={styles.container}>
-        
+
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
