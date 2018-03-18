@@ -24,7 +24,15 @@ export default class Playlist extends React.Component {
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.props.setScreen('HOME');
+      console.log('--PLAYLIST SCREEN BACK BUTTON HIT--')
+      console.log(this.props)
+      if (this.props.previousPage === 'RESULTS') {
+        console.log('-- PREVIOUS PAGE WAS RESULTS ----')
+        this.props.setPreviousPage('PLAYLIST')
+        return false;
+      } else {
+        this.props.setScreen('HOME')
+      }
     });
   }
 
