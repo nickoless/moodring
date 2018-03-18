@@ -22,8 +22,14 @@ export default class Playlist extends React.Component {
   }
 
   componentDidMount(){
+    console.log('RESULT PAGE MOUNT')
+    console.log(this.props)
     BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('--BACKBUTTON HARD HIT--')
+      console.log(this.props)
       this.props.setScreen('PLAYLIST');
+      console.log('SETTING PREVIOUS PAGE TO: RESULT')
+      this.props.setPreviousPage('RESULTS')
     });
   }
 

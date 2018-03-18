@@ -39,6 +39,7 @@ export default class App extends React.Component {
       backgroundColor: ['#5161B9', '#9C69CC'],
       error: false,
       playlist: null,
+      previousPage: null,
     };
   }
 
@@ -97,6 +98,10 @@ export default class App extends React.Component {
     this.setState({token: string});
   }
 
+  setPreviousPage(string) {
+    this.setState({previousPage: string})
+  }
+
   // ------------------------------------------------------
   // render state
   // ------------------------------------------------------
@@ -127,13 +132,13 @@ export default class App extends React.Component {
     // STEP 3: SPOTIFY SCREEN - After picture was taken
     // ------------------------------------------------------
     } else if (this.state.screen === 'PLAYLIST') {
-      return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)} />)
+      return (<Playlist {...this.state} setScreen={this.setScreen.bind(this)} setPreviousPage={this.setPreviousPage.bind(this)} />)
 
     // ------------------------------------------------------
     // STEP 4: RESULTS SCREEN - Displays results of the analysis
     // ------------------------------------------------------
     } else if (this.state.screen === 'RESULTS') {
-      return (<Result {...this.state} setScreen={this.setScreen.bind(this)}/>)
+      return (<Result {...this.state} setScreen={this.setScreen.bind(this)} setPreviousPage={this.setPreviousPage.bind(this)} />)
 
     // ------------------------------------------------------
     // STEP 5: ERROR SCREEN - If image error occurs
