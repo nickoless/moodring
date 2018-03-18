@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Button,
   Clipboard,
   Image,
@@ -18,6 +19,18 @@ export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = { screen: this.props.screen };
+  }
+
+  componentDidMount(){
+    console.log('RESULT PAGE MOUNT')
+    console.log(this.props)
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('--BACKBUTTON HARD HIT--')
+      console.log(this.props)
+      this.props.setScreen('PLAYLIST');
+      console.log('SETTING PREVIOUS PAGE TO: RESULT')
+      this.props.setPreviousPage('RESULTS')
+    });
   }
 
   // CHANGES STATE TO PLAYLIST SCREEN
@@ -52,7 +65,7 @@ export default class Playlist extends React.Component {
       data.push(Math.round((this.props.percentage[0]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[1]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[2]/emotionTotal) * 100 ));
-  
+
       let pieData = data
           .filter(value => value > 0)
           .map((value, index) => ({
@@ -147,13 +160,13 @@ export default class Playlist extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        
+
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <View style={styles.title}>
           <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
         </View>
-        
+
         {this._dataReturn()}
 
         <TouchableOpacity onPress={this._returnPlaylist}>
