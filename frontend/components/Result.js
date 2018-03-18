@@ -23,7 +23,7 @@ export default class Playlist extends React.Component {
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.props.setScreen('HOME');
+      this.props.setScreen('PLAYLIST');
     });
   }
 
