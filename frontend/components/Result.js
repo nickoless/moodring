@@ -102,11 +102,17 @@ export default class Playlist extends React.Component {
     // RETURN RESULTS FOR LABELS
     } else {
 
-      data.push(Math.round((this.props.labelsPercentage[0]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[1]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[2]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[3]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[4]/labelTotal) * 100));
+      // NEW YEAR NEW ME
+      this.props.labelsPercentage.forEach((label) => {
+        data.push(Math.round((label/labelTotal) * 100))
+      });
+
+      // OLD CODE JIC SHIT HITS THE FAN
+      // data.push(Math.round((this.props.labelsPercentage[0]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[1]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[2]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[3]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[4]/labelTotal) * 100));
 
       let pieData = data
           .filter(value => value > 0)
@@ -130,13 +136,12 @@ export default class Playlist extends React.Component {
               />
           </View>
 
-          <Text style={styles.data}>
-            {this.props.labels[0]} - {data[0]}%{"\n"}{"\n"}
-            {this.props.labels[1]} - {data[1]}%{"\n"}{"\n"}
-            {this.props.labels[2]} - {data[2]}%{"\n"}{"\n"}
-            {this.props.labels[3]} - {data[3]}%{"\n"}{"\n"}
-            {this.props.labels[4]} - {data[4]}%{"\n"}{"\n"}
-          </Text>
+                {this.props.labels.slice(0, 5).map((value, index) => {
+            return(
+              <Text key={index} style={styles.data}>
+                {value} - {data[index]}%
+              </Text>)
+          })}
 
         </View>
         )
