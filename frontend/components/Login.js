@@ -11,20 +11,17 @@ export default class Login extends React.Component {
     redirectData: null,
   };
 
-
-
   render() {
-    console.log(this.state)
-    if (this.state.redirectData) {
-      this._returnHome()
-    }
+    console.log(this.state);
+    
 
     return (
       <View style={styles.container}>
 
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
         <Image style={{ width: 150, height: 100 }}source={require('../assets/logo.png')} />
-        
+        {/* <Image style={{ width: 150, height: 150 }} source={{Logo}}/> */}
+
         <TouchableOpacity onPress={this._openWebBrowserAsync} style={{bottom: 0, borderWidth: 2, backgroundColor: '#2FD465', padding: 10, borderRadius: 100, borderColor: 'transparent'}}>
           <Text style={{color: 'white'}}>LOGIN WITH SPOTIFY</Text>
         </TouchableOpacity>
@@ -32,9 +29,15 @@ export default class Login extends React.Component {
         <TouchableOpacity onPress={this._returnHome} style={{bottom: 0, borderWidth: 2, backgroundColor: '#2FD465', padding: 10, borderRadius: 100, borderColor: 'transparent'}}>
           <Text style={{color: 'white'}}>BUTTON FOR TESTING</Text>
         </TouchableOpacity>
-        
+
       </View>
     );
+  }
+
+  componentDidMount() {
+    if (this.state.redirectData) {
+      this._returnHome()
+    }
   }
 
   // STEP 2 - LINK TO SPOTIFY AUTH
@@ -51,7 +54,7 @@ export default class Login extends React.Component {
   };
 
 
-  //  STEP 3 - spotify should redirect to this url 
+  //  STEP 3 - spotify should redirect to this url
   //  Setup spotify whitelist URL in spotify dev
   _getSpotifyAuthURL = () => {
     const client_id = '817050870e3542749870ff522e26192d';
@@ -101,7 +104,7 @@ export default class Login extends React.Component {
 
   _openWebBrowserAsync = async () => {
     const spotifyUrl = this._getSpotifyAuthURL();
-    
+
     this._addLinkingListener();
     let result = await WebBrowser.openBrowserAsync(
       spotifyUrl
@@ -111,7 +114,6 @@ export default class Login extends React.Component {
     console.log('fuck your mother', typeof spotifyUrl);
 
     this._removeLinkingListener();
-    this.setState({ result });
   };
 
   _addLinkingListener = () => {

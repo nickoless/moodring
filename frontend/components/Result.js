@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Button,
   Clipboard,
   Image,
@@ -18,6 +19,18 @@ export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = { screen: this.props.screen };
+  }
+
+  componentDidMount(){
+    console.log('RESULT PAGE MOUNT')
+    console.log(this.props)
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('--BACKBUTTON HARD HIT--')
+      console.log(this.props)
+      this.props.setScreen('PLAYLIST');
+      console.log('SETTING PREVIOUS PAGE TO: RESULT')
+      this.props.setPreviousPage('RESULTS')
+    });
   }
 
   // CHANGES STATE TO PLAYLIST SCREEN
@@ -52,7 +65,7 @@ export default class Playlist extends React.Component {
       data.push(Math.round((this.props.percentage[0]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[1]/emotionTotal) * 100 ));
       data.push(Math.round((this.props.percentage[2]/emotionTotal) * 100 ));
-  
+
       let pieData = data
           .filter(value => value > 0)
           .map((value, index) => ({
@@ -89,11 +102,17 @@ export default class Playlist extends React.Component {
     // RETURN RESULTS FOR LABELS
     } else {
 
-      data.push(Math.round((this.props.labelsPercentage[0]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[1]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[2]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[3]/labelTotal) * 100));
-      data.push(Math.round((this.props.labelsPercentage[4]/labelTotal) * 100));
+      // NEW YEAR NEW ME
+      this.props.labelsPercentage.forEach((label) => {
+        data.push(Math.round((label/labelTotal) * 100))
+      });
+
+      // OLD CODE JIC SHIT HITS THE FAN
+      // data.push(Math.round((this.props.labelsPercentage[0]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[1]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[2]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[3]/labelTotal) * 100));
+      // data.push(Math.round((this.props.labelsPercentage[4]/labelTotal) * 100));
 
       let pieData = data
           .filter(value => value > 0)
@@ -117,13 +136,12 @@ export default class Playlist extends React.Component {
               />
           </View>
 
-          <Text style={styles.data}>
-            {this.props.labels[0]} - {data[0]}%{"\n"}{"\n"}
-            {this.props.labels[1]} - {data[1]}%{"\n"}{"\n"}
-            {this.props.labels[2]} - {data[2]}%{"\n"}{"\n"}
-            {this.props.labels[3]} - {data[3]}%{"\n"}{"\n"}
-            {this.props.labels[4]} - {data[4]}%{"\n"}{"\n"}
-          </Text>
+                {this.props.labels.slice(0, 5).map((value, index) => {
+            return(
+              <Text key={index} style={styles.data}>
+                {value} - {data[index]}%
+              </Text>)
+          })}
 
         </View>
         )
@@ -142,13 +160,13 @@ export default class Playlist extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        
+
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <View style={styles.title}>
           <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
         </View>
-        
+
         {this._dataReturn()}
 
         <TouchableOpacity onPress={this._returnPlaylist}>

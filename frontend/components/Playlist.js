@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Button,
   Clipboard,
   Image,
@@ -21,6 +22,20 @@ export default class Playlist extends React.Component {
     this.state = { screen: this.props.screen };
   }
 
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('--PLAYLIST SCREEN BACK BUTTON HIT--')
+      console.log(this.props)
+      if (this.props.previousPage === 'RESULTS') {
+        console.log('-- PREVIOUS PAGE WAS RESULTS ----')
+        this.props.setPreviousPage('PLAYLIST')
+        return false;
+      } else {
+        this.props.setScreen('HOME')
+      }
+    });
+  }
+
   _returnHome = () => {
     this.props.setScreen('HOME');
   };
@@ -35,7 +50,7 @@ export default class Playlist extends React.Component {
 
     return (
       <View style={styles.container}>
-        
+
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <Text style={{ marginTop: 30, color: 'white', fontSize: 20, padding: 10 }}>YOUR CUSTOM PLAYLIST</Text>
