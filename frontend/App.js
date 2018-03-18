@@ -20,6 +20,7 @@ import Analyze from './components/Analyze.js'
 import Playlist from './components/Playlist.js'
 import Result from './components/Result.js'
 import Error from './components/Error.js'
+import Timeout from './components/Timeout.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -107,7 +108,7 @@ export default class App extends React.Component {
     // ------------------------------------------------------
 
     if (this.state.screen === 'LOGIN') {
-      return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} setUploading={this.setUploading.bind(this)} setImage={this.setImage.bind(this)} setEmotionList={this.setEmotionList.bind(this)} setEmotionPercentage={this.setEmotionPercentage.bind(this)} setBackgroundColor={this.setBackgroundColor.bind(this)} />)
+      return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)}/>)
     
 
     // ------------------------------------------------------
@@ -139,8 +140,12 @@ export default class App extends React.Component {
     // ------------------------------------------------------    
     } else if (this.state.screen === 'ERROR') {
       return (<Error {...this.state} setScreen={this.setScreen.bind(this)}/>)
+    
+    
+    } else if (this.state.screen === 'TIMEOUT') {
+      return (<Timeout {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
-
+    
   }
 }
 
