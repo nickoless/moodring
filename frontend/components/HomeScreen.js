@@ -247,58 +247,27 @@ export default class HomeScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={styles.container}>
           <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
+
           <TouchableOpacity onPress={this._takeFacePhoto}>
-            <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>
-            <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
+            <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>  
           </TouchableOpacity>
+
           <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
             <Text style={{color: 'white', fontSize: 20, paddingTop: 30}}>TAP TO SCAN ENVIRONMENT</Text>
           </TouchableOpacity>
+
         </View>
       </View >
     );
   }
 }
 
+{/* <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} /> */}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  }, triangleCorner: {
-    position: 'absolute',
-    top: 105,
-    left: 0,
-    width: 300,
-    height: 100,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 50,
-    borderTopWidth: 80,
-    borderRightColor: 'transparent',
-    borderTopColor: 'gray'
-  }, triangleCorner1: {
-    position: 'absolute',
-    top: 100,
-    left: 0,
-    width: 130,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 50,
-    borderTopWidth: 90,
-    borderRightColor: 'transparent',
-    borderTopColor: 'green'
-  }, triangleCornerLayer: {
-    position: 'absolute',
-    top: 107,
-    left: 0,
-    width: 297,
-    height: 100,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderRightWidth: 47,
-    borderTopWidth: 75,
-    borderRightColor: 'transparent',
-    borderTopColor: 'white'
   }
 });
