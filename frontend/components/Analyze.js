@@ -9,10 +9,13 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import * as Progress from 'react-native-progress';
 import * as Animatable from 'react-native-animatable';
+
+import Background from '../assets/analyzeBackground.gif';
 
 
 export default class Analyze extends React.Component {
@@ -45,7 +48,7 @@ export default class Analyze extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
+        <Image source={Background} style={{ position: 'absolute', height: Dimensions.get('window').height, width: Dimensions.get('window').width}}/>
         <TouchableOpacity>
           {this._maybeRenderImage()}
         </TouchableOpacity>
