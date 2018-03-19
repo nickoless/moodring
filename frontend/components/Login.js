@@ -1,10 +1,26 @@
 
 import Expo, { Constants, WebBrowser, LinearGradient } from 'expo';
 import React from 'react';
-import { Button, Linking, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import {
+  Button,
+  Image,
+  ImageBackground,
+  Linking,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from 'react-native';
 import qs from 'qs';
 import querystring from 'querystring';
-// import Logo from '../assets/logo.png'
+import TitleImage from '../assets/Moody_title.png';
+import LoginSpotify from '../assets/login-spotify.png';
+import OutRun from '../assets/outrun.gif';
+import * as Animatable from 'react-native-animatable';
+
+const Dimensions = require('Dimensions');
+const { width, height } = Dimensions.get('window');
 
 export default class Login extends React.Component {
   state = {
@@ -13,23 +29,15 @@ export default class Login extends React.Component {
 
   render() {
     console.log(this.state);
-    
+
 
     return (
       <View style={styles.container}>
-
-        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
-        <Image style={{ width: 150, height: 100 }}source={require('../assets/logo.png')} />
-        {/* <Image style={{ width: 150, height: 150 }} source={{Logo}}/> */}
-
-        <TouchableOpacity onPress={this._openWebBrowserAsync} style={{bottom: 0, borderWidth: 2, backgroundColor: '#2FD465', padding: 10, borderRadius: 100, borderColor: 'transparent'}}>
-          <Text style={{color: 'white'}}>LOGIN WITH SPOTIFY</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={this._returnHome} style={{bottom: 0, borderWidth: 2, backgroundColor: '#2FD465', padding: 10, borderRadius: 100, borderColor: 'transparent'}}>
-          <Text style={{color: 'white'}}>BUTTON FOR TESTING</Text>
-        </TouchableOpacity>
-
+        <StatusBar hidden={true} />
+        <Animatable.Image animation="zoomInDown" duration={5000} style={ styles.title } source={TitleImage} />
+        <ImageBackground style={{ flex: 1, height: 360, width: 360, position: 'absolute', bottom: 0 }} source={OutRun} ></ImageBackground>
+        <Animatable.Image animation="fadeIn" delay={3500} duration={3000} style={styles.tap} onPress={this._openWebBrowserAsync} source={LoginSpotify} />
+        <TouchableOpacity onPress={this._openWebBrowserAsync} style={{ backgroundColor: 'white', width: width, height: height, opacity: 0 }} />
       </View>
     );
   }
@@ -129,15 +137,24 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#2A00FF',
     alignItems: 'center',
-    paddingBottom: 40,
     justifyContent: 'center',
   },
   header: {
     fontSize: 25,
     marginBottom: 25,
     color: 'white',
+  },
+  tap: {
+    flex: 1,
+    marginTop: 50,
+    position: 'absolute',
+    top: 270,
+  },
+  title: {
+    flex: 1,
+    top: 150,
+    position: 'absolute',
   },
 });
