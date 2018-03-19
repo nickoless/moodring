@@ -79,7 +79,7 @@ export default class Playlist extends React.Component {
 
       _parsedData = () => {
         return (
-        <View>
+        <View style={styles.container}>
 
           <View style={styles.chart}>
               <PieChart
@@ -107,13 +107,6 @@ export default class Playlist extends React.Component {
         data.push(Math.round((label/labelTotal) * 100))
       });
 
-      // OLD CODE JIC SHIT HITS THE FAN
-      // data.push(Math.round((this.props.labelsPercentage[0]/labelTotal) * 100));
-      // data.push(Math.round((this.props.labelsPercentage[1]/labelTotal) * 100));
-      // data.push(Math.round((this.props.labelsPercentage[2]/labelTotal) * 100));
-      // data.push(Math.round((this.props.labelsPercentage[3]/labelTotal) * 100));
-      // data.push(Math.round((this.props.labelsPercentage[4]/labelTotal) * 100));
-
       let pieData = data
           .filter(value => value > 0)
           .map((value, index) => ({
@@ -127,7 +120,7 @@ export default class Playlist extends React.Component {
 
       _parsedData = () => {
         return (
-        <View>
+        <View style={styles.container}>
 
           <View style={styles.chart}>
               <PieChart
@@ -164,10 +157,9 @@ export default class Playlist extends React.Component {
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
         <View style={styles.title}>
-          <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>MOOD RESULTS</Text>
+          <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>RESULTS</Text>
+          {this._dataReturn()}
         </View>
-
-        {this._dataReturn()}
 
         <TouchableOpacity onPress={this._returnPlaylist}>
           <Text style={styles.button}>BACK TO PLAYLIST</Text>
@@ -189,6 +181,9 @@ const styles = StyleSheet.create({
     top: 50,
     paddingHorizontal: 10,
     paddingVertical: 10,
+  },
+  results: {
+
   },
   chart: {
     justifyContent: 'center',
