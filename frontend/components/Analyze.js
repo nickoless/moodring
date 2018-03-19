@@ -31,7 +31,7 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.systemMessage}>ANALYZING</Text>
+            <Text style={styles.systemMessage}>ANALYZING PICTURE</Text>
           </View>
         </View>
       );
