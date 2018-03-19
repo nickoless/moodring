@@ -16,6 +16,7 @@ import * as Progress from 'react-native-progress';
 import * as Animatable from 'react-native-animatable';
 
 import Background from '../assets/analyzeBackground.gif';
+import AnalyzingText from '../assets/analyzingText.png';
 
 
 export default class Analyze extends React.Component {
@@ -26,7 +27,6 @@ export default class Analyze extends React.Component {
   _maybeRenderImage = () => {
 
     let { image } = this.props;
-    let analyzeText = 'ANLYZING PICTURE';
     if (!image) {
       this.setScreen('ERROR');
     } else {
@@ -37,7 +37,7 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>{analyzeText}</Animatable.Text>
+            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>ANLYZING PICTURE</Animatable.Text>
           </View>
         </View>
       );
