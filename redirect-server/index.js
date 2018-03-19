@@ -76,7 +76,10 @@ app.get('/callback', function (req, res) {
 
         // we can also pass the token to the browser to make requests from there
         // TODO: take out the string being appended to the query
-        res.redirect(`https://redirect-server.now.sh/?linkingUri=exp://10.30.27.27:19000/+` +
+        // FIXME: CHANGE res.redirect to alex's computer @ spotify and index.html
+        // res.redirect(`https://redirect-server.now.sh/?linkingUri=exp://10.30.27.27:19000/+` +
+
+        res.redirect(`https://redirect-server.now.sh/?linkingUri=exp://192.168.0.18:19000/+` +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -84,7 +87,6 @@ app.get('/callback', function (req, res) {
 
         // we can also pass the token to the browser to make requests from there
         
-
       } else {
         res.redirect('/#' +
           querystring.stringify({
