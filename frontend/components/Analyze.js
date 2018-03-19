@@ -76,12 +76,6 @@ export default class Analyze extends React.Component {
         console.log('ANALYZE PASS - RENDERING PLAYLIST PAGE')
       }
     }, 8000);
-
-    // RENDER "CREATING PLAYLIST" TEXT
-    // setTimeout(() => {
-    //   let analyzeText = 'FINDING PLAYLIST'
-    // }, 4000);
-
   }
 
   }
