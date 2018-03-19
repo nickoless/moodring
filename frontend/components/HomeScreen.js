@@ -244,18 +244,20 @@ export default class HomeScreen extends React.Component {
     console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
     console.log(this.props)
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <View style={styles.container}>
-          <LinearGradient colors={['#5161B9', '#9C69CC']} style={{ position: 'absolute', height: 900, width: 400 }} />
-          <TouchableOpacity onPress={this._takeFacePhoto}>
-            <Text style={{color: 'white', fontSize: 20, justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>TAP TO BEGIN</Text>
-            <Image style={{ width: 150, height: 150 }} source={{ uri: 'https://78.media.tumblr.com/48a0d13c52b402e976bc5d4416552671/tumblr_onew3c4x8a1vxu8n6o1_500.gif' }} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
-            <Text style={{color: 'white', fontSize: 20, paddingTop: 30}}>TAP TO SCAN ENVIRONMENT</Text>
-          </TouchableOpacity>
-        </View>
-      </View >
+      <View style={styles.container}>
+      <View style={styles.top}>
+        <TouchableOpacity onPress={this._takeFacePhoto}>
+          <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
+          <Text style={styles.homeText}>e m o t i o n a l</Text>
+        </TouchableOpacity> 
+      </View>
+      <View style={styles.bottom}>
+        <Image style={{ width: 140, height: 140 }} source={require('../assets/coin.gif')} />
+        <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
+          <Text style={styles.homeText}>e n v i r o n m e n t a l</Text>
+        </TouchableOpacity>
+      </View>
+    </View >
     );
   }
 }
@@ -263,7 +265,23 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  top: {
+    flex: 1,
+    backgroundColor: 'powderblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottom: {
+    flex: 1,
+    backgroundColor: 'mediumorchid',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  homeText: {
+    color: 'white',
+    fontSize: 20,
+    paddingTop: 30,
+    textAlign: 'center',
+  }
 });
