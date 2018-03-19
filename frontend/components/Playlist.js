@@ -53,7 +53,7 @@ export default class Playlist extends React.Component {
 
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
-        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 30, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 50, marginBottom: 30, height: 380, width: 300 }} />
 
         <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
           <Text style={styles.moodResultButton}>MOOD RESULTS</Text>
