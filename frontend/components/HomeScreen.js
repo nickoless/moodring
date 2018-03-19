@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
   WebView,
+  Animated,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 
@@ -246,18 +247,16 @@ export default class HomeScreen extends React.Component {
     return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      <View style={styles.top}>
-        <TouchableOpacity onPress={this._takeFacePhoto}>
+
+      <TouchableOpacity onPress={this._takeFacePhoto} style={styles.top}>
           <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
-        </TouchableOpacity>
-        <Text style={styles.homeText}>e m o t i o n a l</Text>         
-      </View>
-      <View style={styles.bottom}>
-        <TouchableOpacity onPress={this._takeEnvironmentPhoto}>
+          <Text style={styles.homeText}>e m o t i o n a l</Text>                     
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={this._takeEnvironmentPhoto} style={styles.bottom}>        
           <Image style={{ width: 140, height: 140 }} source={require('../assets/coin.gif')} />
-        </TouchableOpacity>
-        <Text style={styles.homeText}>e n v i r o n m e n t a l</Text>
-      </View>
+          <Text style={styles.homeText}>e n v i r o n m e n t a l</Text>
+      </TouchableOpacity>
     </View >
     );
   }

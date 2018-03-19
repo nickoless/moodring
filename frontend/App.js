@@ -115,7 +115,6 @@ export default class App extends React.Component {
     if (this.state.screen === 'LOGIN') {
       return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)}/>)
 
-
     // ------------------------------------------------------
     // STEP 1: HOME SCREEN - Take picture using native camera
     // ------------------------------------------------------
@@ -145,10 +144,14 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     } else if (this.state.screen === 'ERROR') {
       return (<Error {...this.state} setScreen={this.setScreen.bind(this)}/>)
+
+    // ------------------------------------------------------
+    // STEP 6: TIMEOUT SCREEN - If spotify does not return playlist within 8 seconds
+    // ------------------------------------------------------
     } else if (this.state.screen === 'TIMEOUT') {
       return (<Timeout {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
-    
+
   }
 }
 
