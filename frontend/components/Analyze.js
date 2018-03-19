@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import * as Progress from 'react-native-progress';
+import * as Animatable from 'react-native-animatable';
 
 
 export default class Analyze extends React.Component {
@@ -20,7 +21,9 @@ export default class Analyze extends React.Component {
   }
 
   _maybeRenderImage = () => {
+
     let { image } = this.props;
+    let analyzeText = 'ANLYZING PICTURE';
     if (!image) {
       this.setScreen('ERROR');
     } else {
@@ -31,7 +34,8 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Text style={styles.systemMessage}>ANALYZING PICTURE</Text>
+            {/* <Text style={styles.systemMessage}>{analyzeText}</Text> */}
+            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={2000} style={styles.systemMessage}>{analyzeText}</Animatable.Text>
           </View>
         </View>
       );
@@ -56,6 +60,8 @@ export default class Analyze extends React.Component {
   // -----------------------------------------------------
 
   componentDidMount() {
+
+    // CHANGE SCREEN STATE LOGIC
     setTimeout(() => {
       if (this.props.error) {
         this.props.setScreen('ERROR')
@@ -68,6 +74,12 @@ export default class Analyze extends React.Component {
         console.log('ANALYZE PASS - RENDERING PLAYLIST PAGE')
       }
     }, 8000);
+
+    // RENDER "CREATING PLAYLIST" TEXT
+    // setTimeout(() => {
+    //   let analyzeText = 'FINDING PLAYLIST'
+    // }, 4000);
+
   }
 
   }
