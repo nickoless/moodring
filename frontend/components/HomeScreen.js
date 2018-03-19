@@ -247,19 +247,15 @@ export default class HomeScreen extends React.Component {
     return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      
+
       <TouchableOpacity onPress={this._takeFacePhoto} style={styles.top}>
-        
           <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
-          <Text style={styles.homeText}>e m o t i o n a l</Text>             
-        
+          <Text style={styles.homeText}>e m o t i o n a l</Text>                     
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={this._takeEnvironmentPhoto} style={styles.bottom}>
-        
+      <TouchableOpacity onPress={this._takeEnvironmentPhoto} style={styles.bottom}>        
           <Image style={{ width: 140, height: 140 }} source={require('../assets/coin.gif')} />
           <Text style={styles.homeText}>e n v i r o n m e n t a l</Text>
-        
       </TouchableOpacity>
     </View >
     );
