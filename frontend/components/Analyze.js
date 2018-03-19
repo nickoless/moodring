@@ -34,7 +34,7 @@ export default class Analyze extends React.Component {
           </View>
           <View style={styles.imageContainer}>
             <Image source={{ uri: image }} style={styles.image} />
-            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={1500} style={styles.systemMessage}>{analyzeText}</Animatable.Text>
+            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>{analyzeText}</Animatable.Text>
           </View>
         </View>
       );
