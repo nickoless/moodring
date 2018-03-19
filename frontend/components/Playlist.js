@@ -12,14 +12,19 @@ import {
   TouchableOpacity,
   View,
   WebView,
+  Modal,
+  TouchableHighlight,
+  Dimensions,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
 
+import Result from './Result.js'
+
 export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { screen: this.props.screen };
+    this.state = { modalVisible: false };
   }
 
   componentDidMount(){
@@ -41,8 +46,12 @@ export default class Playlist extends React.Component {
   };
 
   _showResults = () => {
-    this.props.setScreen('RESULTS')
+    this.props.setScreen('RESULTS');
   };
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
   render() {
     console.log('-------- THIS IS THE PROPS FROM PLAYLIST -------- ')
@@ -55,8 +64,35 @@ export default class Playlist extends React.Component {
 
         <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 50, marginBottom: 30, height: 380, width: 300 }} />
 
-        <TouchableOpacity onPress={this._showResults} style={{ paddingBottom: 20 }}>
-          <Text style={styles.moodResultButton}>MOOD RESULTS</Text>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}>
+          <View style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            }}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+                style={{height: Dimensions.get('window').height, width: Dimensions.get('window').width,}}>
+                <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />  
+                <Result {...this.props}/>
+                <Text style={styles.tapToClose}>TAP TO CLOSE</Text>
+              </TouchableOpacity>
+
+          </View>
+        </Modal>
+
+        <TouchableOpacity
+          onPress={() => {
+            this.setModalVisible(true);
+          }} style={{ paddingBottom: 20 }}>
+          <Text style={styles.moodResultButton}>VIEW RESULTS</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._returnHome}>
@@ -90,5 +126,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
     marginBottom: 30,
+  },
+  tapToClose: {
+    fontSize: 25,
+    marginBottom: 50,
+    color: 'white',
+    textAlign: 'center',
   }
 });
