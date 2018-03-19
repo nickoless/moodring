@@ -1,10 +1,27 @@
 
 import Expo, { Constants, WebBrowser, LinearGradient } from 'expo';
 import React from 'react';
-import { Button, Linking, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import {
+  Button,
+  Image,
+  ImageBackground,
+  Linking,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image
+} from 'react-native';
 import qs from 'qs';
 import querystring from 'querystring';
-// import Logo from '../assets/logo.png'
+import TitleImage from './assets/images/Moody_title.png';
+import LoginSpotify from './assets/images/login-spotify.png';
+import OutRun from './assets/images/outrun.gif';
+import * as Animatable from 'react-native-animatable';
+
+const Dimensions = require('Dimensions');
+const { width, height } = Dimensions.get('window');
 
 export default class Login extends React.Component {
   state = {
@@ -13,7 +30,7 @@ export default class Login extends React.Component {
 
   render() {
     console.log(this.state);
-    
+
 
     return (
       <View style={styles.container}>

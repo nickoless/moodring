@@ -29,7 +29,7 @@ export default class App extends React.Component {
       token: null,
       image: null,
       uploading: false,
-      screen: 'TIMEOUT',
+      screen: 'LOGIN',
       emotions: [],
       percentage: [],
       labels: [],
@@ -148,7 +148,7 @@ export default class App extends React.Component {
     } else if (this.state.screen === 'TIMEOUT') {
       return (<Timeout {...this.state} setScreen={this.setScreen.bind(this)}/>)
     }
-    
+
   }
 }
 
