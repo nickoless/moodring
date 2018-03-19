@@ -244,7 +244,8 @@ export default class HomeScreen extends React.Component {
     console.log('-------- THIS IS PROPS AFTER SPOTIFY LOGIN TOKEN ------')
     console.log(this.props)
     return (
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <StatusBar hidden={true} />
       <View style={styles.top}>
         <TouchableOpacity onPress={this._takeFacePhoto}>
           <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
