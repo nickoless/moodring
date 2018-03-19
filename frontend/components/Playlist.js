@@ -68,21 +68,24 @@ export default class Playlist extends React.Component {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
+            // alert('Modal has been closed.');
+            this.setModalVisible(!this.state.modalVisible);
           }}>
-          <View >
+          {/* <View style={styles.container}> */}
+          <View style={{
+            // flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            }}>
           <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
-            
-            <View>
-              <Result {...this.props}/>
-
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}>
-                <Text style={{fontSize: 20, color: 'white'}}>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
+                <Result {...this.props}/>
+                <Text style={styles.tapToClose}>TAP TO CLOSE</Text>
+              </TouchableOpacity>
+
           </View>
         </Modal>
 
@@ -90,7 +93,7 @@ export default class Playlist extends React.Component {
           onPress={() => {
             this.setModalVisible(true);
           }} style={{ paddingBottom: 20 }}>
-          <Text style={styles.moodResultButton}>Show Modal</Text>
+          <Text style={styles.moodResultButton}>VIEW RESULTS</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._returnHome}>
@@ -124,5 +127,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
     marginBottom: 30,
+  },
+  tapToClose: {
+    fontSize: 25,
+    bottom: 50,
+    color: 'white',
+    textAlign: 'center',
   }
 });

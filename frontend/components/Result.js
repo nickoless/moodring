@@ -154,16 +154,14 @@ export default class Playlist extends React.Component {
     return (
       <View style={styles.container}>
 
-        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 
-        <View style={styles.title}>
-          <Text style={{ color: 'white', justifyContent: 'center', textAlign: 'center', fontSize: 30 }}>RESULTS</Text>
+        <View >
+          <Text style={styles.title}>RESULTS</Text>
           {this._dataReturn()}
+          <Text>TAP TO CLOSE</Text>
         </View>
 
-        <TouchableOpacity onPress={this._returnPlaylist}>
-          <Text style={styles.button}>BACK TO PLAYLIST</Text>
-        </TouchableOpacity>
+
 
       </View>
     );
@@ -174,20 +172,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     flexDirection: 'column',
   },
   title: {
-    top: 50,
+    top: 30,
     paddingHorizontal: 10,
     paddingVertical: 10,
-  },
-  results: {
-
+    color: 'white',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 30,
   },
   chart: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    marginTop: 40,
   },
   data: {
     color: 'white',
@@ -203,5 +203,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 20,
     marginBottom: 30,
+    zIndex: 100,
   }
 });
