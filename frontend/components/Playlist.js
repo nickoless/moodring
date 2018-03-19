@@ -14,6 +14,7 @@ import {
   WebView,
   Modal,
   TouchableHighlight,
+  Dimensions,
 } from 'react-native';
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
@@ -68,20 +69,18 @@ export default class Playlist extends React.Component {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            // alert('Modal has been closed.');
             this.setModalVisible(!this.state.modalVisible);
           }}>
-          {/* <View style={styles.container}> */}
           <View style={{
-            // flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
             }}>
-          <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
               <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
-                }}>
+                }}
+                style={{height: Dimensions.get('window').height, width: Dimensions.get('window').width,}}>
+                <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />  
                 <Result {...this.props}/>
                 <Text style={styles.tapToClose}>TAP TO CLOSE</Text>
               </TouchableOpacity>
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
   },
   tapToClose: {
     fontSize: 25,
-    bottom: 50,
+    marginBottom: 50,
     color: 'white',
     textAlign: 'center',
   }

@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'space-between',
     flexDirection: 'column',
   },
   title: {
@@ -185,8 +184,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   chart: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
     marginTop: 40,
   },
   data: {
