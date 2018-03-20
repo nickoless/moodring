@@ -97,7 +97,7 @@ export default class Playlist extends React.Component {
                 style={{height: height, width: width,}}>
                 <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} />  
                 <Result {...this.props}/>
-                <Image source={TapToCloseText} style={{height: 50, width: 250, marginBottom: 50, alignSelf: 'center'}} />
+                <Image source={TapToCloseText} style={styles.tapToClose} />
               </TouchableOpacity>
 
           </View>
@@ -129,22 +129,15 @@ const styles = StyleSheet.create({
     height: 30,
     width: 150,
   },
-  moodResultButton: {
-    color: 'white',
-    fontSize: 15,
-    borderWidth: 1,
-    borderColor: 'white',
-    textAlign: 'center',
-  },
   startOver: {
     marginBottom: 30,
     height: 30,
     width: 200,
   },
   tapToClose: {
-    fontSize: 25,
+    height: 50,
+    width: 250,
     marginBottom: 50,
-    color: 'white',
-    textAlign: 'center',
+    alignSelf: 'center',
   }
 });
