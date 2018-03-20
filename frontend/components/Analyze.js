@@ -18,9 +18,7 @@ import * as Animatable from 'react-native-animatable';
 import Background from '../assets/analyzeBackground.gif';
 import AnalyzingText from '../assets/analyzingText.png';
 
-let height = Dimensions.get('window').height;
-let width = Dimensions.get('window').width;
-
+const { width, height } = Dimensions.get('window');
 
 export default class Analyze extends React.Component {
   constructor(props) {
