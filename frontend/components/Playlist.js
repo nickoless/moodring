@@ -23,10 +23,13 @@ import { PieChart } from 'react-native-svg-charts';
 import Background from '../assets/playlist.gif';
 
 // IMPORT START OVER TEXT IMAGE
-import StartOver from '../assets/startOverText.png'
+import StartOver from '../assets/startOverText.png';
 
 // IMPORT RESULTS TEXT IMAGE
-import Results from '../assets/viewResultsText.png'
+import Results from '../assets/viewResultsText.png';
+
+// IMPORT TAP TO CLOSE BUTTON FOR MODAL
+import TapToCloseText from '../assets/tapToClose.png';
 
 import Result from './Result.js'
 
@@ -94,7 +97,7 @@ export default class Playlist extends React.Component {
                 style={{height: height, width: width,}}>
                 <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} />  
                 <Result {...this.props}/>
-                <Text style={styles.tapToClose}>TAP TO CLOSE</Text>
+                <Image source={TapToCloseText} style={{height: 50, width: 250, justifyContent: 'center', marginBottom: 50}} />
               </TouchableOpacity>
 
           </View>

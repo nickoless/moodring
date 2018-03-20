@@ -15,7 +15,7 @@ import {
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
 
-// IMPORT RESULT TEXT PNG
+// IMPORT TEXT PNG
 import ResultText from '../assets/resultsText.png'
 
 export default class Playlist extends React.Component {
@@ -83,6 +83,7 @@ export default class Playlist extends React.Component {
       _parsedData = () => {
         return (
         <View style={styles.container}>
+          <StatusBar hidden={true} />          
 
           <View style={styles.chart}>
               <PieChart
@@ -124,7 +125,7 @@ export default class Playlist extends React.Component {
       _parsedData = () => {
         return (
         <View style={styles.container}>
-        <StatusBar hidden={true} />
+          <StatusBar hidden={true} />          
 
           <View style={styles.chart}>
               <PieChart
@@ -157,13 +158,11 @@ export default class Playlist extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
+        <StatusBar hidden={true} />  
 
         <View >
-          {/* <Text style={styles.title}>RESULTS</Text> */}
-          <Image source={ResultText} style={{height: 30, width: 100}} />          
+          <Image source={ResultText} style={{height: 40, width: 150, justifyContent: 'center', marginTop: 30}} />          
           {this._dataReturn()}
-          <Text>TAP TO CLOSE</Text>
         </View>
 
 
