@@ -68,7 +68,7 @@ export default class Analyze extends React.Component {
         this.props.setScreen('PLAYLIST');
         console.log('ANALYZE PASS - RENDERING PLAYLIST PAGE')
       }
-    }, 8000);
+    }, 8500);
   }
 
   }
