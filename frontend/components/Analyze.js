@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Button,
-  Clipboard,
   Image,
   StatusBar,
   StyleSheet,
@@ -11,7 +9,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
+import Exponent, { Constants, registerRootComponent } from 'expo';
 import * as Progress from 'react-native-progress';
 import * as Animatable from 'react-native-animatable';
 
@@ -25,36 +23,29 @@ export default class Analyze extends React.Component {
     super(props);
   }
 
-  _maybeRenderImage = () => {
-
+  render() {
     let { image } = this.props;
     if (!image) {
       this.setScreen('ERROR');
     } else {
       return (
-        <View>
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
-              <Progress.CircleSnail color={['#1FBAEB']} size={170} thickness={5} />
-          </View>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: image }} style={styles.image} />
-            <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>ANLYZING PICTURE</Animatable.Text>
-          </View>
+        <View style={styles.container}>
+          <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
+          <TouchableOpacity style={{marginTop: 75}}>
+
+            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
+                <Progress.CircleSnail color={['#1FBAEB']} size={170} thickness={5} />
+            </View>
+            
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: image }} style={styles.image} />
+              <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>ANLYZING PICTURE</Animatable.Text>
+            </View>
+
+          </TouchableOpacity>
         </View>
       );
     }
-  };
-
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
-        <TouchableOpacity>
-          {this._maybeRenderImage()}
-        </TouchableOpacity>
-      </View>
-    );
   }
 
   // ------------------------------------------------------
@@ -85,7 +76,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   systemMessage: {
     color: 'white',
@@ -95,7 +85,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
   },
   imageContainer: {
     borderRadius: 50,
