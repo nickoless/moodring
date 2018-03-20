@@ -74,7 +74,7 @@ export default class Playlist extends React.Component {
 
         <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
-        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 35, marginBottom: 30, height: height, width: (width - 70) }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 35, marginBottom: 15, height: height, width: (width - 70) }} />
 
         <Modal
           animationType="slide"
