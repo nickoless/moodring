@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     textAlign: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
     marginBottom: 30,
   },
   tapToClose: {
