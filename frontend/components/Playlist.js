@@ -59,6 +59,7 @@ export default class Playlist extends React.Component {
 
     return (
       <View style={styles.container}>
+        <StatusBar hidden={true} />
 
         <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
 

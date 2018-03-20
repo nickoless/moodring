@@ -30,6 +30,7 @@ export default class Analyze extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          <StatusBar hidden={true} />
           <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
           <View style={{marginTop: 75}}>
