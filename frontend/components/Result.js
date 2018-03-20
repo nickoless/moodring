@@ -15,6 +15,9 @@ import {
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
 
+// IMPORT RESULT TEXT PNG
+import ResultText from '../assets/resultsText.png'
+
 export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
@@ -157,7 +160,8 @@ export default class Playlist extends React.Component {
 
 
         <View >
-          <Text style={styles.title}>RESULTS</Text>
+          {/* <Text style={styles.title}>RESULTS</Text> */}
+          <Image source={ResultText} style={{height: 30, width: 100}} />          
           {this._dataReturn()}
           <Text>TAP TO CLOSE</Text>
         </View>
