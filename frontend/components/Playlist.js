@@ -25,6 +25,9 @@ import Background from '../assets/playlist.gif';
 // IMPORT START OVER TEXT IMAGE
 import StartOver from '../assets/startOverText.png'
 
+// IMPORT RESULTS TEXT IMAGE
+import Results from '../assets/viewResultsText.png'
+
 import Result from './Result.js'
 
 const { width, height } = Dimensions.get('window');
@@ -69,12 +72,9 @@ export default class Playlist extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
-        {/* <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} /> */}
         <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
-
-
-        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 35, marginBottom: 35, height: height, width: (width - 70) }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 35, marginBottom: 30, height: height, width: (width - 70) }} />
 
         <Modal
           animationType="slide"
@@ -104,13 +104,12 @@ export default class Playlist extends React.Component {
           onPress={() => {
             this.setModalVisible(true);
           }} style={{ paddingBottom: 20 }}>
-          <Text style={styles.moodResultButton}>VIEW RESULTS</Text>
+          <Image source={Results} style={styles.results} />          
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._returnHome}>
           <Image source={StartOver} style={styles.startOver} />
         </TouchableOpacity>
-
 
       </View>
     );
@@ -123,6 +122,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  results: {
+    height: 30,
+    width: 150,
+  },
   moodResultButton: {
     color: 'white',
     paddingHorizontal: 15,
@@ -132,10 +135,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   startOver: {
-    paddingHorizontal: 20,
     marginBottom: 30,
     height: 40,
     width: 200,
+    borderWidth: 2,
+    borderColor: '#fcb906',
   },
   tapToClose: {
     fontSize: 25,
