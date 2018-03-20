@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   },
   moodResultButton: {
     color: 'white',
-    paddingHorizontal: 15,
     fontSize: 15,
     borderWidth: 1,
     borderColor: 'white',
@@ -136,10 +135,8 @@ const styles = StyleSheet.create({
   },
   startOver: {
     marginBottom: 30,
-    height: 40,
+    height: 30,
     width: 200,
-    borderWidth: 2,
-    borderColor: '#fcb906',
   },
   tapToClose: {
     fontSize: 25,
