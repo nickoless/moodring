@@ -33,7 +33,7 @@ export default class Analyze extends React.Component {
           <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
           <View style={{marginTop: 75}}>
-            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
+            <View style={styles.progressCircle}>
                 <Progress.CircleSnail color={['#EC8D27']} size={170} thickness={5} />
             </View>
             
@@ -76,6 +76,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  progressCircle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 100,
   },
   systemMessage: {
     width: 170,
