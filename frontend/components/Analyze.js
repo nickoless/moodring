@@ -34,7 +34,7 @@ export default class Analyze extends React.Component {
           <TouchableOpacity style={{marginTop: 75}}>
 
             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
-                <Progress.CircleSnail color={['#1FBAEB']} size={170} thickness={5} />
+                <Progress.CircleSnail color={['#EC8D27']} size={170} thickness={5} />
             </View>
             
             <View style={styles.imageContainer}>
