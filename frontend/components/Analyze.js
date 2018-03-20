@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   imageContainer: {
-    borderRadius: 50,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
