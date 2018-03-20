@@ -31,8 +31,8 @@ export default class Analyze extends React.Component {
       return (
         <View style={styles.container}>
           <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
-          <TouchableOpacity style={{marginTop: 75}}>
 
+          <View style={{marginTop: 75}}>
             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignSelf: 'center', position: 'absolute', zIndex: 100 }}>
                 <Progress.CircleSnail color={['#EC8D27']} size={170} thickness={5} />
             </View>
@@ -41,8 +41,8 @@ export default class Analyze extends React.Component {
               <Image source={{ uri: image }} style={styles.image} />
               <Animatable.Image animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={2000} style={styles.systemMessage} source={AnalyzingText} />            
             </View>
+          </View>
 
-          </TouchableOpacity>
         </View>
       );
     }

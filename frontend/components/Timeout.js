@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import TimeOut from '../assets/timeout.png'
+import * as Animatable from 'react-native-animatable';
+
 
 
 export default class Timeout extends React.Component {
