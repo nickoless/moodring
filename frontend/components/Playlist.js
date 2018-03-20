@@ -21,6 +21,8 @@ import { PieChart } from 'react-native-svg-charts';
 
 import Result from './Result.js'
 
+const { width, height } = Dimensions.get('window');
+
 export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
@@ -61,9 +63,9 @@ export default class Playlist extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
-        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
+        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} />
 
-        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 50, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 25, marginBottom: 30, height: height, width: (width - 50) }} />
 
         <Modal
           animationType="slide"
