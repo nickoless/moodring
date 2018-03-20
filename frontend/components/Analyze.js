@@ -30,6 +30,7 @@ export default class Analyze extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+          <StatusBar hidden={true} />
           <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
           <View style={{marginTop: 75}}>
@@ -67,7 +68,7 @@ export default class Analyze extends React.Component {
         this.props.setScreen('PLAYLIST');
         console.log('ANALYZE PASS - RENDERING PLAYLIST PAGE')
       }
-    }, 8000);
+    }, 8500);
   }
 
   }
