@@ -97,7 +97,7 @@ export default class Playlist extends React.Component {
                 style={{height: height, width: width,}}>
                 <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} />  
                 <Result {...this.props}/>
-                <Image source={TapToCloseText} style={{height: 50, width: 250, justifyContent: 'center', marginBottom: 50}} />
+                <Image source={TapToCloseText} style={{height: 50, width: 250, marginBottom: 50, alignSelf: 'center'}} />
               </TouchableOpacity>
 
           </View>
