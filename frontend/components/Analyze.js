@@ -18,6 +18,9 @@ import * as Animatable from 'react-native-animatable';
 import Background from '../assets/analyzeBackground.gif';
 import AnalyzingText from '../assets/analyzingText.png';
 
+let height = Dimensions.get('window').height;
+let width = Dimensions.get('window').width;
+
 
 export default class Analyze extends React.Component {
   constructor(props) {
@@ -48,7 +51,7 @@ export default class Analyze extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={Background} style={{ position: 'absolute', height: Dimensions.get('window').height, width: Dimensions.get('window').width}}/>
+        <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
         <TouchableOpacity>
           {this._maybeRenderImage()}
         </TouchableOpacity>
