@@ -39,7 +39,7 @@ export default class Analyze extends React.Component {
             
             <View style={styles.imageContainer}>
               <Image source={{ uri: image }} style={styles.image} />
-              <Animatable.Text animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={3000} style={styles.systemMessage}>ANLYZING PICTURE</Animatable.Text>
+              <Animatable.Image animation="fadeIn" easing="ease-in-out" iterationCount="infinite" direction='alternate' duration={2000} style={styles.systemMessage} source={AnalyzingText} />            
             </View>
 
           </TouchableOpacity>
@@ -78,13 +78,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   systemMessage: {
-    color: 'white',
-    fontSize: 20,
-    paddingVertical: 30,
-    paddingHorizontal: 30,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 170,
+    height: 20,
+    marginTop: 30,
   },
   imageContainer: {
     borderRadius: 50,
