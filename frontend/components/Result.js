@@ -11,9 +11,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
+import gridGif from '../assets/results1.jpg';
+const { width, height } = Dimensions.get('window');
 
 export default class Playlist extends React.Component {
   constructor(props) {
@@ -155,7 +158,7 @@ export default class Playlist extends React.Component {
     return (
       <View style={styles.container}>
 
-
+        <Image style={{ position: 'absolute', width, height }} source={gridGif} />
         <View >
           <Text style={styles.title}>RESULTS</Text>
           {this._dataReturn()}
