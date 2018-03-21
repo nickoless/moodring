@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
   resultText: {
     height: 50,
     width: 150,
-    justifyContent: 'center',
     marginTop: 30,
+    alignSelf: 'center',
   },
   chart: {
     marginTop: 40,
