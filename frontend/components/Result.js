@@ -165,8 +165,6 @@ export default class Playlist extends React.Component {
           {this._dataReturn()}
         </View>
 
-
-
       </View>
     );
   }
