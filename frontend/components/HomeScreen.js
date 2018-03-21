@@ -19,6 +19,8 @@ import {
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 import Feels from '../assets/feels.png';
 import Stuff from '../assets/stuff.png';
+import Modal1 from '../assets/tutorial-1.png';
+import Modal2 from '../assets/tutorial-2.png';
 
 const Dimensions = require('Dimensions');
 const { width, height } = Dimensions.get('window');
@@ -272,8 +274,8 @@ export default class HomeScreen extends React.Component {
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
-            <View style={{ backgroundColor: 'rgba(255,255,255,0.7)', width, height }}>
-              <Text>Hello World!</Text>
+            <View style={{ alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.7)', width, height }}>
+              <Image style={ styles.modal1 } source={Modal1} />
 
               <TouchableHighlight
                 onPress={() => {
@@ -281,6 +283,8 @@ export default class HomeScreen extends React.Component {
                 }}>
                 <Text>Hide Modal</Text>
               </TouchableHighlight>
+              <Image style={ styles.modal2 } source={Modal2} />
+
             </View>
         </Modal>
 
@@ -326,6 +330,12 @@ const styles = StyleSheet.create({
   },
   feels: {
     marginTop: 40,
+  },
+  modal1: {
+    marginTop: 150,
+  },
+  modal2: {
+    marginTop: 150,
   },
   stuff: {
     marginTop: 40,
