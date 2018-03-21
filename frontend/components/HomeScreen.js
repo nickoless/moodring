@@ -20,6 +20,7 @@ import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient
 import Feels from '../assets/feels.png';
 import Stuff from '../assets/stuff.png';
 import Tutorial from '../assets/tutorial.png';
+import CloseButton from '../assets/tutorial-close.png';
 
 const Dimensions = require('Dimensions');
 const { width, height } = Dimensions.get('window');
@@ -273,15 +274,16 @@ export default class HomeScreen extends React.Component {
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
-            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.7)', width, height }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.8)', width, height }}>
               <Image style={ styles.tutorial } source={Tutorial} />
 
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
+                <Image style={{ marginTop: 150 }} source={CloseButton}/>
+              </TouchableOpacity>
+
 
             </View>
         </Modal>
@@ -333,6 +335,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   tutorial: {
-    marginBottom: 20,
+    marginTop: 136,
   }
 });
