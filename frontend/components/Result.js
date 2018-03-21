@@ -11,9 +11,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
+import resultsBackground from '../assets/results1.jpg';
+const { width, height } = Dimensions.get('window');
 
 // IMPORT TEXT PNG
 import ResultText from '../assets/resultsText.png'
@@ -158,6 +161,8 @@ export default class Playlist extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <Image style={{ position: 'absolute', width, height }} source={resultsBackground} />
         <StatusBar hidden={true} />  
 
         <View >
