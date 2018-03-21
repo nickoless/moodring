@@ -19,7 +19,21 @@ import {
 import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
 
+// IMPORT BACKGROUND IMAGE
+import Background from '../assets/playlist.gif';
+
+// IMPORT START OVER TEXT IMAGE
+import StartOver from '../assets/startOverText.png';
+
+// IMPORT RESULTS TEXT IMAGE
+import Results from '../assets/viewResultsText.png';
+
+// IMPORT TAP TO CLOSE BUTTON FOR MODAL
+import TapToCloseText from '../assets/tapToClose.png';
+
 import Result from './Result.js'
+
+const { width, height } = Dimensions.get('window');
 
 export default class Playlist extends React.Component {
   constructor(props) {
@@ -54,15 +68,16 @@ export default class Playlist extends React.Component {
   }
 
   render() {
-    console.log('-------- THIS IS THE PROPS FROM PLAYLIST -------- ')
-    console.log(this.props)
+    // console.log('-------- THIS IS THE PROPS FROM PLAYLIST -------- ')
+    // console.log(this.props)
 
     return (
       <View style={styles.container}>
+        <StatusBar hidden={true} />
 
-        <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />
+        <Image source={Background} style={{ position: 'absolute', height: height, width: width }}/>
 
-        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 50, marginBottom: 30, height: 380, width: 300 }} />
+        <WebView source={{ uri: this.props.playlist }} style={{ marginTop: 35, marginBottom: 15, height: height, width: (width - 70) }} />
 
         <Modal
           animationType="slide"
@@ -79,10 +94,10 @@ export default class Playlist extends React.Component {
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
-                style={{height: Dimensions.get('window').height, width: Dimensions.get('window').width,}}>
-                <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: 900, width: 400 }} />  
+                style={{height: height, width: width,}}>
+                <LinearGradient colors={this.props.backgroundColor} style={{ position: 'absolute', height: height, width: width }} />  
                 <Result {...this.props}/>
-                <Text style={styles.tapToClose}>TAP TO CLOSE</Text>
+                <Image source={TapToCloseText} style={styles.tapToClose} />
               </TouchableOpacity>
 
           </View>
@@ -92,11 +107,11 @@ export default class Playlist extends React.Component {
           onPress={() => {
             this.setModalVisible(true);
           }} style={{ paddingBottom: 20 }}>
-          <Text style={styles.moodResultButton}>VIEW RESULTS</Text>
+          <Image source={Results} style={styles.results} />          
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._returnHome}>
-          <Text style={styles.startOverButton}>START OVER</Text>
+          <Image source={StartOver} style={styles.startOver} />
         </TouchableOpacity>
 
       </View>
@@ -110,27 +125,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  moodResultButton: {
-    color: 'white',
-    paddingHorizontal: 15,
-    fontSize: 15,
-    borderWidth: 1,
-    borderColor: 'white',
-    textAlign: 'center',
+  results: {
+    height: 30,
+    width: 150,
   },
-  startOverButton: {
-    color: 'white',
-    fontSize: 25,
-    borderWidth: 1,
-    borderColor: 'white',
-    textAlign: 'center',
-    paddingHorizontal: 20,
+  startOver: {
     marginBottom: 30,
+    height: 30,
+    width: 200,
   },
   tapToClose: {
-    fontSize: 25,
+    height: 50,
+    width: 250,
     marginBottom: 50,
-    color: 'white',
-    textAlign: 'center',
+    alignSelf: 'center',
   }
 });
