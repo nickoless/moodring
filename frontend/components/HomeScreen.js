@@ -5,11 +5,13 @@ import {
   Button,
   Clipboard,
   Image,
+  Modal, // added
   Share,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableHighlight, // added
   View,
   WebView,
   Animated,
@@ -18,16 +20,29 @@ import Exponent, { Constants, ImagePicker, registerRootComponent, LinearGradient
 import Feels from '../assets/feels.png';
 import Stuff from '../assets/stuff.png';
 
+const Dimensions = require('Dimensions');
+const { width, height } = Dimensions.get('window');
+
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { screen: this.props.screen };
+    this.state={
+      modalVisible: true,
+    };
+    this.setModalVisible = this.setModalVisible.bind(this);
+    // this.state = { screen: this.props.screen };
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', () => {
         return true;
     });
+
+
   }
   // FACE EMOTION PHOTO
 
@@ -250,6 +265,27 @@ export default class HomeScreen extends React.Component {
     <View style={styles.container}>
       <StatusBar hidden={true} />
 
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+            <View style={{ backgroundColor: 'rgba(255,255,255,0.7)', width, height }}>
+              <Text>Hello World!</Text>
+
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+        </Modal>
+
+
+
       <TouchableOpacity onPress={this._takeFacePhoto} style={styles.top}>
           <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
           <Image style={ styles.feels } source={Feels} />
@@ -261,7 +297,7 @@ export default class HomeScreen extends React.Component {
           <Image style={ styles.stuff } source={Stuff} />
 
       </TouchableOpacity>
-    </View >
+    </View>
     );
   }
 }
