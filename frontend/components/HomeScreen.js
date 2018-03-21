@@ -11,7 +11,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableHighlight, // added
+  TouchableHighlight,
   View,
   WebView,
   Animated,
@@ -274,16 +274,17 @@ export default class HomeScreen extends React.Component {
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
-            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.8)', width, height }}>
-              <Image style={ styles.tutorial } source={Tutorial} />
-
+            <View style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.8)' }}>
               <TouchableOpacity
+                style={{ flex: 1, justifyContent: 'center',alignItems: 'center', width, height }}
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                   this.props.setTutorialScreen(false);
                 }}>
-                <Image style={{ marginTop: 150 }} source={CloseButton}/>
-              </TouchableOpacity>
+              <Image style={ styles.tutorial } source={Tutorial} />
+
+                <Image style={{ top: 150 }} source={CloseButton}/>
+                </TouchableOpacity>
 
 
             </View>
@@ -336,6 +337,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   tutorial: {
-    marginTop: 136,
+    marginTop: 10,
   }
 });
