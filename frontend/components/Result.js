@@ -15,8 +15,11 @@ import {
 } from 'react-native';
 import Exponent, { Constants, registerRootComponent, LinearGradient } from 'expo';
 import { PieChart } from 'react-native-svg-charts';
-import gridGif from '../assets/results1.jpg';
+import resultsBackground from '../assets/results1.jpg';
 const { width, height } = Dimensions.get('window');
+
+// IMPORT TEXT PNG
+import ResultText from '../assets/resultsText.png'
 
 export default class Playlist extends React.Component {
   constructor(props) {
@@ -83,6 +86,7 @@ export default class Playlist extends React.Component {
       _parsedData = () => {
         return (
         <View style={styles.container}>
+          <StatusBar hidden={true} />          
 
           <View style={styles.chart}>
               <PieChart
@@ -124,7 +128,7 @@ export default class Playlist extends React.Component {
       _parsedData = () => {
         return (
         <View style={styles.container}>
-        <StatusBar hidden={true} />
+          <StatusBar hidden={true} />          
 
           <View style={styles.chart}>
               <PieChart
@@ -158,14 +162,13 @@ export default class Playlist extends React.Component {
     return (
       <View style={styles.container}>
 
-        <Image style={{ position: 'absolute', width, height }} source={gridGif} />
+        <Image style={{ position: 'absolute', width, height }} source={resultsBackground} />
+        <StatusBar hidden={true} />  
+
         <View >
-          <Text style={styles.title}>RESULTS</Text>
+          <Image source={ResultText} style={styles.resultText} />          
           {this._dataReturn()}
-          <Text>TAP TO CLOSE</Text>
         </View>
-
-
 
       </View>
     );
@@ -178,14 +181,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
   },
-  title: {
-    top: 30,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    color: 'white',
+  resultText: {
+    height: 50,
+    width: 150,
     justifyContent: 'center',
-    textAlign: 'center',
-    fontSize: 30,
+    marginTop: 30,
   },
   chart: {
     marginTop: 40,
