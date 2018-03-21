@@ -161,7 +161,7 @@ export default class Playlist extends React.Component {
         <StatusBar hidden={true} />  
 
         <View >
-          <Image source={ResultText} style={{height: 40, width: 150, justifyContent: 'center', marginTop: 30}} />          
+          <Image source={ResultText} style={styles.resultText} />          
           {this._dataReturn()}
         </View>
 
@@ -178,14 +178,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
   },
-  title: {
-    top: 30,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    color: 'white',
+  resultText: {
+    height: 50,
+    width: 150,
     justifyContent: 'center',
-    textAlign: 'center',
-    fontSize: 30,
+    marginTop: 30,
   },
   chart: {
     marginTop: 40,
