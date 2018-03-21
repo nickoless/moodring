@@ -47,7 +47,6 @@ export default class Error extends React.Component {
         <Animatable.View animation="fadeIn" easing="ease-out" iterationCount={1} style={styles.container}>
           
           <Image style={{ width: 250, height: 100 }} source={ErrorImage}/>
-          {/* <Text style={{color: 'white', fontSize: 15 }}>Uh Oh! Looks like this picture doesn't work!</Text> */}
           <Image style={ styles.errorMessage } source={errorMessage}/>
           
           <TouchableOpacity onPress={this._returnHome} style={{paddingTop: 50}}>
