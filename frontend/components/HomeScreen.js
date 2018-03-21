@@ -270,7 +270,7 @@ export default class HomeScreen extends React.Component {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={this.state.modalVisible}
+          visible={this.state.modalVisible && this.props.tutorialModalShown}
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
@@ -280,6 +280,7 @@ export default class HomeScreen extends React.Component {
               <TouchableOpacity
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
+                  this.props.setTutorialScreen(false);
                 }}>
                 <Image style={{ marginTop: 150 }} source={CloseButton}/>
               </TouchableOpacity>
