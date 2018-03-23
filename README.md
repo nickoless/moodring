@@ -1,12 +1,30 @@
 # Moody
 
-An artificial intelligence application that scans photos for human emotion and environment to create spotify playlists best suited for the photo.
+An artificial intelligence application that utilizes image detection and object recognition and returns a relevant (random) playlist based on a given emotion or object.
 
-Utilizing AWS rekognition and Spotify API
+Uses AWS' Rekognition and Spotify APIs
 
-Snap a photo or grab it from your camera roll, upload it. See `/backend`
-for an example node service to handle the upload to s3, and `/frontend`
-for the Expo app.
+# Setting up AWS
+
+In order to use AWS Rekognition an account is required.
+
+1. Create an AWS account (https://aws.amazon.com/)
+  	- Note that a credit card may be required in order to set up an account
+2. Create an S3 bucket - this will be called within the app using Rekognition
+  	- from within the AWS console, navigate to the S3 page and create a bucket
+  	- take note of the name, as you will need this for later
+3. Create an IAM user - these credentials will be used to access AWS 
+  	- Access type: Programmatic access
+  	- Permissions > Attach existing policies directly: (search for, and add) AmazonS3FullAccess, AmazonRekognitionFullAccess
+  	- **IMPORTANT:** You will need both the acess key id and the secret access key - you may want to copy these into a separate file
+
+### Deploying the backend
+
+We are using now.sh to instantly deploy our server. Ensure that you are in the 'backend' folder and that all dependencies have been installed. 
+
+1. Set up environment variables as per the following instructions: https://zeit.co/docs/features/env-and-secrets
+	- Refer to the .env.example to see the information required
+2. Deploy to now.sh using the 'now' command. Ensure that you are also setting the environment variables using the -e command mentioned in the link from the previous step
 
 # Setting Up the Redirect Server
 
