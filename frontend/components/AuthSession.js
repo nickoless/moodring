@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { AuthSession, Constants, WebBrowser, LinearGradient } from 'expo';
 import qs from 'qs';
 import querystring from 'querystring';
-import request from 'request';
+// import request from 'request';
 
 const stateKey = 'spotify_auth_state';
 const client_id = '817050870e3542749870ff522e26192d';
@@ -77,20 +77,41 @@ export default class App extends React.Component {
       authUrl: 'https://accounts.spotify.com/authorize?' + oShit
     });
 
-    // TODO: At the request access tokens step auth flow
-
     // let callback = _callback()
-    
-    this.setState({ result });
-    console.log(result);
+    // this.setState({ result });
+    let callback = await this._callback(result);
+    console.log(callback);
   };
 
   // TODO: IMPLEMENT THIS TO MAKE THE POST REQUEST FOR THE ACCESS TOKEN
-  _callback = async () => {
-    return;
+  _callback = async (req) => {
+
+    let code = req.code || null;
+
+    const spotifyUrl = 'https://accounts.spotify.com/api/token'
+    let authOptions = {  
+      method: 'POST',
+      form: {
+        code: code,
+        redirect_uri: redirect_uri,
+        grant_type: 'authorization_code'
+      },
+      headers: {
+        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+      },
+      redirect: 'follow',
+      json: true
+    };
+
+    this._postToSpotify(spotifyUrl, authOptions)
+      .then(data => console.log(data)) // JSON from `response.json()` call
+      .catch(error => console.error(error))
   }
 
-
+  _postToSpotify = async (url, options) => {
+    return fetch(url, options)
+      .then(response => response.json())
+  }
 }
 
 const styles = StyleSheet.create({

@@ -118,11 +118,7 @@ export default class App extends React.Component {
     if (this.state.screen === 'AUTH') {
       return (<AuthSessionSandbox {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} />)
 
-<<<<<<< HEAD
     } if (this.state.screen === 'LOGIN') {
-=======
-    if (this.state.screen === 'LOGIN') {
->>>>>>> 143c1411c5eb0f61cb924762779bfd7a3a236425
       return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)}/>)
 
     // ------------------------------------------------------
