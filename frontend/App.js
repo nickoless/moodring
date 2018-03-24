@@ -18,6 +18,7 @@ import Playlist from './components/Playlist.js'
 import Result from './components/Result.js'
 import Error from './components/Error.js'
 import Timeout from './components/Timeout.js'
+import AuthSessionSandbox from './components/AuthSession.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class App extends React.Component {
       token: null,
       image: null,
       uploading: false,
-      screen: 'LOGIN',
+      screen: 'AUTH',
       emotions: [],
       percentage: [],
       labels: [],
@@ -113,6 +114,9 @@ export default class App extends React.Component {
     // ------------------------------------------------------
     // STEP 0: LOGIN SCREEN - CURRENTLY SANDBOXING
     // ------------------------------------------------------
+
+    if (this.state.screen === 'AUTH') {
+      return (<AuthSessionSandbox {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)} />)
 
     if (this.state.screen === 'LOGIN') {
       return (<LoginScreen {...this.state} setToken={this.setToken.bind(this)} setScreen={this.setScreen.bind(this)}/>)
