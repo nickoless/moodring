@@ -25,7 +25,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Button title="Open Spotify Auth" onPress={this._handlePressAsync} />
         {this.state.result ? (
-          <Text>IT WORKD!</Text>
+          <Text>{ JSON.stringify(this.state.result) }</Text>
         ) : null}
       </View>
     );
@@ -78,39 +78,40 @@ export default class App extends React.Component {
       authUrl: 'https://accounts.spotify.com/authorize?' + oShit
     });
 
-    this._addLinkingListener();
-
     // let callback = _callback()
-    this.setState({ result });
+    // this.setState({ result });
     let callback = await this._callback(result);
-    console.log(callback);
-    this._removeLinkingListener();
   };
 
   // TODO: IMPLEMENT THIS TO MAKE THE POST REQUEST FOR THE ACCESS TOKEN
+  // FIXME: WHY KEEP GETTING 415 RESPONSE
   _callback = async (req) => {
-  
+   
     const spotifyUrl = 'https://accounts.spotify.com/api/token'
     let authOptions = {  
       method: 'POST',
       body: JSON.stringify({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
         code: req.params.code,
         redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
+        grant_type: 'authorization_code',
       }),
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
       }
     };
 
-    let token = await this._postToSpotify(spotifyUrl, authOptions)
-    console.log(token);
-    return token;
+    // let token = await this._postToSpotify(spotifyUrl, authOptions)
+    let response = await fetch(spotifyUrl, authOptions)
+      .catch(e => console.log(e));
+    this.setState({result: response})
   }
 
   _postToSpotify = async (url, options) => {
     return fetch(url, options)
-      .then(response => response.json())
+      .then(response => JSON.parse(response))
+      .catch(e => console.log(e));
   }
 }
 
