@@ -13,11 +13,13 @@ let redirect_uri = AuthSession.getRedirectUrl();
 
 
 export default class App extends React.Component {
-  state = {
-    result: null,
-    token: null
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: null,
+    };
+  }
+  
   render() {
     // let spotifyResponse = await this.spotifyRequest('dank memes');
     // let playlist = spotifyResponse.playlists.items[0].external_urls.spotify;
@@ -26,14 +28,21 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Button title="Open Spotify Auth" onPress={this._handlePressAsync} />
         {this.state.result ? (
-          <View>
-            <Text>O FUK IT WORK </Text>
-            <Text>{this.state.result.access_token}</Text>
-          </View>
+          <Text>HOW 2 GO NEXT SCREEN</Text>
         ) : null}
       </View>
     );
   }
+
+  componentDidMount() {
+    if (this.state.result) {
+      this._returnHome();
+    }
+  }
+
+  _returnHome = () => {
+    this.props.setScreen('HOME');
+  };
 
   async _printState() {
     return this.state.result
@@ -48,24 +57,6 @@ export default class App extends React.Component {
     }
     return text;
   };
-
-  // FIXME: For making the spotify playlist request - NEED ACCESS TOKEN FIRST
-  async spotifyRequest(input) {
-
-    let randomNum = Math.floor(Math.random() * 100) + 1;
-    console.log('THIS IS THE RANDOM NUMBER FROM INSIDE SPOTIFY PLAYLIST REQUEST: ' + randomNum)
-
-    let apiUrl = `https://api.spotify.com/v1/search?q=${input}&type=playlist&offset=${randomNum}&limit=1`
-
-    let options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.props.token}`,
-      }
-    }
-    return fetch(apiUrl, options).then(result => result.json())
-  }
 
   _handlePressAsync = async () => {
 
@@ -123,6 +114,8 @@ export default class App extends React.Component {
 
     // this should be a json object
     this.setState({ result: response })
+    this.props.setToken(this.state.result.access_token);
+    this._returnHome();
   }
 }
 
