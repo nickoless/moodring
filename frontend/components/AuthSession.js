@@ -15,6 +15,7 @@ let redirect_uri = AuthSession.getRedirectUrl();
 export default class App extends React.Component {
   state = {
     result: null,
+    token: null
   };
 
   render() {
@@ -25,10 +26,17 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Button title="Open Spotify Auth" onPress={this._handlePressAsync} />
         {this.state.result ? (
-          <Text>{ JSON.stringify(this.state.result) }</Text>
+          <View>
+            <Text>O FUK IT WORK </Text>
+            <Text>{this.state.result.access_token}</Text>
+          </View>
         ) : null}
       </View>
     );
+  }
+
+  async _printState() {
+    return this.state.result
   }
 
   _generateRandomString = function (length) {
@@ -80,7 +88,7 @@ export default class App extends React.Component {
 
     // let callback = _callback()
     // this.setState({ result });
-    let callback = await this._callback(result);
+    await this._callback(result);
   };
 
   // TODO: IMPLEMENT THIS TO MAKE THE POST REQUEST FOR THE ACCESS TOKEN
@@ -108,12 +116,13 @@ export default class App extends React.Component {
     console.log(authOptions);
 
     let response = await fetch(spotifyUrl, authOptions)
-      // .then((res) => res.json())
-      .then((resJson) => resJson)
-      .then( pls => console.log(pls))
+      .then((res) => querystring.stringify(res))
+      .then((resToQuery) => querystring.parse(resToQuery))
+      .then((queryToJSON) => JSON.parse(queryToJSON._bodyInit))
       .catch(e => console.log(e));
 
-    this.setState({result: response})
+    // this should be a json object
+    this.setState({ result: response })
   }
 }
 
