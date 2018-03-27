@@ -7,8 +7,8 @@ import { Buffer } from 'buffer'
 // import request from 'request';
 
 const stateKey = 'spotify_auth_state';
-const client_id = '817050870e3542749870ff522e26192d';
-const client_secret = '195579d0f69a477e870fb8974fec7cd9';
+const client_id = 'ec0f50a8fa1d4abc8a1740376f64ed97';
+const client_secret = '097ec13156344d21949b606291eba5be';
 let redirect_uri = AuthSession.getRedirectUrl();
 
 
@@ -85,33 +85,35 @@ export default class App extends React.Component {
 
   // TODO: IMPLEMENT THIS TO MAKE THE POST REQUEST FOR THE ACCESS TOKEN
   // FIXME: WHY KEEP GETTING 415 RESPONSE
-  _callback = async (req) => {
-   
+  _callback = async (res) => {
+    console.log(res);
     const spotifyUrl = 'https://accounts.spotify.com/api/token'
     let authOptions = {  
       method: 'POST',
-      body: JSON.stringify({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-        code: req.params.code,
-        redirect_uri: redirect_uri,
-        grant_type: 'authorization_code',
-      }),
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
-      }
+        'content-type': 'application/x-www-form-urlencoded',
+        Authorization: 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
+      },
+      body: querystring.stringify({
+        grant_type: "authorization_code",
+        code: res.params.code,
+        redirect_uri: redirect_uri,
+      })
     };
 
-    // let token = await this._postToSpotify(spotifyUrl, authOptions)
-    let response = await fetch(spotifyUrl, authOptions)
-      .catch(e => console.log(e));
-    this.setState({result: response})
-  }
+    // 'Content-Type': 'application/x-www-form-urlencoded',
 
-  _postToSpotify = async (url, options) => {
-    return fetch(url, options)
-      .then(response => JSON.parse(response))
+    // let token = await this._postToSpotify(spotifyUrl, authOptions)
+
+    console.log(authOptions);
+
+    let response = await fetch(spotifyUrl, authOptions)
+      // .then((res) => res.json())
+      .then((resJson) => resJson)
+      .then( pls => console.log(pls))
       .catch(e => console.log(e));
+
+    this.setState({result: response})
   }
 }
 
