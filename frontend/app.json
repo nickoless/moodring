@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Moodring",
+    "name": "Moody",
     "description": "Open Source App to analyze facial emotions and create spotify playlists based on emotions. Demonstration of how to upload images from the ImagePicker, using a node backend to upload to S3",
-    "slug": "Moodring",
+    "slug": "Moody",
     "sdkVersion": "25.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,6 +17,9 @@
       },
     "ios": {
       "supportsTablet": true
-    }
+    },    
+    "android": {
+      "package": "com.alexlee.moody",
+    },
   }
 }
