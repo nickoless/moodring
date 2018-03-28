@@ -68,11 +68,7 @@ export default class HomeScreen extends React.Component {
       if (!pickerResult.cancelled) {
         this.props.setImage(pickerResult.uri);
         uploadResponse = await this.uploadImageAsync(pickerResult.uri);
-
-        console.log(uploadResponse);
         recognizeResponse = await this.recognizeFaceImage(uploadResponse.key);
-          // console.log(JSON.stringify(recognizeResponse.data.FaceDetails[0].Emotions));
-        console.log(JSON.stringify(recognizeResponse, null, 2));
 
         // AGE DATA
         let age = recognizeResponse.data.FaceDetails[0].AgeRange.Low;
@@ -80,7 +76,6 @@ export default class HomeScreen extends React.Component {
 
         // EMOTION DATA
         let emotions = recognizeResponse.data.FaceDetails[0].Emotions;
-
         let emotionList = []
         let emotionPercentage = []
         emotions.forEach(function(object) {
@@ -289,9 +284,7 @@ export default class HomeScreen extends React.Component {
 
             </View>
         </Modal>
-
-
-
+        
       <TouchableOpacity onPress={this._takeFacePhoto} style={styles.top}>
           <Image style={{ width: 150, height: 150 }} source={require('../assets/pacmanghost.gif')} />
           <Image style={ styles.feels } source={Feels} />
