@@ -27,7 +27,7 @@ export default class App extends React.Component {
       token: null,
       image: null,
       uploading: false,
-      screen: 'AUTH',
+      screen: 'LOGIN',
       emotions: [],
       percentage: [],
       labels: [],
